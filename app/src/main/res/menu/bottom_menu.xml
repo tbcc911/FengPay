@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/ui_main_bottom_selector_main"
+        android:title="首页" />
+
+    <item
+        android:id="@+id/type"
+        android:icon="@drawable/ui_main_bottom_selector_trade"
+        android:title="交易" />
+
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ui_main_bottom_selector_share"
+        android:title="分享" />
+
+    <item
+        android:id="@+id/agent"
+        android:icon="@drawable/ui_main_bottom_selector_agent"
+        android:title="代理" />
+
+    <item
+        android:id="@+id/mine"
+        android:icon="@drawable/ui_main_bottom_selector_mine"
+        android:title="我的" />
+</menu>

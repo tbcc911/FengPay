@@ -1,0 +1,208 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+    "sumMoney": "51000.000",
+    "successMoney": "45000.000",
+    "frozenMoney": "6000.000",
+    "accountDetailList": [
+      {
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "1",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      },
+      {
+        "id": "id",
+        "type": "wchat",
+        "balance": "17.000",
+        "money": "25.000",
+        "state": "2",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 16:36"
+      },{
+        "id": "id",
+        "type": "alipay",
+        "balance": "19.000",
+        "money": "2.000",
+        "state": "3",
+        "desc": "理财释放",
+        "integral": "2.000",
+        "time": "2020-02-09 18:52"
+      }
+    ]
+  }
+}

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/comn_bg_white_fillet"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_10">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="转出订单"
+                android:textColor="@color/text_333"
+                android:textSize="@dimen/sp_20" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@drawable/comn_bg_border_application" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="@dimen/dp_40"
+                        android:background="#26f290" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:background="@drawable/comn_bg_border_application" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="@dimen/dp_40"
+                        android:background="#26f290" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@drawable/comn_bg_border_application" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="发起转出申请"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="转出已完成"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_18" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预计24小时内到账"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_11" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="到账成功"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="转出金额"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:id="@+id/usdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="金币"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_15" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="手续费"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:id="@+id/commission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="金币"
+                        android:textColor="@color/text_333"
+                        android:textSize="@dimen/sp_15" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_close"
+                android:layout_width="@dimen/dp_180"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/comn_button_circle_select"
+                android:elevation="@dimen/dp_3"
+                android:gravity="center"
+                android:text="确认"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginBottom="@dimen/dp_10"/>
+        </LinearLayout>
+        
+    </FrameLayout>
+    
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_25"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/base_close_white" />
+    
+</LinearLayout>
+

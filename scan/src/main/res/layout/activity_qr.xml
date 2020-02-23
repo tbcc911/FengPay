@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- 二维码识别界面 -->
+    <cn.bertsir.zbar.CameraPreview
+        android:id="@+id/cp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/scan_text_1"
+            android:textColor="#b3ffffff"
+            android:textSize="18sp" />
+    </cn.bertsir.zbar.CameraPreview>
+
+
+    <cn.bertsir.zbar.view.ScanView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_flash"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/circle_trans_black"
+        android:padding="@dimen/dp_7"
+        android:src="@mipmap/scanner_light" />
+
+    <ImageView
+        android:id="@+id/iv_album"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/circle_trans_black"
+        android:padding="@dimen/dp_7"
+        android:src="@mipmap/scanner_album" />
+
+
+</FrameLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="请绑定持卡人本人的银行卡"
+        android:textColor="@color/text_c_131313"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/bankName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:hint="请输入开户行名称"
+        android:padding="10dp"
+        android:textSize="16sp" />
+
+    <TextView style="@style/base_line_vertical1px" />
+
+    <EditText
+        android:id="@+id/bankAddress"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:hint="请输入开户行地址及支行"
+        android:padding="10dp"
+        android:textSize="16sp" />
+
+    <TextView style="@style/base_line_vertical1px" />
+
+    <EditText
+        android:id="@+id/bankMasterName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:hint="请输入持卡人姓名"
+        android:padding="10dp"
+        android:textSize="16sp" />
+
+    <TextView style="@style/base_line_vertical1px" />
+
+    <EditText
+        android:id="@+id/bankAccount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:hint="请输入银行卡卡号"
+        android:padding="10dp"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="若银行卡信息填写错误请联系客服:"
+            android:textColor="#666666"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:onClick="goPhone"
+            android:text="XXXXXXXX"
+            android:textColor="#E84C3D"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+</LinearLayout>

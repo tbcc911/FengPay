@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+apply from: "../MobSDK.gradle"
+
+def androidInfo = rootProject.ext.androidInfo
+def androidId = rootProject.ext.appId
+def metaDatas = rootProject.ext.metaDatas
+
+android {
+    //打包
+    lintOptions {
+        //  true--所有正式版构建执行规则生成崩溃的lint检查，如果有崩溃问题将停止构建
+        checkReleaseBuilds false
+        // true--错误发生后停止gradle构建
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+    
+    compileSdkVersion androidInfo.compileSdkVersion
+    buildToolsVersion androidInfo.buildToolsVersion
+    defaultConfig {
+        applicationId androidId['app']
+        minSdkVersion androidInfo.minSdkVersion
+        targetSdkVersion androidInfo.targetSdkVersion
+        versionCode androidInfo.versionCode
+        versionName androidInfo.versionName
+        
+        // 开启multidex
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+        manifestPlaceholders = [
+                WX_APP_ID: metaDatas['WX_APP_ID'], //微信AppID
+                JPUSH_APPKEY: metaDatas['JPUSH_APPKEY'], //极光推送AppKey
+                BaiduLocationKey: metaDatas['BaiduLocationKey'], //百度定位Key
+                BaiduStatisticsKey: metaDatas['BaiduStatisticsKey'] //百度移动统计Key
+        ]
+
+        ndk {
+            abiFilters = []
+            //参考:https://www.jianshu.com/p/2d23764746e4
+            //简述:只适配 armeabi-v7a，因为目前主流机型是 ARMv7，并且 ARMv8 设备也向下兼容了armeabi-v7a,Facebook、WhatsApp、王者荣耀等就是只适配了armeabi-v7a
+            //不管你开发项目中有多少so库文件,这里打包出来的APP在assets就会只有一个armeabi-v7a的库
+            //注:本项目中,必须这样搞,因为腾讯IM只提供支持armeabi-v7a的so库
+            abiFilters.addAll(['armeabi-v7a'])
+        }
+    }
+
+    // 自定义APK安装包名(Gradle 3.3 新版本配置)
+    applicationVariants.all { variant ->
+        variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { output ->
+            if (variant.buildType.name.contains("debug")) {
+                output.outputFileName =rootProject.name + "_V" + variant.versionName + "_Debug.apk"
+            }else{
+                output.outputFileName =rootProject.name + "_V" + variant.versionName + "_Release.apk"
+            }
+        }
+    }
+    
+    // 签名配置
+    signingConfigs {
+        release {
+            storeFile file("./keystore/Shop7.keystore")
+            storePassword "www.shop7.com"
+            keyAlias "helloword"
+            keyPassword "www.shop7.net"
+        }
+        debug {
+            storeFile file("./keystore/Shop7.keystore")
+            storePassword "www.shop7.com"
+            keyAlias "helloword"
+            keyPassword "www.shop7.net"
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+//          assets.srcDirs = ['assets']  //这里不能配置这个,配置了assets下的.db文件无法打包进APK的assets下,见鬼了,其他文件,比如,errorpage就可以
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            shrinkResources false//打开资源压缩:移除无用的resource文件,仅打包使用,可以减小apk大小
+            minifyEnabled false //false 关闭混淆
+            //proguard-android.txt为系统已经预先设置的混淆文件，proguard-rules.pro是我们自己的混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    BaiduStatisticsChannel: "Release_${metaDatas['BaiduStatisticsChannel']}_V${androidInfo.versionName}_C${androidInfo.versionCode}" //百度移动统计渠道信息
+            ]
+        }
+        debug {
+            signingConfig signingConfigs.release
+            shrinkResources false//打开资源压缩:移除无用的resource文件,仅打包使用,可以减小apk大小
+            minifyEnabled false //false 关闭混淆
+            //proguard-android.txt为系统已经预先设置的混淆文件，proguard-rules.pro是我们自己的混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    BaiduStatisticsChannel: "Debug_${metaDatas['BaiduStatisticsChannel']}_V${androidInfo.versionName}_C${androidInfo.versionCode}" //百度移动统计渠道信息
+            ]
+        }
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //Arouter
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+
+    if (isModule) {
+        implementation project(':login')
+        implementation project(':mine')
+        implementation project(':comn')
+        implementation project(':service')
+    } else {
+        implementation project(':comn')
+    }
+
+}

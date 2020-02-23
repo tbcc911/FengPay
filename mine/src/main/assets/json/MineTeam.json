@@ -1,0 +1,41 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+    "nickname": "苏木",
+    "avatarUrl": "http://qn.weixunshijiexx.com/1575899335977_publishAd.jpg",
+    "teamTotalCount": "3",
+    "monthPublishTotalCount": "0",
+    "todayPublishTotalCount": "0",
+    "todayIncreasedMemberCount": "0",
+    "teamList": [
+      {
+        "memberId": "1450",
+        "nickname": "用户8508",
+        "avatarUrl": "http://qn.weixunshijiexx.com/1575899335977_publishAd.jpg",
+        "phone": "16689686668",
+        "shareCount": "0",
+        "publishCount": "0",
+        "registerTime": "2019/12/04"
+      },
+      {
+        "memberId": "1270",
+        "nickname": "用户1626",
+        "avatarUrl": "http://qn.weixunshijiexx.com/1575899335977_publishAd.jpg",
+        "phone": "18303929895",
+        "shareCount": "0",
+        "publishCount": "0",
+        "registerTime": "2019/11/30"
+      },
+      {
+        "memberId": "198",
+        "nickname": "用户9035",
+        "avatarUrl": "http://qn.weixunshijiexx.com/1575899335977_publishAd.jpg",
+        "phone": "18008343837",
+        "shareCount": "0",
+        "publishCount": "0",
+        "registerTime": "2019/10/26"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "code": 200,
+  "message": "",
+  "data": [
+    {     
+      "id": "2",
+      "nickname": "全球唯一",
+      "number": "5",
+      "time": "5",
+      "buyMoney": "300",
+      "profitMoney": "5000",
+      "equityUrl": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg"
+    }, {
+      "id": "2",
+      "nickname": "全球唯一",
+      "number": "5",
+      "time": "5",
+      "buyMoney": "300",
+      "profitMoney": "5000",
+      "equityUrl": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg"
+    }, {
+      "id": "2",
+      "nickname": "全球唯一",
+      "number": "5",
+      "time": "5",
+      "buyMoney": "300",
+      "profitMoney": "5000",
+      "equityUrl": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg"
+    }
+    
+  ]
+}

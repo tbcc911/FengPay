@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/comn_bg_white_fillet_small"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.fzs.comn.widget.imageview.ExpandImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_150"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/comn_image_default_circle_top_small"
+            fresco:roundBottomLeft="false"
+            fresco:roundBottomRight="false"
+            fresco:roundTopLeft="true"
+            fresco:roundTopRight="true"
+            fresco:roundedCornerRadius="@dimen/comn_bg_white_fillet_small" />
+
+        <TextView
+            android:id="@+id/stock"
+            style="@style/BadgeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:text="仅剩X件"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/text_c_131313"
+        android:textSize="@dimen/sp_11"
+        tools:text="商品名称" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginRight="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/priceX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textSize="@dimen/sp_12"
+                tools:text="现价格" />
+
+            <TextView
+                android:id="@+id/priceY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="@dimen/sp_10"
+                android:visibility="visible"
+                tools:text="原价格" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/application_color"
+                    android:textSize="@dimen/sp_10"
+                    tools:text="xxxx" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人付款"
+                    android:textColor="@color/text_c_666666"
+                    android:textSize="@dimen/sp_9" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

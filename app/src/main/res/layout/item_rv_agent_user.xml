@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/comn_bg_white_fillet"
+    android:clipChildren="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <com.fzs.comn.widget.imageview.ExpandImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:background="@mipmap/base_image_face"
+            fresco:roundAsCircle="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_333"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="昵称" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/base_666666"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="(132****2313)" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="回报比"
+                    android:textColor="@color/base_333333"
+                    android:textSize="@dimen/sp_10" />
+
+                <TextView
+                    android:id="@+id/incomeScale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.2%"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:text="已收割"
+                    android:textColor="@color/base_333333"
+                    android:textSize="@dimen/sp_9" />
+
+                <TextView
+                    android:id="@+id/incomeMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:text="5000"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_1"
+                    android:text="积分"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/sp_9" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总代理"
+                    android:textColor="@color/base_333333"
+                    android:textSize="@dimen/sp_9" />
+
+                <TextView
+                    android:id="@+id/teamCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:textColor="#007AFF"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="54648" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:text="人"
+                    android:textColor="#007AFF"
+                    android:textSize="@dimen/sp_9" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有效"
+                    android:textColor="@color/base_333333"
+                    android:textSize="@dimen/sp_8" />
+
+                <TextView
+                    android:id="@+id/teamEffectiveCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:gravity="right"
+                    android:textColor="#aa007AFF"
+                    android:textSize="@dimen/sp_10"
+                    tools:text="5668" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:text="人"
+                    android:textColor="#007AFF"
+                    android:textSize="@dimen/sp_8" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总分享"
+                    android:textColor="@color/base_333333"
+                    android:textSize="@dimen/sp_9" />
+
+                <TextView
+                    android:id="@+id/shareCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:textColor="#F37B54"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="54648" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:text="人"
+                    android:textColor="#F37B54"
+                    android:textSize="@dimen/sp_9" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有效"
+                    android:textColor="@color/base_333333"
+                    android:textSize="@dimen/sp_8" />
+
+                <TextView
+                    android:id="@+id/shareEffectiveCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:gravity="right"
+                    android:textColor="#aaF37B54"
+                    android:textSize="@dimen/sp_10"
+                    tools:text="5668" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:text="人"
+                    android:textColor="#F37B54"
+                    android:textSize="@dimen/sp_8" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/createTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/base_666666"
+                android:textSize="@dimen/sp_10"
+                tools:text="209/9/9" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/isEffective"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="-3dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/app_icon_agent_true" />
+</FrameLayout>

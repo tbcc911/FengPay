@@ -1,0 +1,7 @@
+<resources>
+
+    <color name="login_bg">#ffffff</color>
+    <color name="login_bg_other">#EEEEEE</color>
+
+    <color name="navpage">#FFE1E8EB</color>
+</resources>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="scan_text_1">扫一扫</string>
+    <string name="scan_text_2">请稍后...</string>
+    <string name="scan_text_3">摄像头权限被拒绝！</string>
+    <string name="scan_text_4">(识别二维码)</string>
+    <string name="scan_text_5">摄像头权限被拒绝！</string>
+    <string name="scan_text_6">选择要识别的图片</string>
+    <string name="scan_text_7">选择要识别的图片</string>
+    <string name="scan_text_8">请稍后...</string>
+    <string name="scan_text_9">获取图片失败！</string>
+    <string name="scan_text_11">识别失败！</string>
+    <string name="scan_text_12">识别异常！</string>
+    <string name="scan_text_13">请扫描框钱包地址</string>
+</resources>

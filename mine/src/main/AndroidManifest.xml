@@ -1,0 +1,36 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fzs.mine">
+
+    <application>
+        <activity android:name="com.fzs.mine.ui.MineBalanceLUI" />
+        <activity android:name="com.fzs.mine.ui.MineHeadUI"/>
+        <activity android:name="com.fzs.mine.ui.MineNickUI"/>
+        <activity android:name="com.fzs.mine.ui.MinePayUI"/>
+        <activity android:name="com.fzs.mine.ui.MineSetUI"/>
+        <activity android:name="com.fzs.mine.ui.MineSlipUI" />
+        <activity android:name="com.fzs.mine.ui.MineAboutUsUI"/>
+        <activity android:name="com.fzs.mine.ui.MineOrderRUI" />
+        <activity android:name="com.fzs.mine.ui.MineOrderInfoYesPayUI"/>
+        <activity android:name="com.fzs.mine.ui.MineOrderInfoLogisticUI"/>
+        <activity android:name="com.fzs.mine.ui.MineOrderInfoNotPayUI"/>
+        <activity android:name="com.fzs.mine.ui.MineExchangeUI" />
+        <activity android:name="com.fzs.mine.ui.MineExchangeDetailUI" />
+        <activity android:name="com.fzs.mine.ui.MineOrderInfoReturnUI" />
+        <activity android:name="com.fzs.mine.ui.MinePayHelpUI" />
+        <activity android:name="com.fzs.mine.ui.MinePayHelpInfoUI" />
+        <activity android:name="com.fzs.mine.ui.MinePayHelpPayUI" />
+        <activity android:name="com.fzs.mine.ui.MinePayHelpLUI" />
+        <activity android:name="com.fzs.mine.ui.MinePayBankInfoUI" />
+        <activity android:name="com.fzs.mine.ui.MineUserInfoUI" />
+        <activity android:name="com.fzs.mine.ui.MineMessageRUI" />
+        <activity android:name="com.fzs.mine.ui.MineMessageInfoUI" />
+        <activity android:name="com.fzs.mine.ui.MineCollectionRUI" />
+        <activity android:name="com.fzs.mine.ui.MineFeedBackUI"/>
+        <activity android:name="com.fzs.mine.ui.MineTeamRUI"/>
+        <activity android:name="com.fzs.mine.ui.MineFootprintRUI"/>
+        <activity android:name="com.fzs.mine.ui.MineEquityRUI"/>
+        <activity android:name="com.fzs.mine.ui.MineCollectMoneyCodeUI"/>
+        <activity android:name="com.fzs.mine.ui.MineTurnMoneyUI"/>
+    </application>
+
+</manifest>

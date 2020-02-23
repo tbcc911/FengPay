@@ -1,0 +1,49 @@
+//根据isModule标签动态的切换 集成/组件模式
+if (isModule) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+
+def androidInfo = rootProject.ext.androidInfo
+def androidId = rootProject.ext.appId
+
+android {
+    compileSdkVersion androidInfo.compileSdkVersion
+    buildToolsVersion androidInfo.buildToolsVersion
+
+    defaultConfig {
+        if (!isModule) {
+            applicationId androidId['service']
+            multiDexEnabled true
+        }
+        minSdkVersion androidInfo.minSdkVersion
+        targetSdkVersion androidInfo.targetSdkVersion
+        versionCode androidInfo.versionCode
+        versionName androidInfo.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':comn')
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+}

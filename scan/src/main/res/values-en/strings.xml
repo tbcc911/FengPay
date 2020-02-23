@@ -1,0 +1,14 @@
+<resources>
+    <string name="scan_text_1">Scan</string>
+    <string name="scan_text_2">Please wait a moment...</string>
+    <string name="scan_text_3">Camera permission denied!</string>
+    <string name="scan_text_4">(Identify QR code)</string>
+    <string name="scan_text_5">Camera permission denied！</string>
+    <string name="scan_text_6">Choose a picture to recognize</string>
+    <string name="scan_text_7">Choose a picture to recognize</string>
+    <string name="scan_text_8">Please wait a moment...</string>
+    <string name="scan_text_9">Failed to get picture！</string>
+    <string name="scan_text_11">Recognition failure！</string>
+    <string name="scan_text_12">Identifying anomalies！</string>
+    <string name="scan_text_13">Please scan box wallet address</string>
+</resources>

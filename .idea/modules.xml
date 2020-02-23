@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FengPay.iml" filepath="$PROJECT_DIR$/FengPay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/comn/comn.iml" filepath="$PROJECT_DIR$/comn/comn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/login/login.iml" filepath="$PROJECT_DIR$/login/login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mine/mine.iml" filepath="$PROJECT_DIR$/mine/mine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scan/scan.iml" filepath="$PROJECT_DIR$/scan/scan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
+    </modules>
+  </component>
+</project>

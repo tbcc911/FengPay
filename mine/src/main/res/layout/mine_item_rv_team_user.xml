@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/comn_bg_white_fillet"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_10">
+
+    <com.fzs.comn.widget.imageview.ExpandImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:background="@mipmap/base_image_face"
+        fresco:roundAsCircle="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/nickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_333"
+                android:textSize="@dimen/sp_14"
+                tools:text="昵称" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_666666"
+                android:textSize="@dimen/sp_12"
+                tools:text="(132****2313)" />
+
+            <TextView
+                android:id="@+id/createTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/base_666666"
+                android:textSize="@dimen/sp_10"
+                tools:text="209/9/9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/teamCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#007AFF"
+                android:textSize="@dimen/sp_12"
+                tools:text="总团队:54648人" />
+
+            <TextView
+                android:id="@+id/teamEffectiveCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="#aa007AFF"
+                android:textSize="@dimen/sp_10"
+                tools:text="有效:5668人" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/shareCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#F37B54"
+                android:textSize="@dimen/sp_12"
+                tools:text="总分享:54648人" />
+
+            <TextView
+                android:id="@+id/shareEffectiveCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="#aaF37B54"
+                android:textSize="@dimen/sp_10"
+                tools:text="有效:5668人" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

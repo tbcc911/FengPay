@@ -1,0 +1,12 @@
+ALTER TABLE User ADD goldStandard TEXT;
+ALTER TABLE User ADD tbReleasetbcc TEXT;
+ALTER TABLE User ADD tbccExchangeUsdtLowerLimit TEXT;
+ALTER TABLE User ADD tbccExchangeUsdtMultiple TEXT;
+ALTER TABLE User ADD transferLowerLimit TEXT;
+ALTER TABLE User ADD transferMultiple TEXT;
+ALTER TABLE User ADD usdtExchangeupayLowerLimit TEXT;
+ALTER TABLE User ADD usdtExchangeupayMultiple TEXT;
+ALTER TABLE User ADD usdtExchangeupayRate TEXT;
+ALTER TABLE User ADD withdrawLowerLimit TEXT;
+ALTER TABLE User ADD withdrawMultiple TEXT;
+ALTER TABLE User ADD withdrawPoundage TEXT;

@@ -1,0 +1,12 @@
+<resources>
+
+    <color name="mine_index_head_start">#2F80ED</color>
+    <color name="mine_index_head_end">#38BDFA</color>
+
+    <color name="mine_index_head_moneys_blue">#007AFF</color>
+    <color name="mine_index_head_moneys_red">#F37B54</color>
+
+    <color name="mine_bg_head_transparent">#23ffffff</color>
+    
+    
+</resources>

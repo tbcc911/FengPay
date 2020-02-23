@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="1px"
+            android:layout_height="23dp"
+            android:background="#dddddd"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="11"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/all"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="全部"
+                    android:textColor="@color/application_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/shippedNot"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="待发货"
+                    android:textColor="@color/text_c_131313"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/shipped"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="已收货"
+                    android:textColor="@color/text_c_131313"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/title_scroll_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/title_scroll_right"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/application_color" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+{
+  "code": 200,
+  "message": "",
+  "data": [
+    {     
+      "memberId": "2",
+      "productId": "2",
+      "memberNickname": "全球唯一典藏",
+      "productName": "典藏商品1",
+      "storeName": "全球唯一",
+      "productPrice": "500",
+      "productPic": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg",
+      "storeLogoImage": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg"
+    }, {
+      "memberId": "2",
+      "productId": "2",
+      "memberNickname": "全球唯一典藏",
+      "productName": "典藏商品2",
+      "storeName": "全球唯一",
+      "productPrice": "500",
+      "productPic": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg",
+      "storeLogoImage": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg"
+    }, {
+      "memberId": "2",
+      "productId": "2",
+      "memberNickname": "全球唯一典藏",
+      "productName": "典藏商品3",
+      "storeName": "全球唯一",
+      "productPrice": "500",
+      "productPic": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg",
+      "storeLogoImage": "http://upyun.507buy.com/shopping/upload/store/32925/2018/04/26/1524734349400.jpg"
+    }
+    
+  ]
+}

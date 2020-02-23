@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+
+def androidInfo = rootProject.ext.androidInfo
+def androidId = rootProject.ext.appId
+
+android {
+    lintOptions{
+        disable 'MissingTranslation'
+    }
+    
+    compileSdkVersion androidInfo.compileSdkVersion
+    buildToolsVersion androidInfo.buildToolsVersion
+
+    defaultConfig {
+        if (!isModule) {
+            applicationId androidId['comn']
+            multiDexEnabled true
+        }
+        minSdkVersion androidInfo.minSdkVersion
+        targetSdkVersion androidInfo.targetSdkVersion
+        versionCode androidInfo.versionCode
+        versionName androidInfo.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        //多模块或者组件化混淆，只要app模块开了混淆，子模块无论是否打开混淆都是默认开启的。只是通过上面的方法，子模块可以自定义混淆的规则。
+        //子模块的混淆规则是无法影响app模块的的。所以建议，在子模块里尽量只放和子模块相关的混淆规则，一些公有的混淆方式请放在app或者公有的模块中。
+        //proguard-android.txt为系统已经预先设置的混淆文件，proguard-rules.pro是我们自己的混淆文件
+        release {
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs 'src/main/java'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api 'com.github.zihang740:BaseUI:3.9.9'
+    api 'com.tencent.imsdk:imsdk:4.3.145'
+    api 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+
+    //升级SDK
+    api files('libs/alipaysdk.jar')
+    api files('libs/BaiduLBS_Android.jar')
+    api files('libs/open_sdk_r4547_lite.jar')
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+
+    //七牛
+    implementation 'com.qiniu:qiniu-android-sdk:7.4.2'
+
+}

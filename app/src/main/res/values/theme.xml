@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="theme_fullScreen" parent="android:Theme.Black">
+        <item name="android:windowNoTitle">true</item> <!-- 设置无标题 -->
+        <item name="android:windowFullscreen">?android:windowNoTitle</item>
+    </style>
+    <style name="NoTitleBarActivity" parent="android:Theme.Translucent.NoTitleBar">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+</resources>

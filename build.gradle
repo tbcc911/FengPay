@@ -1,0 +1,28 @@
+apply from: "config.gradle"
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath "com.mob.sdk:MobSDK:+"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        maven { url "https://jitpack.io" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,30 @@
+ext{
+    // false: 组件模式m
+    // true ：集成模式
+    isModule = true
+    androidInfo = [
+            compileSdkVersion: 28,
+            buildToolsVersion:"28.0.3",
+            targetSdkVersion : 28,
+            minSdkVersion    : 16, //android 4.1
+            versionCode      : 200,
+            versionName      : "2.0.0"
+    ]
+
+    appId = [
+            "app" : "com.fzs.fengpay",
+            "comn" : "com.fzs.comn",
+            "mine" : "com.fzs.mine",
+            "login" : "com.fzs.login"
+    ]
+
+    metaDatas = [
+            "WX_APP_ID":"wx7d314006a5998a80",//微信AppID
+            "WX_APP_Secret":"36f4c00f85dfeef68df209402ff9c726",//微信AppSecret
+            
+            "JPUSH_APPKEY":"0569c71900d1d38d90e9c7d7",//极光推送AppKey
+            "BaiduLocationKey":"OB1uycxMsz91XSQGkeBQTHj6BAxCtCXY", //百度定位Key
+            "BaiduStatisticsKey":"eb88a5fe0a", //百度移动统计渠道Key
+            "BaiduStatisticsChannel":"FengPay" //百度移动统计渠道Flag,最终会 生成的格式:FengPay_V{versionName}_{versionCode}
+    ]
+}

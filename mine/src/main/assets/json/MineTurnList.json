@@ -1,0 +1,17 @@
+[
+  {
+    "id": "2",
+    "name": "银行卡转账",
+    "checked": false
+  },
+  {
+    "id": "2",
+    "name": "扫码支付",
+    "checked": false
+  },
+  {
+    "id": "2",
+    "name": "区块链USDT支付",
+    "checked": false
+  }
+]

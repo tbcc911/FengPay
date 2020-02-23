@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/comn_bg_white_fillet"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="总团队"
+            android:textColor="#007AFF"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/sum_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center"
+            android:text="——"
+            android:textColor="#007AFF"
+            android:textSize="@dimen/sp_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="团队有效"
+            android:textColor="#aa007AFF"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/sum_person_effective"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center"
+            android:text="——"
+            android:textColor="#aa007AFF"
+            android:textSize="@dimen/sp_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="总分享"
+            android:textColor="#F37B54"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/sum_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center"
+            android:text="——"
+            android:textColor="#F37B54"
+            android:textSize="@dimen/sp_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="分享有效"
+            android:textColor="#aaF37B54"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/sum_share_effective"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center"
+            android:text="——"
+            android:textColor="#aaF37B54"
+            android:textSize="@dimen/sp_18" />
+    </LinearLayout>
+
+
+</LinearLayout>

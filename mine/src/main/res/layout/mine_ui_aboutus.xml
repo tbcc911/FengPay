@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/comn_app_icon" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="当前版本:V2.1.0"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/patch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="补丁版本:V0"
+            android:textColor="#999999"
+            android:textSize="9sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/phoneLin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comn_bg_white_fillet"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="48dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="官服电话"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            tools:text="02367085337" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/base_arrow_right_black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/websiteLin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comn_bg_white_fillet"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="48dp"
+        android:onClick="set"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="官方网站"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            tools:text="www.youkebaba.cn" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/base_arrow_right_black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comn_bg_white_fillet"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="48dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公司资质"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/base_arrow_right_black" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 公共的Banner组件 -->
+    <item name="banner_indicatorId" type="id" />
+
+    <item name="cancle" type="id" />
+
+    <item name="details" type="id" />
+    <item name="dialogLayout" type="id" />
+
+</resources>

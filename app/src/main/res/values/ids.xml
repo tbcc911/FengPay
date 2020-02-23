@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- Messages IDs -->
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <item name="launch_product_query" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+
+    <!-- XStoreAttrSelectDialog -->
+    <item name="tag_first" type="id"/>
+    <item name="tag_second" type="id"/>
+    <item name="tag_three" type="id"/>
+    <!-- StoreListScreenUI -->
+    <item name="tag_selected" type="id"/>
+    <item name="tag_index" type="id"/>
+    <item name="tag_parent_index" type="id"/>
+    <!-- CartLFM -->
+    <item name="tag_storeradio_totalprice" type="id"/>
+    <item name="tag_storeradio_number" type="id"/>
+    <item name="tag_storeradio_scid" type="id"/>
+    <item name="tag_storeradio_state" type="id"/>
+    <item name="tag_goods_numbers" type="id"/>
+
+    <!-- ShopIndex -->
+    <item name="BaseQuickAdapter_viewholder_support" type="id"/>
+    <item name="BaseQuickAdapter_swiping_support" type="id"/>
+    <item name="BaseQuickAdapter_dragging_support" type="id"/>
+    <item name="BaseQuickAdapter_databinding_support" type="id"/>
+    <item name="banner_indicatorId" type="id"/>
+
+    <!-- CartInfo -->
+    <item name="tag_cart_info_expressMoney" type="id"/>
+    <item name="tag_cart_info_expressName" type="id"/>
+    <item name="tag_cart_info_expressKey" type="id"/>
+    <item name="tag_cart_info_expressInfo" type="id"/>
+    <item name="tag_cart_info_invoiceValue" type="id"/>
+    <item name="tag_cart_info_position" type="id"/>
+    <item name="tag_cart_info_outline" type="id"/>
+
+    <item name="tag_cart_info_invoice_value" type="id"/>
+    <item name="tag_cart_info_invoice_unit_name" type="id"/>
+</resources>

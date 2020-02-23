@@ -1,0 +1,104 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.fzs.comn">
+
+    <application>
+        <!-- ActiveAndroid数据库框架必须加上这个,不然部分手机要崩溃,特别是化为8.0以上系统(android:authorities=<your.package.name>) -->
+        <provider
+            android:name="com.activeandroid.content.ContentProvider"
+            android:authorities="com.fzs.fengpay"
+            android:exported="false" />
+        <!-- 数据库 | 名称-->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="TbMall.db" />
+        <!-- 数据库 | 版本号-->
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="11" />
+        <!-- 数据库 | 配置你需要的对应的映射关系表实体类-->
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="
+                           com.hzh.frame.comn.model.BaseHttpRequest,
+                           com.hzh.frame.comn.model.BaseHttpCache,
+                           com.fzs.comn.model.Ad,
+                           com.fzs.comn.model.Address,
+                           com.fzs.comn.model.Ader,
+                           com.fzs.comn.model.AdLocal,
+                           com.fzs.comn.model.AdModel,
+                           com.fzs.comn.model.Banner,
+                           com.fzs.comn.model.ChangeMoney,
+                           com.fzs.comn.model.ClientShop,
+                           com.fzs.comn.model.FloorBills,
+                           com.fzs.comn.model.InitData,
+                           com.fzs.comn.model.MapUtil,
+                           com.fzs.comn.model.Message,
+                           com.fzs.comn.model.MineOrderExchange,
+                           com.fzs.comn.model.MineOrderShop,
+                           com.fzs.comn.model.MinePayHelp,
+                           com.fzs.comn.model.NewTask,
+                           com.fzs.comn.model.OrderShop,
+                           com.fzs.comn.model.PhoneRecod,
+                           com.fzs.comn.model.Product,
+                           com.fzs.comn.model.Profit,
+                           com.fzs.comn.model.Profit7Day,
+                           com.fzs.comn.model.Profit7DayAd,
+                           com.fzs.comn.model.ProfitAd,
+                           com.fzs.comn.model.ProfitInfo,
+                           com.fzs.comn.model.RankAder,
+                           com.fzs.comn.model.RankWinningAder,
+                           com.fzs.comn.model.ShopArea,
+                           com.fzs.comn.model.SKMain,
+                           com.fzs.comn.model.SKNearby,
+                           com.fzs.comn.model.SKGoods,
+                           com.fzs.comn.model.SKStoreList,
+                           com.fzs.comn.model.StoreBrand,
+                           com.fzs.comn.model.StoreComment,
+                           com.fzs.comn.model.StoreExchangeList,
+                           com.fzs.comn.model.StoreList,
+                           com.fzs.comn.model.StoreMain,
+                           com.fzs.comn.model.StoreShopList,
+                           com.fzs.comn.model.StoreType,
+                           com.fzs.comn.model.SysZd,
+                           com.fzs.comn.model.User,
+                           com.fzs.comn.model.UserRankingSon,
+                           com.fzs.comn.model.UserRedAwardRecordComn,
+                           com.fzs.comn.model.UserStealRedComn,
+                           com.fzs.comn.model.UserTeamMoney,
+                           com.fzs.comn.model.WelcomeAd,
+                           com.fzs.comn.model.Yq,
+                           com.fzs.comn.model.YqUser,
+                           com.fzs.comn.model.CartGoods,
+                           com.fzs.comn.model.CartStores,
+                           com.fzs.comn.model.SKBuyL,
+                           com.fzs.comn.model.MineBalance,
+                           com.fzs.comn.model.ShopBanner,
+                           com.fzs.comn.model.ShopMainBanner,
+                           com.fzs.comn.model.VipIndex,
+                           com.fzs.comn.model.SingninGoods,
+                           com.fzs.comn.model.UserComment,
+                           com.fzs.comn.model.MineTeam,
+                           com.fzs.comn.model.TransactionOrder,
+                           com.fzs.comn.model.MineManageInfo,
+                           com.fzs.comn.model.MineMessage,
+                           com.fzs.comn.model.UploadImage,
+                           com.fzs.comn.model.MineTeamUser,
+                           com.fzs.comn.model.StorePayMent,
+                           com.fzs.comn.model.MineCollection,
+                           com.fzs.comn.model.Sheep,
+                           com.fzs.comn.model.ForgetPasswordUI,
+                           com.fzs.comn.model.FundNotes,
+                           com.fzs.comn.model.MineEquity,
+                           com.fzs.comn.model.FruitGuess,
+                           com.fzs.comn.model.C2CqueryOrder,
+                           com.fzs.comn.model.C2CqueryTrade,
+                           com.fzs.comn.model.AppConfig" />
+
+        <activity android:name="com.yalantis.ucrop.UCropActivity" />
+        <activity android:name="com.fzs.comn.widget.view.webview.DWebViewUI" />
+        <activity android:name="com.fzs.comn.widget.pay.ComnPayFaiUI" />
+        <activity android:name="com.fzs.comn.widget.pay.ComnPaySuccessUI" />
+
+    </application>
+</manifest>

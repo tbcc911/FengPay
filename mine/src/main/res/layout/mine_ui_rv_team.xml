@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_bg">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_bg"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_33"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/comn_bg_white_circle_fillet"
+            android:gravity="center_vertical"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@mipmap/comn_icon_search_black" />
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="请输入需要查询的团队成员手机号"
+                android:imeOptions="actionSearch"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/base_333333"
+                android:textColorHint="@color/base_666666"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_13" />
+
+            <TextView
+                style="@style/base_line_horizontal1px"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8" />
+
+            <TextView
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?selectableItemBackground"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="搜索"
+                android:textColor="@color/base_666666"
+                android:textSize="@dimen/sp_10" />
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/base_bg"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.hzh.frame.widget.xrefresh.XSwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+        </com.hzh.frame.widget.xrefresh.XSwipeRefreshLayout>
+
+        <include
+            android:id="@+id/recyclerViewBg"
+            layout="@layout/base_view_list_bg_null"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

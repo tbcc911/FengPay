@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/comn_bg_white_fillet_top">
+
+    <LinearLayout
+        android:id="@+id/dialogLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_300"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:gravity="center"
+            android:text="用户协议和隐私协议"
+            android:textColor="@color/text_333"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView style="@style/base_line_vertical1px" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_12">
+
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_333"
+                    android:textSize="@dimen/sp_13"
+                    tools:text="商城隐私协议" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <TextView style="@style/base_line_vertical1px" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/base_title"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/base_666666"
+                android:textSize="@dimen/sp_13" />
+
+            <TextView
+                style="@style/base_line_horizontal1px"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8" />
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/base_title"
+                android:gravity="center"
+                android:text="同意"
+                android:textColor="@color/button_green"
+                android:textSize="@dimen/sp_13" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+

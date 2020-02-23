@@ -1,0 +1,68 @@
+//根据isModule标签动态的切换 集成/组件模式
+if (isModule) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+apply plugin: 'com.mob.sdk'
+apply from: "../MobSDK.gradle"
+
+def androidInfo = rootProject.ext.androidInfo
+def androidId = rootProject.ext.appId
+
+android {
+    compileSdkVersion androidInfo.compileSdkVersion
+    buildToolsVersion androidInfo.buildToolsVersion
+
+    defaultConfig {
+        if (!isModule) {
+            applicationId androidId['scan']
+            multiDexEnabled true
+        }
+        minSdkVersion androidInfo.minSdkVersion
+        targetSdkVersion androidInfo.targetSdkVersion
+        versionCode androidInfo.versionCode
+        versionName androidInfo.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+        ndk {
+            abiFilters = []
+            //参考:https://www.jianshu.com/p/2d23764746e4
+            //简述:只适配 armeabi-v7a，因为目前主流机型是 ARMv7，并且 ARMv8 设备也向下兼容了armeabi-v7a,Facebook、WhatsApp、王者荣耀等就是只适配了armeabi-v7a
+            //不管你开发项目中有多少so库文件,这里打包出来的APP在assets就会只有一个armeabi-v7a的库
+            //注:本项目中,必须这样搞,因为腾讯IM只提供支持armeabi-v7a的so库
+            abiFilters.addAll(['armeabi-v7a'])
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+//          assets.srcDirs = ['assets']  //这里不能配置这个,配置了assets下的.db文件无法打包进APK的assets下,见鬼了,其他文件,比如,errorpage就可以
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':comn')
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+}

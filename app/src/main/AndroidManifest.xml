@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.fzs.fengpay">
+
+    <!-- largeHeap="true":将APP的内存从64MB拓展成128MB -->
+    <application
+        android:name="com.fzs.fengpay.AppApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="I do not know what it was"
+        android:icon="@mipmap/comn_app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_config"
+        android:roundIcon="@mipmap/comn_app_icon"
+        android:theme="@style/AppTheme"
+        tools:replace="android:appComponentFactory">
+
+        <!-- 
+          exported: false 当前提供者不能被其它应用使用(要求必须为false，为true则会报安全异常。grantUriPermissions:true，表示授予 URI 临时访问权限)
+          exported: true 当前内容提供者是否会被其它应用使用
+        -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
+        <!-- 百度统计 | 您从百度网站获取的APP KEY -->
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="${BaiduStatisticsKey}" />
+        <!-- 百度统计 | 渠道商编号 -->
+        <meta-data
+            android:name="BaiduMobAd_CHANNEL"
+            android:value="${BaiduStatisticsChannel}" />
+        <!-- 百度统计 | 是否开启错误日志统计，默认为false -->
+        <meta-data
+            android:name="BaiduMobAd_EXCEPTION_LOG"
+            android:value="true" />
+        <!-- 百度统计 | 日志发送策略，可选值：APP_START、ONCE_A_DAY、SET_TIME_INTERVAL，默认为APP_START -->
+        <meta-data
+            android:name="BaiduMobAd_SEND_STRATEGY"
+            android:value="APP_START" />
+        <!-- 百度统计 | 日志仅在wifi网络下发送，默认为false -->
+        <meta-data
+            android:name="BaiduMobAd_ONLY_WIFI"
+            android:value="false" />
+        <!-- 百度统计 | 是否获取基站位置信息 ,默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_CELL_LOCATION"
+            android:value="true" />
+        <!-- 百度统计 | 是否获取GPS位置信息，默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_GPS_LOCATION"
+            android:value="true" />
+        <!-- 百度统计 | 是否获取WIFI位置信息，默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_WIFI_LOCATION"
+            android:value="true" />
+        <!-- 百度地图 | 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="${BaiduLocationKey}" />
+        <!-- 微信 | AppID -->
+        <meta-data
+            android:name="WX_APP_ID"
+            android:value="${WX_APP_ID}" />
+
+
+        <!-- 百度定位相关 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <!-- 阿里 | 支付宝  start -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 阿里 | 支付宝  end -->
+        
+        <!-- QQ  start -->
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent222222" />
+            </intent-filter>
+        </activity>
+        <!-- QQ  end -->
+        <activity
+            android:name="com.fzs.fengpay.ui.WelcomeUI"
+            android:label="@string/app_name"
+            android:theme="@style/theme_fullScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- 这里配置是为了ReactNative开发的途链APP可以调用进来 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.fzs.fengpay"
+                    android:pathPrefix="/welcome"
+                    android:scheme="dianping" />
+            </intent-filter>
+        </activity>
+
+
+
+        <activity android:name="com.mob.tools.MobUIShell" />
+        <activity android:name=".ui.IntroduceUI" />
+        <activity android:name=".ui.MainUI" />
+
+    </application>
+
+</manifest>

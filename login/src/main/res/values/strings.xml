@@ -1,0 +1,22 @@
+<resources>
+    <!-- 登录 -->
+    <string name="login_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
+    <string name="user_login_username">手机号/用户帐号</string>
+    <string name="user_login_password">请输入密码</string>
+    <string name="user_login_reg">没有帐号</string>
+    <string name="user_login_sumbit">登录</string>
+    <!-- 注册 -->
+    <string name="user_reg_phone">请输入您的手机号</string>
+    <string name="user_reg_oldpassword">请输入旧密码</string>
+    <string name="user_reg_code">请输入验证码</string>
+    <string name="user_reg_codeinput">获取验证码</string>
+    <string name="user_reg_next">下一步</string>
+    <string name="user_reg_name">请输入邀请码</string>
+    <string name="user_reg_password">请输入密码</string>
+    <string name="user_reg_repeat_password">请再次输入密码</string>
+    <string name="user_reg_submit">注册提交</string>
+    <string name="user_reg_forget">忘记密码？</string>
+
+    <!-- 关联 -->
+    <string name="user_relation_phone">关 联</string>
+</resources>

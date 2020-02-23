@@ -1,0 +1,157 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+    "shareCount": "1",
+    "shareEffectiveCount": "0",
+    "teamCount": "1",
+    "teamEffectiveCount": "0",
+    "sumMoney": "600000",
+    "teamList": [
+      {
+        "phone": "13452174322",
+        "nickname": "醒目的红内裤",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "true",
+        "incomeScale": "0.5",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "风中的一坨屎",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "false",
+        "incomeScale": "1.2",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "交人别交狗",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "true",
+        "incomeScale": "1.7",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "官人我要",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "true",
+        "incomeScale": "1.5",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "浮夸小姐",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "true",
+        "incomeScale": "1.3",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "再装逼我就报警了",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "incomeScale": "1.2",
+        "teamEffectiveCount": "0",
+        "isEffective": "false",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "性感小野猫",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "teamCount": "0",
+        "incomeScale": "1.6",
+        "teamEffectiveCount": "0",
+        "isEffective": "false",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "诱惑你犯罪",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "incomeScale": "1.5",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "true",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "人不风骚枉骚",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "incomeScale": "1.5",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "isEffective": "false",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "黑色吊带衣",
+        "avatarUrl": "",
+        "incomeScale": "1.5",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "isEffective": "false",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "小三您走好别摔倒",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "isEffective": "true",
+        "shareEffectiveCount": "0",
+        "incomeScale": "1.5",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "registerTime": "2019-12-30 13:16"
+      },
+      {
+        "phone": "13452174322",
+        "nickname": "缠绵不戴套",
+        "avatarUrl": "",
+        "shareCount": "0",
+        "shareEffectiveCount": "0",
+        "incomeScale": "1.5",
+        "isEffective": "true",
+        "teamCount": "0",
+        "teamEffectiveCount": "0",
+        "registerTime": "2019-12-30 13:16"
+      }
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "code": "200",
+  "msg": "数据正常返回",
+	"data": {
+      "goodsIcon": "http://upyun.507buy.com/shopping/upload/advert/1516155438463.jpg",
+      "goodsNumber": "1000",
+      "goodsSerial":"500382",
+      "detailURL": "http://youkebaba.com/detail.htm?id=101413&type=good",
+      "dataList":[
+        {
+          "id":"32799",
+          "name":"尺码",
+          "items":
+        [
+          {
+            "goodsspecificationId":32799,
+            "goodsspecpropertyId":33559,
+            "value":"90cm"},
+          {
+            "goodsspecificationId":32799,
+            "goodsspecpropertyId":33558,
+            "value":"80cm"},
+          {"goodsspecificationId":32799,
+            "goodsspecpropertyId":33557,
+            "value":"73cm"},
+          {"goodsspecificationId":32799,
+            "goodsspecpropertyId":33556,
+            "value":"66cm"}
+        ]
+      },
+        {
+          "id":"32800",
+          "name":"款式",
+          "items":
+          [
+            {
+              "goodsspecificationId":32800,
+              "goodsspecpropertyId":33560,
+              "value":"小号"},
+            {
+              "goodsspecificationId":32800,
+              "goodsspecpropertyId":33561,
+              "value":"中号"},
+            {"goodsspecificationId":32800,
+              "goodsspecpropertyId":33562,
+              "value":"大号"},
+            {"goodsspecificationId":32800,
+              "goodsspecpropertyId":33563,
+              "value":"特大号"}
+          ]
+        },
+        {
+          "id":"32801",
+          "name":"颜色",
+          "items":
+          [
+            {
+              "goodsspecificationId":32801,
+              "goodsspecpropertyId":33564,
+              "value":"黑色"},
+            {
+              "goodsspecificationId":32801,
+              "goodsspecpropertyId":33565,
+              "value":"白色"},
+            {"goodsspecificationId":32801,
+              "goodsspecpropertyId":33566,
+              "value":"蓝色"},
+            {"goodsspecificationId":32801,
+              "goodsspecpropertyId":33567,
+              "value":"红色"}
+          ]
+        }
+      ],
+      "storeTitle": "洋河蓝色经典",
+      "storeContent": "洋河蓝色经典洋河蓝色经典洋河蓝色经典洋河蓝色经典洋河蓝色经典",
+      "bannerPics": [
+        "http://upyun.507buy.com/shopping/upload/advert/1516155438463.jpg",
+        "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+        "http://upyun.507buy.com/shopping/upload/advert/1524548566603.jpg",
+        "http://upyun.507buy.com/shopping/upload/advert/1523847118516.jpg"
+      ],
+      "storePrice": "445",
+      "pingajiaNumber": "998",
+      "haopinglv": "99",
+      "comment": [
+        {
+          "nickname": "罗小黑",
+          "head": "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+          "content": "这个挺好的，还想买",
+          "commentPics": [
+            "http://upyun.507buy.com/shopping/upload/advert/1516155438463.jpg"
+          ]
+        },
+        {
+          "nickname": "罗小白",
+          "head": "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+          "content": "罗小白",
+          "commentPics": [
+            "http://upyun.507buy.com/shopping/upload/advert/1516155438463.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg"
+          ]
+        },
+        {
+          "nickname": "葫芦娃",
+          "head": "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+          "content": "葫芦娃很好看",
+          "commentPics": [
+            "http://upyun.507buy.com/shopping/upload/advert/1516155438463.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1524548566603.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1523847118516.jpg"
+          ]
+        },
+        {
+          "nickname": "全职高手",
+          "head": "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+          "content": "全职高手",
+          "commentPics": [
+            "http://upyun.507buy.com/shopping/upload/advert/1516155438463.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1516157427154.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1524548566603.jpg",
+            "http://upyun.507buy.com/shopping/upload/advert/1523847118516.jpg"
+          ]
+        }
+      ],
+      "goods_details":"<p><img class=\"wscnph\" style=\"max-width: 100%;\" src=\"http://507buy.oss-cn-hangzhou.aliyuncs.com/mall/images/20190809/tyx1.png\" /><img class=\"wscnph\" style=\"max-width: 100%;\" src=\"http://507buy.oss-cn-hangzhou.aliyuncs.com/mall/images/20190809/tyx2.png\" /><img class=\"wscnph\" style=\"max-width: 100%;\" src=\"http://507buy.oss-cn-hangzhou.aliyuncs.com/mall/images/20190809/tyx3.png\" /><img class=\"wscnph\" style=\"max-width: 100%;\" src=\"http://507buy.oss-cn-hangzhou.aliyuncs.com/mall/images/20190809/tyx4.png\" /><img class=\"wscnph\" style=\"max-width: 100%;\" src=\"http://507buy.oss-cn-hangzhou.aliyuncs.com/mall/images/20190809/tyx5.png\" /></p>",
+      "cartNumber": "99"
+	}
+}

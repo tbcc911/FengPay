@@ -1,0 +1,117 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": [
+    {
+      "floor": "1",
+      "itemType": "topBanner",
+      "itemContentList": [
+        {
+          "color": "#fd8781",
+          "imageUrl": "http://qn.507buy.com/feng_pay_banner_1.png",
+          "clickType": "1",
+          "clickValue": "http://www.baidu.com"
+        },
+        {
+          "color": "#1762c9",
+          "imageUrl": "http://qn.507buy.com/tb_banner22.png",
+          "clickType": "1",
+          "clickValue": "http://www.baidu.com"
+        },
+        {
+          "color": "#9d76ff",
+          "imageUrl": "http://qn.507buy.com/tb_banner33.png",
+          "clickType": "1",
+          "clickValue": "http://www.baidu.com"
+        }
+      ]
+    },
+    {
+      "itemContentList": [
+        {
+          "imageUrl": "http://upyun.507buy.com/shopping/upload/images/1526015495218.png",
+          "clickValue": "61",
+          "clickType": "2"
+        }
+      ],
+      "itemType": "images",
+      "floor": 50,
+      "background": ""
+    },
+    {
+      "floor": "3",
+      "itemType": "bulletin",
+      "itemContentList": [
+        {
+          "title": "HappyPay 劲爆上线, 理财何需如此麻烦...",
+          "color": "#229393",
+          "imageUrl": "http://upyun.507buy.com/shopping/upload/images/1525244446131.png",
+          "clickValue": "61",
+          "clickType": "2"
+        },
+        {
+          "title": "支付跑分,全年无休,使命必达",
+          "color": "#229393",
+          "imageUrl": "http://upyun.507buy.com/shopping/upload/images/1525244446131.png",
+          "clickValue": "61",
+          "clickType": "2"
+        },
+        {
+          "title": "分享奖励,多分多拿",
+          "color": "#229393",
+          "imageUrl": "http://upyun.507buy.com/shopping/upload/images/1525244446131.png",
+          "clickValue": "61",
+          "clickType": "2"
+        }
+      ]
+    },
+    {
+      "itemContentList": [
+        {
+          "imageUrl": "http://upyun.507buy.com/shopping/upload/images/1526015495218.png",
+          "clickValue": "61",
+          "clickType": "2"
+        }
+      ],
+      "itemType": "images",
+      "floor": 50,
+      "background": ""
+    },
+    {
+      "itemContentList": [
+        {
+          "imageUrl": "http://qn.507buy.com/fen_pay_banner_floor_1.png",
+          "clickValue": "",
+          "clickType": "4"
+        }
+      ],
+      "itemType": "images",
+      "floor": 50,
+      "background": ""
+    },
+    {
+      "itemContentList": [
+        {
+          "imageUrl": "http://upyun.507buy.com/shopping/upload/images/1526015495218.png",
+          "clickValue": "61",
+          "clickType": "2"
+        }
+      ],
+      "itemType": "images",
+      "floor": 50,
+      "background": ""
+    },
+    {
+      "itemContentList": [
+        {
+          "imageUrl": "http://qn.507buy.com/fen_pay_banner_floor_2.png",
+          "clickValue": "",
+          "clickType": "4"
+        }
+      ],
+      "itemType": "images",
+      "floor": 50,
+      "background": ""
+    }
+  ]
+}
