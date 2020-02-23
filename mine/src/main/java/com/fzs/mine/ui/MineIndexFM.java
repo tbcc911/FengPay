@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
 import com.fzs.comn.widget.imageview.ExpandImageView;
 import com.fzs.mine.R;
+import com.fzs.service.PayNotificationMonitorService;
 import com.fzs.service.tools.ServicePowerTools;
 import com.fzs.service.tools.ServiceTools;
 import com.hzh.frame.callback.CallBack;
@@ -29,6 +31,7 @@ import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.widget.toast.BaseToast;
 import com.hzh.frame.widget.xdialog.XDialog2Button;
 import com.hzh.frame.widget.xdialog.XDialogRadio;
+import com.hzh.frame.widget.xdialog.XDialogSubmit;
 import com.hzh.frame.widget.xdialog.XDialogUpdateAPP;
 
 import org.json.JSONObject;
@@ -36,8 +39,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import cn.bertsir.zbar.ScanConfig;
+import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -47,17 +58,9 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
 
     private View mBaseView;
     List<HashMap<String, Object>> list=new ArrayList<>();
+    private XDialogSubmit mXDialogSubmit;
+    private Disposable mDisposable;
     
-    //获取徽章Drawable
-    public GradientDrawable getBadgeDrawable(Context context) {
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
-        shape.setColor(ContextCompat.getColor(context, R.color.application_color));//BackgroundColor
-        shape.setStroke(2, ContextCompat.getColor(context, R.color.white));//BorderWidth,BorderColor
-        return shape;
-    }
-
     @Override
     public boolean setTitleIsShow() {
         return false;
@@ -65,6 +68,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
 
     @Override
     protected void onCreateBase() {
+        mXDialogSubmit=new XDialogSubmit(getActivity()).setMsg("启动中");
         mBaseView = setContentView(R.layout.mine_ui_index);
         mBaseView.findViewById(R.id.statusBar).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,AndroidUtil.getStatusBarHeight()));
         mBaseView.findViewById(R.id.head).setOnClickListener(this);
@@ -99,18 +103,54 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         } else
         if (id == R.id.state) { //状态
             List<BaseRadio> list = new ArrayList<>();
-            list.add(new BaseRadio().setName("上线").setId("1").setChecked(true));
-            list.add(new BaseRadio().setName("离线").setId("2").setChecked(false));
+            list.add(new BaseRadio().setName("接单").setId("1").setChecked(true));
+            list.add(new BaseRadio().setName("休息").setId("2").setChecked(false));
             new XDialogRadio<>()
                     .setData(list)
                     .setTitle("切换状态")
                     .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 6)
-                    .setCallBack(baseRadio -> {
-                        if(!ServicePowerTools.isNotificationPower(getActivity())){
-                            ServicePowerTools.openNotificationPower(getActivity());
+                    .setCallBack(item -> {
+                        if("1".equals(item.getId())){//接单
+                            mXDialogSubmit.setMsg("启动中").show();
+                            if(!ServicePowerTools.isNotificationPower(getActivity())){
+                                //跳转系统设置里的通知使用权页面,让用户同意通知使用
+                                ServicePowerTools.openNotificationPower(getActivity());
+                            }else{
+                                //已经授权了,3秒后直接关闭
+                                if(mDisposable!=null){
+                                    mDisposable.dispose();
+                                }
+                                mDisposable=Flowable.timer(3, TimeUnit.SECONDS)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .doOnNext(aLong -> mXDialogSubmit.dismiss())
+                                        .doOnComplete(() -> {
+                                            mDisposable.dispose();
+                                            loadReceiptState();
+                                        })
+                                        .subscribe();
+                            }
+                            ServiceTools.startPayMonitor(getActivity());
+                        } else
+                        if("2".equals(item.getId())){//离线
+                            mXDialogSubmit.setMsg("关闭中").show();
+                            if(ServicePowerTools.isNotificationPower(getActivity())){
+                                ServicePowerTools.openNotificationPower(getActivity());//已未授权,自己去关闭
+                            }else{
+                                if(mDisposable!=null){
+                                    mDisposable.dispose();
+                                }
+                                mDisposable=Flowable.timer(3, TimeUnit.SECONDS)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .doOnNext(aLong -> mXDialogSubmit.dismiss())
+                                        .doOnComplete(() -> {
+                                            mDisposable.dispose();
+                                            loadReceiptState();
+                                        })
+                                        .subscribe();
+                            }
                         }
-                        ServiceTools.startPayMonitor(getActivity());
-                        alert(baseRadio.getName());
                     })
                     .show(getFragmentManager());
         } else
@@ -257,6 +297,24 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             ((TextView) mBaseView.findViewById(R.id.phone)).setText("登录查看更多资料");
             ((TextView) mBaseView.findViewById(R.id.activationState)).setText("未激活");
         }
+        loadReceiptState();
+    }
+    
+    //加载接单状态
+    public void loadReceiptState(){
+        if(ServicePowerTools.isNotificationPower(getActivity()) && ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){
+            ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_ok);
+            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("接单中");
+        } else
+        if(!ServicePowerTools.isNotificationPower(getActivity())){
+            ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
+            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("离线(未授权)");
+            ServiceTools.startPayMonitor(getActivity(),false);//关闭显示的前台通知
+        } else
+        if(!ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){
+            ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
+            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("离线(未启动)");
+        }
     }
 
     public XDialogUpdateAPP updateAPPDialog;//APP升级弹窗
@@ -296,6 +354,9 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if(mXDialogSubmit!=null){
+            mXDialogSubmit.dismiss();
+        }
         if (getUserVisibleHint()) {
             //界面可见
             loadUserInfo();
