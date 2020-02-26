@@ -5,7 +5,7 @@ import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.hzh.frame.callback.CallBack;
+import com.hzh.frame.comn.callback.CallBack;
 
 
 public class ComnServiceConnection<T extends Binder> implements ServiceConnection {

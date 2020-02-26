@@ -2,10 +2,12 @@ package com.fzs.comn.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.fzs.comn.ComnConfig;
 import com.fzs.comn.model.User;
 import com.hzh.frame.comn.callback.HttpCallBack;
@@ -137,6 +139,24 @@ public class UserTools {
     public void updUser(User user) {
         user.save();
         mUser = user;
+    }
+
+    /**
+     * 去登录
+     */
+    public void jumpLoginUI(){
+        jumpLoginUI(null);
+    }
+
+    /**
+     * 去登录
+     */
+    public void jumpLoginUI(Bundle bundle){
+        if(bundle!=null){
+            ARouter.getInstance().build("/login/LoginUI").with(bundle).navigation();
+        }else{
+            ARouter.getInstance().build("/login/LoginUI").navigation();
+        }
     }
 
     /**

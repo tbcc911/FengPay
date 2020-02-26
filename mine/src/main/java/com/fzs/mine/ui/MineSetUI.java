@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.fzs.comn.model.User;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.mine.R;
-import com.hzh.frame.callback.CallBack;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.ui.activity.BaseUI;
 import com.hzh.frame.util.CloseAppUtil;
 import com.hzh.frame.widget.xdialog.XDialog2Button;

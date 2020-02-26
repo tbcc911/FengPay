@@ -5,21 +5,34 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LifecycleRegistry;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
+import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
+import com.fzs.service.observer.PayNotificationMonitorServiceLifecycleObserver;
+import com.hzh.frame.comn.callback.WsCallBack;
+import com.hzh.frame.core.WsFrame.BaseWs;
+import com.hzh.frame.core.WsFrame.WsStatus;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.toast.BaseToast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.RequiresApi;
+import okhttp3.Response;
+import okhttp3.WebSocket;
 
 /**
  * 通知监听服务
@@ -37,15 +50,28 @@ import androidx.annotation.RequiresApi;
  *     getKey(); //获取通知的key
  *     getPostTime(); //通知的发送时间
  *     getNotification(); //获取Notification
+ *     
+ *
+ *  启动 | 支付通知监听服务 
+ *  必要条件 如下:
+ *  1.跳转系统设置里的通知使用权页面,让用户同意通知使用
+ *  2.设置服务自动重启保护
+ *          
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2) //在API 18(Android 4.3)Google加入了的NotificationListenerService
-public class PayNotificationMonitorService extends NotificationListenerService{
+public class PayNotificationMonitorService extends NotificationListenerService implements LifecycleOwner {
+    public static final String TAG="PayNotificationMonitorService";
+    
     private static final String CHANNEL_ID="aa_px_pay";//通知渠道ID (创建通知时需要绑定一个渠道)
     private static final int AliPay = 1;
     private static final int WeixinPay = 2;
     private Notification notification;
     private boolean isShowNotification;//是否显示通知
+    private BaseWs baseWs;
 
+    //LifecycleRegistry 实现了Lifecycle 
+    private LifecycleRegistry mLifecycleRegistry=new LifecycleRegistry(PayNotificationMonitorService.this);
+    
     @Override //当连接成功时调用，一般在开启监听后会回调一次该方法
     public void onListenerConnected() {}
 
@@ -90,12 +116,26 @@ public class PayNotificationMonitorService extends NotificationListenerService{
     public void onNotificationRemoved(StatusBarNotification paramStatusBarNotification) {}
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        PayNotificationMonitorServiceLifecycleObserver myObserver = new PayNotificationMonitorServiceLifecycleObserver();
+        mLifecycleRegistry.addObserver(myObserver);
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(msgEvent -> msgEvent.getTag().equals(PayNotificationMonitorService.TAG))
+                .subscribe(msgEvent -> {
+                    if((Boolean) msgEvent.getMsg()){//接单中
+                        showNotification();
+                        connectSocket();
+                    }else{//休息中
+                        hideNotification();
+                        disConnectSocket();
+                    }
+                });
+    }
+
+    @Override //这个方法被我当作开关使用了,其实就是更新Service的状态
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent.getBooleanExtra("isShowNotification",true)){
-            showNotification();
-        }else{
-            hideNotification();
-        }
         /**
          * 这个是系统自带的，onStartCommand方法必须具有一个整形的返回值，这个整形的返回值用来告诉系统在服务启动完毕后，
          * 如果被Kill，系统将如何操作，这种方案虽然可以，但是在某些情况or某些定制ROM上可能失效，认为可以多做一种保保守方案。
@@ -157,12 +197,52 @@ public class PayNotificationMonitorService extends NotificationListenerService{
         return notification;
     }
 
+    //接单
+    public void connectSocket(){
+        if (UserTools.getInstance().getIsLogin()){//用户已登录
+            //未创建过连接 || 连接已经主动关闭
+            if(baseWs==null || WsStatus.DISCONNECTED_ACTIVE.equals(baseWs.getState())){
+                //创建订单
+//                socket=WsSocket.connect("ws://47.104.224.184:8091/websocket/" + UserTools.getInstance().getUser().getUserId(),createWsCallBack());
+                baseWs= BaseWs.connect("ws://47.104.224.184:8091/websocket/51341534",createWsCallBack());
+            }
+        }else{//用户未登录
+            disConnectSocket();//未登录接毛个单啊
+        }
+    }
+    //休息
+    public void disConnectSocket(){
+        if(baseWs!=null){
+            baseWs.close();//关闭连接
+        }
+    }
+    
+    public WsCallBack createWsCallBack(){
+        return new WsCallBack() {
+            @Override
+            public void onOpen(WebSocket webSocket, Response response) { baseWs.setWebSocket(webSocket); }
+
+            @Override
+            public void onMessage(WebSocket webSocket, String message) { baseWs.setWebSocket(webSocket); }
+
+            @Override
+            public void onReConnect(WebSocket newWebSocket) { baseWs.setWebSocket(newWebSocket); }
+        }.setIsReConnect(true);
+    }
+
     /**
      * 获取到的支付通知发送到服务器
-     *
-     * @param pay      支付方式(1支付宝，2微信)
+     * @param payType      支付方式(1支付宝，2微信)
      * @param money    支付金额
-     * @param username 支付者名字
+     * @param nickName 支付者昵称
      */
-    public void postMethod(int pay, String money, String username) {}
+    public void postMethod(int payType,String money, String nickName) {
+
+    }
+
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        return mLifecycleRegistry;
+    }
 }

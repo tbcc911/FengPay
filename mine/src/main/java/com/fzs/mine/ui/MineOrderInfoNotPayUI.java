@@ -15,7 +15,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.fzs.comn.tools.Util;
 import com.fzs.comn.widget.imageview.ExpandImageView;
 import com.fzs.mine.R;
-import com.hzh.frame.callback.CallBack;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.core.ImageFrame.BaseImage;

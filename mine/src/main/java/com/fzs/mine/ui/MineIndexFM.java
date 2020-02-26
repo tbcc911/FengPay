@@ -1,9 +1,7 @@
 package com.fzs.mine.ui;
 
-import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -21,17 +19,19 @@ import com.fzs.mine.R;
 import com.fzs.service.PayNotificationMonitorService;
 import com.fzs.service.tools.ServicePowerTools;
 import com.fzs.service.tools.ServiceTools;
-import com.hzh.frame.callback.CallBack;
+import com.google.gson.Gson;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.comn.model.BaseRadio;
 import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.fragment.BaseFM;
 import com.hzh.frame.util.AndroidUtil;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.toast.BaseToast;
 import com.hzh.frame.widget.xdialog.XDialog2Button;
 import com.hzh.frame.widget.xdialog.XDialogRadio;
-import com.hzh.frame.widget.xdialog.XDialogSubmit;
 import com.hzh.frame.widget.xdialog.XDialogUpdateAPP;
 
 import org.json.JSONObject;
@@ -39,16 +39,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.RequiresApi;
 import cn.bertsir.zbar.ScanConfig;
-import io.reactivex.Flowable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
+import okhttp3.WebSocket;
 
 
 /**
@@ -58,8 +52,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
 
     private View mBaseView;
     List<HashMap<String, Object>> list=new ArrayList<>();
-    private XDialogSubmit mXDialogSubmit;
-    private Disposable mDisposable;
+    private WebSocket mSocket;
     
     @Override
     public boolean setTitleIsShow() {
@@ -68,7 +61,6 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
 
     @Override
     protected void onCreateBase() {
-        mXDialogSubmit=new XDialogSubmit(getActivity()).setMsg("启动中");
         mBaseView = setContentView(R.layout.mine_ui_index);
         mBaseView.findViewById(R.id.statusBar).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,AndroidUtil.getStatusBarHeight()));
         mBaseView.findViewById(R.id.head).setOnClickListener(this);
@@ -102,53 +94,58 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             ARouter.getInstance().build("/mine/MineUserInfoUI").with(bd).navigation();
         } else
         if (id == R.id.state) { //状态
+            if(!UserTools.getInstance().getIsLogin()){
+                new XDialog2Button(getActivity())
+                        .setMsg("请先登录")
+                        .setConfirmName("立即登录","再看看")
+                        .setCallback(new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                UserTools.getInstance().jumpLoginUI();
+                            }
+                        }).show();
+                return;
+            }
             List<BaseRadio> list = new ArrayList<>();
             list.add(new BaseRadio().setName("接单").setId("1").setChecked(true));
             list.add(new BaseRadio().setName("休息").setId("2").setChecked(false));
             new XDialogRadio<>()
                     .setData(list)
                     .setTitle("切换状态")
-                    .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 6)
-                    .setCallBack(item -> {
-                        if("1".equals(item.getId())){//接单
-                            mXDialogSubmit.setMsg("启动中").show();
-                            if(!ServicePowerTools.isNotificationPower(getActivity())){
-                                //跳转系统设置里的通知使用权页面,让用户同意通知使用
-                                ServicePowerTools.openNotificationPower(getActivity());
-                            }else{
-                                //已经授权了,3秒后直接关闭
-                                if(mDisposable!=null){
-                                    mDisposable.dispose();
+                    .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 5)
+                    .setCallBack(new CallBack<BaseRadio>() {
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+                        @Override
+                        public void onSuccess(BaseRadio item) {
+                            if("1".equals(item.getId())){//接单
+                                if(!ServicePowerTools.isNotificationPower(getActivity())){
+                                    new XDialog2Button(getActivity())
+                                            .setMsg("请开启 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
+                                            .setConfirmName("立即前往","稍后")
+                                            .setCallback(new CallBack() {
+                                                @Override
+                                                public void onSuccess(Object object) {
+                                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
+                                                }
+                                            }).show();
+                                }else{
+                                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));
                                 }
-                                mDisposable=Flowable.timer(3, TimeUnit.SECONDS)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnNext(aLong -> mXDialogSubmit.dismiss())
-                                        .doOnComplete(() -> {
-                                            mDisposable.dispose();
-                                            loadReceiptState();
-                                        })
-                                        .subscribe();
-                            }
-                            ServiceTools.startPayMonitor(getActivity());
-                        } else
-                        if("2".equals(item.getId())){//离线
-                            mXDialogSubmit.setMsg("关闭中").show();
-                            if(ServicePowerTools.isNotificationPower(getActivity())){
-                                ServicePowerTools.openNotificationPower(getActivity());//已未授权,自己去关闭
-                            }else{
-                                if(mDisposable!=null){
-                                    mDisposable.dispose();
+                            } else
+                            if("2".equals(item.getId())){//休息
+                                if(ServicePowerTools.isNotificationPower(getActivity())){
+                                    new XDialog2Button(getActivity())
+                                            .setMsg("请关闭 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
+                                            .setConfirmName("立即前往","稍后")
+                                            .setCallback(new CallBack() {
+                                                @Override
+                                                public void onSuccess(Object object) {
+                                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
+                                                }
+                                            }).show();
+                                }else{
+                                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
                                 }
-                                mDisposable=Flowable.timer(3, TimeUnit.SECONDS)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnNext(aLong -> mXDialogSubmit.dismiss())
-                                        .doOnComplete(() -> {
-                                            mDisposable.dispose();
-                                            loadReceiptState();
-                                        })
-                                        .subscribe();
                             }
                         }
                     })
@@ -201,7 +198,12 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                         .setTitle("选择支付方式")
                         .setOkAndNoName("去支付","再想想")
                         .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 8)
-                        .setCallBack(baseRadio -> alert(baseRadio.getName()))
+                        .setCallBack(new CallBack<BaseRadio>() {
+                            @Override
+                            public void onSuccess(BaseRadio baseRadio) {
+                                alert(baseRadio.getName());
+                            }
+                        })
                         .show(getFragmentManager());
 //            }
         } else 
@@ -305,15 +307,17 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         if(ServicePowerTools.isNotificationPower(getActivity()) && ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){
             ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_ok);
             ((TextView) mBaseView.findViewById(R.id.stateName)).setText("接单中");
+            RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并显示的前台通知
         } else
-        if(!ServicePowerTools.isNotificationPower(getActivity())){
+        if(!ServicePowerTools.isNotificationPower(getActivity())){//未授权
             ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
-            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("离线(未授权)");
-            ServiceTools.startPayMonitor(getActivity(),false);//关闭显示的前台通知
+            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("休息中");
+            RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
         } else
-        if(!ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){
+        if(!ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){//未启动服务
             ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
-            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("离线(未启动)");
+            ((TextView) mBaseView.findViewById(R.id.stateName)).setText("休息中");
+            RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
         }
     }
 
@@ -354,9 +358,6 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(mXDialogSubmit!=null){
-            mXDialogSubmit.dismiss();
-        }
         if (getUserVisibleHint()) {
             //界面可见
             loadUserInfo();

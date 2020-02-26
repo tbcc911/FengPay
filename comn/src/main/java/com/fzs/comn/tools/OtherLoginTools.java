@@ -9,7 +9,7 @@ import com.fzs.comn.widget.pay.alipay.Alipay;
 import com.fzs.comn.widget.pay.alipay.AuthResult;
 import com.fzs.comn.widget.pay.alipay.OrderInfoUtil2_0;
 import com.fzs.comn.widget.pay.wx.PayInfoBean;
-import com.hzh.frame.callback.CallBack;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.widget.toast.BaseToast;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;

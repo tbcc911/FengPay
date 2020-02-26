@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Binder;
 
-import com.fzs.comn.callback.CallBack;
 import com.fzs.comn.tools.Util;
 import com.fzs.service.PayNotificationMonitorService;
 import com.fzs.service.serviceconnection.ComnServiceConnection;
+import com.hzh.frame.comn.callback.CallBack;
 
 import java.util.ArrayList;
 
@@ -27,17 +27,7 @@ public class ServiceTools {
      * 启动 | 支付通知监听服务
      * */
     public static boolean startPayMonitor(Context context) {
-        return startPayMonitor(context,true);
-    }
-
-    /**
-     * 启动 | 支付通知监听服务
-     * @param isShowNotification 是否默认开启前台显示通知
-     * */
-    public static boolean startPayMonitor(Context context,boolean isShowNotification) {
-        Intent intent=new Intent(context, PayNotificationMonitorService.class);
-        intent.putExtra("isShowNotification",isShowNotification);
-        ComponentName name = context.startService(intent);
+        ComponentName name = context.startService(new Intent(context, PayNotificationMonitorService.class));
         setAutoRestartServiceProtect(context,PayNotificationMonitorService.class);
         if (name == null) {
             return false;
@@ -86,7 +76,7 @@ public class ServiceTools {
 
 
     //绑定 | 服务 | 测试Demo
-    public static <T extends Binder> void bindServiceDemo(Context context, Class<? extends Service> serviceCls,CallBack<T> callBack) {
+    public static <T extends Binder> void bindServiceDemo(Context context, Class<? extends Service> serviceCls, CallBack<T> callBack) {
         ComnServiceConnection connection=new ComnServiceConnection().setCallBack(callBack);
         boolean connetionState=context.bindService(new Intent(context, serviceCls),connection, Context.BIND_AUTO_CREATE);
         if(!connetionState){

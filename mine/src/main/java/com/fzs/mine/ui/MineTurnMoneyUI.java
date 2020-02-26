@@ -10,6 +10,7 @@ import com.fzs.comn.tools.Util;
 import com.fzs.comn.widget.dialog.ComnPasswordDialog;
 import com.fzs.comn.widget.imageview.ExpandImageView;
 import com.fzs.mine.R;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.comn.model.BaseRadio;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
@@ -69,9 +70,12 @@ public class MineTurnMoneyUI extends BaseUI {
                     .setData(list)
                     .setTitle("选择转账方式")
                     .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 8)
-                    .setCallBack(baseRadio -> {
-                        typeContent.setTag(baseRadio.getId());
-                        typeContent.setText(baseRadio.getName());
+                    .setCallBack(new CallBack<BaseRadio>() {
+                        @Override
+                        public void onSuccess(BaseRadio baseRadio) {
+                            typeContent.setTag(baseRadio.getId());
+                            typeContent.setText(baseRadio.getName());
+                        }
                     })
                     .show(getSupportFragmentManager());
         });

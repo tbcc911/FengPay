@@ -59,7 +59,7 @@ repositories {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.github.zihang740:BaseUI:3.9.9'
+    api 'com.github.zihang740:BaseUI:4.0.3'
     api 'com.tencent.imsdk:imsdk:4.3.145'
     api 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
 

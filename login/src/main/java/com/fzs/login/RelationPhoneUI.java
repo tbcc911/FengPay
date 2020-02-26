@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.fzs.comn.ComnConfig;
 import com.fzs.comn.model.User;
-import com.hzh.frame.callback.CallBack;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.activity.BaseUI;

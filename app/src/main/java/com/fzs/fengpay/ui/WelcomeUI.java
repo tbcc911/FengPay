@@ -55,17 +55,7 @@ public class WelcomeUI extends BaseUI {
         startTime();//开启倒计时
         powerApply();//开始权限申请
         InitTools.getInstance().loadConfig();//获取初始化配置信息
-        /**
-         * 启动 | 支付通知监听服务 
-         * 必要条件 如下:
-         * 1.跳转系统设置里的通知使用权页面,让用户同意通知使用
-         * 2.显示一个前台通知
-         * 3.设置服务自动重启保护
-         */
-        if(ServicePowerTools.isNotificationPower(this) && BaseSP.getInstance().getBoolean("isShowNotification")){
-            //用户已开启系统通知使用权 && 用户已设置打开APP自动上线
-            ServiceTools.startPayMonitor(this);
-        }
+        ServiceTools.startPayMonitor(this);//默认先开起服务
     }
 
     @OnClick({R.id.startApp})
