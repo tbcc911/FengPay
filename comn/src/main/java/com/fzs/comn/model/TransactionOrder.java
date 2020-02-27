@@ -22,6 +22,12 @@ public class TransactionOrder extends Model {
     private String integral;
     @Column(name = "state")
     private String state;
+    @Column(name = "auditTime") //审核时间
+    private String auditTime;
+    @Column(name = "createTime") //创建时间
+    private String createTime;
+    @Column(name = "statusName") //充值状态名称
+    private String statusName;
 
     public String getNid() {
         return nid;
@@ -77,5 +83,29 @@ public class TransactionOrder extends Model {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(String auditTime) {
+        this.auditTime = auditTime;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

@@ -73,7 +73,7 @@ public class MineNickUI extends BaseUI {
 		});
 		userName=(EditText) findViewById(R.id.userName);
 		userName.setText(UserTools.getInstance().getUser().getNickName());
-        userName.setSelection(UserTools.getInstance().getUser().getNickName().length());
+//        userName.setSelection(UserTools.getInstance().getUser().getNickName().length());
 	}
 
 }

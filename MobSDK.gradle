@@ -1,8 +1,8 @@
 apply plugin: 'com.mob.sdk'
 
 MobSDK {
-    appKey "2aeebc31f4905"
-    appSecret "cb69fcbe13be50189599d274d063bf2c"
+    appKey "2e2d1d924d6f0"
+    appSecret "23e72fb777f274ed87dea7dbf017a882"
     ShareSDK {
         version '3.6.3'
         devInfo {

@@ -78,7 +78,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         mBaseView.findViewById(R.id.updata).setOnClickListener(this);
         mBaseView.findViewById(R.id.usdtLL).setOnClickListener(this);
         mBaseView.findViewById(R.id.mine_share).setOnClickListener(this);
-        mBaseView.findViewById(R.id.transaction).setOnClickListener(this);
+        mBaseView.findViewById(R.id.mine_transaction).setOnClickListener(this);
         mBaseView.findViewById(R.id.mine_share).setOnClickListener(this);
         mBaseView.findViewById(R.id.activationState).setOnClickListener(this);
         mBaseView.findViewById(R.id.state).setOnClickListener(this);
@@ -221,22 +221,26 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             ARouter.getInstance().build("/mine/MineCollectMoneyCodeUI").with(bd).navigation();
         }  else 
         if (id == R.id.usdtLL) {// USDT
-            ARouter.getInstance().build("/chain/ChainPriceDetailsUI").withInt("switchTab", 0).navigation();
+//            ARouter.getInstance().build("/chain/ChainPriceDetailsUI").withInt("switchTab", 0).navigation();
+            ARouter.getInstance().build("/mine/MineIntegralInfoRUI").withInt("switchTab", 0).navigation();
         } else 
         if (id == R.id.mine_feedback) {
             ARouter.getInstance().build("/mine/MineFeedBackUI").navigation();
         } else 
         if (id == R.id.mine_team) {
-            ARouter.getInstance().build("/mine/MineTeamRUI").navigation();
+//            ARouter.getInstance().build("/mine/MineTeamRUI").navigation();
+            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",3).navigation();
         } else 
         if (id == R.id.updata) {//版本更新
             getUpgrade();
         } else 
         if (id == R.id.mine_share) { //分享好友
-            ARouter.getInstance().build("/chain/ChainShareUI").navigation();
+//            ARouter.getInstance().build("/chain/ChainShareUI").navigation();
+            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",2).navigation();
         } else 
-        if (id == R.id.transaction) { //TBCC交易
-            ARouter.getInstance().build("/c2c/C2CtransactionUI").navigation();
+        if (id == R.id.mine_transaction) { //TBCC交易
+//            ARouter.getInstance().build("/c2c/C2CtransactionUI").navigation();
+            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",1).navigation();
         }
     }
     
@@ -291,8 +295,8 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             ((ExpandImageView) mBaseView.findViewById(R.id.userHead)).setImageURI(user.getHead());
             ((TextView) mBaseView.findViewById(R.id.userNice)).setText(user.getNickName());
             ((TextView) mBaseView.findViewById(R.id.phone)).setText(Util.phoneHide(user.getPhone()));
-            ((TextView) mBaseView.findViewById(R.id.usdt)).setText(Util.doubleFormat(user.getBalnace(),"#0.00"));
-            ((TextView) mBaseView.findViewById(R.id.activationState)).setText(user.getIsActivation() ? "已激活":"未激活");
+            ((TextView) mBaseView.findViewById(R.id.usdt)).setText(Util.doubleFormat(user.getIntegration(),"#0.00"));
+            ((TextView) mBaseView.findViewById(R.id.activationState)).setText(user.getEffectiveStatus().equals("1") ? "已激活":"未激活");
         } else {
             ((ExpandImageView) mBaseView.findViewById(R.id.userHead)).setImageResource(R.mipmap.base_image_face);
             ((TextView) mBaseView.findViewById(R.id.userNice)).setText("点击登录");
@@ -307,17 +311,23 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         if(ServicePowerTools.isNotificationPower(getActivity()) && ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){
             ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_ok);
             ((TextView) mBaseView.findViewById(R.id.stateName)).setText("接单中");
-            RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并显示的前台通知
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并显示的前台通知
+            }
         } else
         if(!ServicePowerTools.isNotificationPower(getActivity())){//未授权
             ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
             ((TextView) mBaseView.findViewById(R.id.stateName)).setText("休息中");
-            RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
+            }
         } else
         if(!ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){//未启动服务
             ((ImageView)mBaseView.findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
             ((TextView) mBaseView.findViewById(R.id.stateName)).setText("休息中");
-            RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+            }
         }
     }
 
@@ -348,7 +358,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                         updateAPPDialog = new XDialogUpdateAPP(getActivity()).setFileName("TbMall.apk").setMsg(data.optString("msg")).setAppDownUrl(data.optString("url").trim()).setUpdataVersionCode(versionName);
                         updateAPPDialog.show();
                     } else {
-                        alert("暂无版本更新");
+                        alert("已是最新版本");
                     }
                 }
             }

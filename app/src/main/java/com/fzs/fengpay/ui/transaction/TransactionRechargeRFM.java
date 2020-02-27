@@ -37,7 +37,7 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
     
     @Override
     protected void bindView(View view) {
-        setLoadPattern(2);
+//        setLoadPattern(2);
         headView = getAdapter().getHeaderView();
         sumMoney = headView.findViewById(R.id.sumMoney);
         successMoney = headView.findViewById(R.id.successMoney);
@@ -63,50 +63,45 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
     protected int setHeadLayoutId() {
         return R.layout.head_rv_transaction_recharge;
     }
-
-    @Override
-    protected JSONObject setHttpParams() {
-        JSONObject map=new JSONObject();
-        try {
-            map.put("accountType", getArguments().getString("type"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
     
     @Override
     protected String setHttpPath() {
-        return "finance/getAccountDetail";
+        return "finance/getRechargeDetail";
     }
 
     @Override
     protected List<TransactionOrder> handleHttpData(JSONObject response) {
-        try {
-            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionRecharge.json");
-            response = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionRecharge.json");
+//            response = new JSONObject(json);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         List<TransactionOrder> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
             if (data != null && data.length() > 0){
-                sumMoney.setText(data.optString("sumMoney"));
-                successMoney.setText(data.optString("successMoney"));
-                frozenMoney.setText(data.optString("frozenMoney"));
-                JSONArray list = data.optJSONArray("accountDetailList");
+                sumMoney.setText(data.optString("total"));
+                successMoney.setText(data.optString("succeed"));
+                frozenMoney.setText(data.optString("audit"));
+                JSONArray list = data.optJSONArray("list");
                 if (list != null && list.length() > 0) {
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject obj = list.optJSONObject(i);
                         TransactionOrder model = new TransactionOrder();
-                        model.setNid(obj.optString("id"));
-                        model.setType(obj.optString("type"));
-                        model.setIntegral(obj.optString("integral"));
-                        model.setMoney(obj.optString("money"));
-                        model.setDesc(obj.optString("desc"));
-                        model.setTime(obj.optString("time"));
-                        model.setState(obj.optString("state"));
+                        model.setAuditTime(obj.optString("auditTime"));
+                        model.setCreateTime(obj.optString("createTime"));
+                        model.setState(obj.optString("rechargeStatus"));
+                        model.setStatusName(obj.optString("rechargeStatusName"));
+                        model.setType(obj.optString("rechargeType"));
+                        model.setMoney(obj.optString("value"));
+//                        model.setNid(obj.optString("id"));
+//                        model.setType(obj.optString("type"));
+//                        model.setIntegral(obj.optString("integral"));
+//                        model.setMoney(obj.optString("money"));
+//                        model.setDesc(obj.optString("desc"));
+//                        model.setTime(obj.optString("time"));
+//                        model.setState(obj.optString("state"));
                         listModel.add(model);
                     }
                 }
@@ -123,24 +118,33 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
 
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
-        holder.setText(R.id.time,model.getTime());
+        holder.setText(R.id.time,model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
-        holder.setText(R.id.desc,model.getDesc());
         holder.getView(R.id.flag).setVisibility(View.GONE);
         holder.getView(R.id.annotation).setVisibility(View.GONE);
+        holder.setText(R.id.state,model.getStatusName());
         if("1".equals(model.getState())){
-            holder.setText(R.id.state,"已完成");
             holder.setTextColor(R.id.state,"#228B22");
         } else
         if("2".equals(model.getState())){
-            holder.setText(R.id.state,"审核中");
             holder.setTextColor(R.id.state,"#837DF9");
         } else
         if("3".equals(model.getState())){
-            holder.setText(R.id.state,"失败");
             holder.setTextColor(R.id.state,"#ff0000");
         }
-        holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
+        if ("0".equals(model.getType())){
+            holder.setText(R.id.desc,"银行卡");
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
+        }else if ("1".equals(model.getType())){
+            holder.setText(R.id.desc,"支付宝");
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
+        }else if ("2".equals(model.getType())){
+            holder.setText(R.id.desc,"微信");
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
+        }else if ("3".equals(model.getType())){
+            holder.setText(R.id.desc,"USDT");
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.default_icon);
+        }
     }
 
     @Override

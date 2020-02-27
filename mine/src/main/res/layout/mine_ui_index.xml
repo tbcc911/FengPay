@@ -411,7 +411,8 @@
                     android:onClick="userInfo"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
+                    android:paddingRight="@dimen/dp_10"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/dp_15"
@@ -438,10 +439,11 @@
                 <TextView
                     style="@style/base_line_vertical1px"
                     android:layout_marginLeft="@dimen/dp_30"
-                    android:layout_marginRight="@dimen/dp_10" />
+                    android:layout_marginRight="@dimen/dp_10" 
+                    android:visibility="gone"/>
 
                 <LinearLayout
-                    android:id="@+id/transaction"
+                    android:id="@+id/mine_transaction"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48"
                     android:background="?selectableItemBackground"

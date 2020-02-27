@@ -64,7 +64,8 @@ public class ResetPasswordUI extends BaseUI {
         }
         JSONObject params = new JSONObject();
         try {
-            params.put("phone", phone.getText().toString().trim());
+            params.put("receiver", phone.getText().toString().trim());
+            params.put("verifyType", "2");
         } catch (JSONException e1) {
             e1.printStackTrace();
         }

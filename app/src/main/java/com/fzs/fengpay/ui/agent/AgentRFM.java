@@ -76,7 +76,7 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
 
     @Override
     protected String setHttpPath() {
-        return "finance/getAccountDetail";
+        return "member/getMemberInfo";
     }
 
     @Override

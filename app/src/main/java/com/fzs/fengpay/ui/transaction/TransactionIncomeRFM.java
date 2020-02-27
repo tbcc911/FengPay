@@ -77,7 +77,7 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionOrder> {
     
     @Override
     protected String setHttpPath() {
-        return "finance/getAccountDetail";
+        return "member/getMemberInfo";
     }
 
     @Override

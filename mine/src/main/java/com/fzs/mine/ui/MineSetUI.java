@@ -3,6 +3,7 @@ package com.fzs.mine.ui;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -22,19 +23,23 @@ import com.hzh.frame.widget.xdialog.XDialog2Button;
 public class MineSetUI extends BaseUI {
 	Button button;
 	TextView patch;
+	LinearLayout editPassword;
 
 	@Override
 	protected void onCreateBase() {
 		setContentView(R.layout.mine_ui_set);
         button=findViewById(R.id.button);
         patch=findViewById(R.id.patch);
+        editPassword = findViewById(R.id.editPassword);
 		getTitleView().setContent("设置");
-//        patch.setText("补丁版本:V 0");
         if(UserTools.getInstance().getIsLogin()){
             button.setVisibility(View.VISIBLE);
         }else{
             button.setVisibility(View.GONE);
         }
+        editPassword.setOnClickListener(v -> {
+            ARouter.getInstance().build("/login/ForgetPasswordUI").navigation();
+        });
 	}
 
 

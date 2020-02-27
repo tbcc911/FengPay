@@ -165,7 +165,7 @@ public class UserTools {
     public void login(User user, Activity activity, LoginCallBack callBack) {
         JSONObject params = new JSONObject();
         try {
-            params.put("phone", user.getAcount());
+            params.put("account", user.getAcount());
             params.put("password", user.getPassword());
         } catch (JSONException e1) {
             e1.printStackTrace();
@@ -236,20 +236,34 @@ public class UserTools {
                         mUser = new User();
                     }
                     mUser
-                            .setPhone(userJson.optString("phone"))
-                            .setAcount(userJson.optString("phone"))
-                            .setHead(userJson.optString("avatarUrl"))
-                            .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname"))
-                            .setAlipayName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name"))
-                            .setBankAccount(userJson.optString("bankAccount"))
-                            .setBankName(userJson.optString("bankName"))
-                            .setIdCard(userJson.optString("idCard"))
-                            .setIdCardBack(userJson.optString("idCardBack"))
-                            .setIdCardFront(userJson.optString("idCardFront"))
-                            .setInviteCode(userJson.optString("inviteCode"))
-                            .setIsActivation(userJson.optBoolean("isActivation"))
-                            .setUsdtAddress(userJson.optString("usdtAddress"))
-                            .setInviter(userJson.optString("inviter"));
+                            .setPhone(userJson.optString("account")) //账号
+                            .setAcount(userJson.optString("account")) //账号
+                            .setAgentRatio(userJson.optString("agentRatio")) //代理比例
+                            .setAlipayUid(userJson.optString("alipayUid")) //支付宝UID
+                            .setAvailableIntegration(userJson.optString("availableIntegration")) //可用积分
+                            .setHead(userJson.optString("avatarUrl")) //头像
+                            .setCreateTime(userJson.optString("createTime")) //注册时间
+                            .setEffectiveStatus(userJson.optString("effectiveStatus")) //会员有效状态 0无效 1有效
+                            .setFreezeIntegration(userJson.optString("freezeIntegration")) //冻结积分
+                            .setIntegration(userJson.optString("integration")) //总积分
+                            .setInviteCode(userJson.optString("inviteCode")) //邀请码
+                            .setInviter(userJson.optString("inviter")) //邀请人姓名
+                            .setMemberId(userJson.optString("memberId")) //会员ID
+                            .setUserId(userJson.optString("memberId")) //会员ID
+                            .setUserName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name")) //姓名
+                            .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname")) //会员昵称
+                            .setStatus(userJson.optString("status")); //账号启用状态 0禁用 1启用
+//                            .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname"))
+//                            .setAlipayName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name"))
+//                            .setBankAccount(userJson.optString("bankAccount"))
+//                            .setBankName(userJson.optString("bankName"))
+//                            .setIdCard(userJson.optString("idCard"))
+//                            .setIdCardBack(userJson.optString("idCardBack"))
+//                            .setIdCardFront(userJson.optString("idCardFront"))
+//                            .setInviteCode(userJson.optString("inviteCode"))
+//                            .setIsActivation(userJson.optBoolean("isActivation"))
+//                            .setUsdtAddress(userJson.optString("usdtAddress"))
+//                            .setInviter(userJson.optString("inviter"));
                     
                     if(!Util.isEmpty(userJson.optString("token"))){
                         mUser.setToken(userJson.optString("token"));

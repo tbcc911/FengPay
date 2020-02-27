@@ -31,6 +31,7 @@
         <activity android:name="com.fzs.mine.ui.MineEquityRUI"/>
         <activity android:name="com.fzs.mine.ui.MineCollectMoneyCodeUI"/>
         <activity android:name="com.fzs.mine.ui.MineTurnMoneyUI"/>
+        <activity android:name="com.fzs.mine.ui.MineIntegralInfoRUI"/>
     </application>
 
 </manifest>

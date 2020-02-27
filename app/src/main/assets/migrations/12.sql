@@ -1,0 +1,14 @@
+ALTER TABLE User ADD agentRatio TEXT;
+ALTER TABLE User ADD alipayUid TEXT;
+ALTER TABLE User ADD availableIntegration TEXT;
+ALTER TABLE User ADD createTime TEXT;
+ALTER TABLE User ADD effectiveStatus TEXT;
+ALTER TABLE User ADD freezeIntegration TEXT;
+ALTER TABLE User ADD integration TEXT;
+ALTER TABLE User ADD memberId TEXT;
+ALTER TABLE User ADD userName TEXT;
+ALTER TABLE User ADD status TEXT;
+ALTER TABLE User ADD alipayBindingStatus TEXT;
+ALTER TABLE TransactionOrder ADD auditTime TEXT;
+ALTER TABLE TransactionOrder ADD createTime TEXT;
+ALTER TABLE TransactionOrder ADD statusName TEXT;

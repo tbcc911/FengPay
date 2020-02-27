@@ -77,15 +77,124 @@ public class User extends Model {
 
     @Column(name = "isActivation")
     private int isActivation;// 是否激活
+
+    @Column(name = "agentRatio")
+    private String agentRatio;// 代理比例
+    @Column(name = "alipayUid")
+    private String alipayUid;// 支付宝UID
+    @Column(name = "availableIntegration")
+    private String availableIntegration;// 可用积分
+    @Column(name = "createTime")
+    private String createTime;// 注册时间
+    @Column(name = "effectiveStatus")
+    private String effectiveStatus;// 会员有效状态: 0无效  1有效
+    @Column(name = "freezeIntegration")
+    private String freezeIntegration;// 冻结积分
+    @Column(name = "integration")
+    private String integration;// 总积分
+    @Column(name = "memberId")
+    private String memberId;// 会员ID
+    @Column(name = "userName")
+    private String userName;// 姓名
+    @Column(name = "status")
+    private String status;// 账号启用状态: 0禁用 1启用
+    @Column(name = "alipayBindingStatus")
+    private String alipayBindingStatus;// 支付宝绑定状态: 0->未绑定; 1->已绑定
     
     private String usdtAddress;//USDT地址
 
+    public String getAlipayBindingStatus() {
+        return alipayBindingStatus;
+    }
+    public User setAlipayBindingStatus(String alipayBindingStatus) {
+        this.alipayBindingStatus = alipayBindingStatus;
+        return this;
+    }
 
+    public String getAgentRatio() {
+        return agentRatio;
+    }
+    public User setAgentRatio(String agentRatio) {
+        this.agentRatio = agentRatio;
+        return this;
+    }
 
+    public String getAlipayUid() {
+        return alipayUid;
+    }
+    public User setAlipayUid(String alipayUid) {
+        this.alipayUid = alipayUid;
+        return this;
+    }
+
+    public String getAvailableIntegration() {
+        return availableIntegration;
+    }
+    public User setAvailableIntegration(String availableIntegration) {
+        this.availableIntegration = availableIntegration;
+        return this;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+    public User setCreateTime(String createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+
+    public String getEffectiveStatus() {
+        return effectiveStatus;
+    }
+    public User setEffectiveStatus(String effectiveStatus) {
+        this.effectiveStatus = effectiveStatus;
+        return this;
+    }
+
+    public String getFreezeIntegration() {
+        return freezeIntegration;
+    }
+    public User setFreezeIntegration(String freezeIntegration) {
+        this.freezeIntegration = freezeIntegration;
+        return this;
+    }
+
+    public String getIntegration() {
+        return integration;
+    }
+    public User setIntegration(String integration) {
+        this.integration = integration;
+        return this;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+    public User setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public User setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+    public User setMemberId(String memberId) {
+        this.memberId = memberId;
+        return this;
+    }
+    
+    
     public String getPhone() {
         return phone;
     }
-
     public User setPhone(String phone) {
         this.phone = phone;
         return this;
@@ -94,7 +203,6 @@ public class User extends Model {
     public String getAcount() {
         return acount;
     }
-
     public User setAcount(String acount) {
         this.acount = acount;
         return this;
@@ -103,7 +211,6 @@ public class User extends Model {
     public String getPassword() {
         return password;
     }
-
     public User setPassword(String password) {
         this.password = password;
         return this;
@@ -112,7 +219,6 @@ public class User extends Model {
     public String getHead() {
         return head;
     }
-
     public User setHead(String head) {
         this.head = head;
         return this;
@@ -122,7 +228,6 @@ public class User extends Model {
     public String getBalnace() {
         return balnace;
     }
-
     public User setBalnace(String balnace) {
         this.balnace = balnace;
         return this;
@@ -131,7 +236,6 @@ public class User extends Model {
     public String getAlipayAcount() {
         return alipayAcount;
     }
-
     public User setAlipayAcount(String alipayAcount) {
         this.alipayAcount = alipayAcount;
         return this;
@@ -140,7 +244,6 @@ public class User extends Model {
     public String getAlipayName() {
         return alipayName;
     }
-
     public User setAlipayName(String alipayName) {
         this.alipayName = alipayName;
         return this;
@@ -149,7 +252,6 @@ public class User extends Model {
     public String getInviter() {
         return inviter;
     }
-
     public User setInviter(String inviter) {
         this.inviter = inviter;
         return this;
@@ -158,7 +260,6 @@ public class User extends Model {
     public String getBankName() {
         return bankName;
     }
-
     public User setBankName(String bankName) {
         this.bankName = bankName;
         return this;
@@ -167,7 +268,6 @@ public class User extends Model {
     public String getBankAddress() {
         return bankAddress;
     }
-
     public User setBankAddress(String bankAddress) {
         this.bankAddress = bankAddress;
         return this;
@@ -176,7 +276,6 @@ public class User extends Model {
     public String getBankAccount() {
         return bankAccount;
     }
-
     public User setBankAccount(String bankAccount) {
         this.bankAccount = bankAccount;
         return this;
@@ -185,7 +284,6 @@ public class User extends Model {
     public String getBankMasterName() {
         return bankMasterName;
     }
-
     public User setBankMasterName(String bankMasterName) {
         this.bankMasterName = bankMasterName;
         return this;
@@ -195,7 +293,6 @@ public class User extends Model {
     public String getLoginType() {
         return loginType;
     }
-
     public User setLoginType(String loginType) {
         this.loginType = loginType;
         return this;
@@ -204,7 +301,6 @@ public class User extends Model {
     public String getNickName() {
         return nickName;
     }
-
     public User setNickName(String nickName) {
         this.nickName = nickName;
         return this;
@@ -213,7 +309,6 @@ public class User extends Model {
     public String getOpenId() {
         return openId;
     }
-
     public User setOpenId(String openId) {
         this.openId = openId;
         return this;
@@ -222,7 +317,6 @@ public class User extends Model {
     public String getSex() {
         return sex;
     }
-
     public User setSex(String sex) {
         this.sex = sex;
         return this;
@@ -231,7 +325,6 @@ public class User extends Model {
     public String getPersonalSign() {
         return personalSign;
     }
-
     public User setPersonalSign(String personalSign) {
         this.personalSign = personalSign;
         return this;
@@ -240,7 +333,6 @@ public class User extends Model {
     public String getAuthCode() {
         return authCode;
     }
-
     public User setAuthCode(String authCode) {
         this.authCode = authCode;
         return this;
@@ -249,7 +341,6 @@ public class User extends Model {
     public String getToken() {
         return token;
     }
-
     public User setToken(String token) {
         this.token = token;
         return this;
@@ -258,7 +349,6 @@ public class User extends Model {
     public String getTokenHead() {
         return tokenHead;
     }
-
     public User setTokenHead(String tokenHead) {
         this.tokenHead = tokenHead;
         return this;
@@ -268,7 +358,6 @@ public class User extends Model {
     public String getInviteCode() {
         return inviteCode;
     }
-
     public User setInviteCode(String inviteCode) {
         this.inviteCode = inviteCode;
         return this;
@@ -299,7 +388,6 @@ public class User extends Model {
     public String getUserId() {
         return userId;
     }
-
     public User setUserId(String userId) {
         this.userId = userId;
         return this;
@@ -308,7 +396,6 @@ public class User extends Model {
     public boolean getIsActivation() {
         return isActivation==1;
     }
-
     public User setIsActivation(boolean isActivation) {
         if (isActivation){
             this.isActivation=1;
@@ -321,9 +408,9 @@ public class User extends Model {
     public String getUsdtAddress() {
         return usdtAddress;
     }
-
     public User setUsdtAddress(String usdtAddress) {
         this.usdtAddress = usdtAddress;
         return this;
     }
+
 }
