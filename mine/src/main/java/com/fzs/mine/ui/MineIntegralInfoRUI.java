@@ -27,12 +27,11 @@ import java.util.List;
  */
 @Route(path = "/mine/MineIntegralInfoRUI")
 public class MineIntegralInfoRUI extends AbsRecyclerViewUI<MineIntegration> {
-    View mView;
-    TextView sum_integration;
-    TextView integration;
-    TextView freezeIntegration;
-    TextView income;
-    TextView expend;
+    private View headView;
+    private TextView sumMoney;
+    private TextView successMoney;
+    private TextView frozenMoney;
+    private TextView freezeIntegration;
     
     @Override
     protected int setLayoutId() {
@@ -53,13 +52,11 @@ public class MineIntegralInfoRUI extends AbsRecyclerViewUI<MineIntegration> {
     protected void bindView() {
         getTitleView().setContent("积分明细");
         getTitleView().setLineIsShow(false);
-        mView = getAdapter().getHeaderView();
-        sum_integration = mView.findViewById(R.id.sum_integration);
-        integration = mView.findViewById(R.id.integration);
-        freezeIntegration = mView.findViewById(R.id.freezeIntegration);
-        income = mView.findViewById(R.id.income);
-        expend = mView.findViewById(R.id.expend);
-        sum_integration.setText(Util.doubleFormat(UserTools.getInstance().getUser().getIntegration(),"#0.00"));
+        headView = getAdapter().getHeaderView();
+        sumMoney = headView.findViewById(R.id.sumMoney);
+        successMoney = headView.findViewById(R.id.successMoney);
+        frozenMoney = headView.findViewById(R.id.frozenMoney);
+        freezeIntegration = headView.findViewById(R.id.freezeIntegration);
         showLoding();
     }
 
@@ -74,10 +71,10 @@ public class MineIntegralInfoRUI extends AbsRecyclerViewUI<MineIntegration> {
         if (response.optInt("code") == 200){
             JSONObject data = response.optJSONObject("data");
             if (data != null && data.length() > 0){
-                integration.setText("积分余额:" + data.optString("integration"));
-                freezeIntegration.setText("冻结积分:" + data.optString("freezeIntegration"));
-                income.setText("收入:" + data.optString("income"));
-                expend.setText("支出:" + data.optString("expend"));
+                sumMoney.setText(data.optString("integration"));
+                freezeIntegration.setText(data.optString("freezeIntegration"));
+                successMoney.setText(data.optString("income"));
+                frozenMoney.setText(data.optString("expend"));
                 JSONArray list = data.optJSONArray("list");
                 if (list != null && list.length() > 0){
                     for (int i = 0;i < list.length();i++){
@@ -111,19 +108,18 @@ public class MineIntegralInfoRUI extends AbsRecyclerViewUI<MineIntegration> {
 
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, MineIntegration model) {
-        TextView price = holder.itemView.findViewById(R.id.price);
+        holder.setText(R.id.tvTitle,model.getTvtitle());
+        holder.setText(R.id.money,model.getValue());
         holder.setText(R.id.time,model.getCreateTime());
-        String type = model.getTradeType();
-        if (!Util.isEmpty(type)){
-            if (type.equals("0")){
-                price.setText("+" + model.getValue());
-                price.setTextColor(ContextCompat.getColor(MineIntegralInfoRUI.this,R.color.green));
-            }else if (type.equals("1")){
-                price.setText("-" + model.getValue());
-                price.setTextColor(ContextCompat.getColor(MineIntegralInfoRUI.this,R.color.red));
+        holder.setText(R.id.desc,model.getNote());
+        if (Util.isEmpty(model.getTradeType())){
+            if (model.getTradeType().equals("0")){
+                holder.setText(R.id.flag,"-");
+                holder.setText(R.id.annotation,"收入");
+            }else if (model.getTradeType().equals("1")){
+                holder.setText(R.id.flag,"+");
+                holder.setText(R.id.annotation,"支出");
             }
         }
-        holder.setText(R.id.tvTitle,model.getTvtitle());
-        holder.setText(R.id.notes,model.getNote());
     }
 }
