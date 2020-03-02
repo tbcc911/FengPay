@@ -20,12 +20,17 @@ import android.support.v4.app.NotificationCompat;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
 import com.fzs.service.observer.PayNotificationMonitorServiceLifecycleObserver;
+import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.comn.callback.WsCallBack;
+import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.core.WsFrame.BaseWs;
 import com.hzh.frame.core.WsFrame.WsStatus;
 import com.hzh.frame.widget.rxbus.MsgEvent;
 import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.toast.BaseToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -82,32 +87,32 @@ public class PayNotificationMonitorService extends NotificationListenerService i
         Bundle bundle = statusBarNotification.getNotification().extras;
         String packageName = statusBarNotification.getPackageName();
         String title = bundle.getString(Notification.EXTRA_TITLE);
-        String text = bundle.getString(Notification.EXTRA_TEXT);
-        if (title==null||text==null) return;
+        String content = bundle.getString(Notification.EXTRA_TEXT);
+        if (title==null||content==null) return;
         if (packageName.equals("com.eg.android.AlipayGphone")) {
             Pattern patternOne=Pattern.compile("(\\S*)通过扫码向你付款([\\d\\.]+)元");
-            if (patternOne.matcher(text).find()) {
-                String uname = patternOne.matcher(text).group(1);
-                String money = patternOne.matcher(text).group(2);
+            if (patternOne.matcher(content).find()) {
+                content=content.replaceAll("元","");
+                content=content.replaceAll("通过扫码向你付款",",");
+                String uname = content.split(",")[0];
+                String money = content.split(",")[1];
                 if (!Util.isEmpty(uname) && !Util.isEmpty(money)) {
                     postMethod(AliPay, money, uname);
                 }
             }
             Pattern patternTwo=Pattern.compile("成功收款([\\d\\.]+)元。享免费提现等更多专属服务，点击查看");
-            if(patternTwo.matcher(text).find()){
-                String money = patternTwo.matcher(text).group(1);
-                if (!Util.isEmpty(money)) {
-                    postMethod(AliPay, money, "支付宝用户类型2");
-                }
+            if(patternTwo.matcher(content).find()){
+                content=content.replaceAll("成功收款","");
+                String money=content.replaceAll("元。享免费提现等更多专属服务，点击查看","");
+                postMethod(AliPay, money, "");
             }
         } else 
         if (packageName.equals("com.tencent.mm")) {
-            Matcher m = Pattern.compile("微信支付收款([\\d\\.]+)元").matcher(text);
-            if (m.find()) {
-                String money = m.group(1);
-                if (!Util.isEmpty(money)) {
-                    postMethod(WeixinPay, money, "微信用户");
-                }
+            Pattern patternThree = Pattern.compile("微信支付收款([\\d\\.]+)元");
+            if (patternThree.matcher(content).find()) {
+                content=content.replaceAll("微信支付收款","");
+                String money=content.replaceAll("元","");
+                postMethod(WeixinPay, money, "");
             }
         }
     }
@@ -203,8 +208,8 @@ public class PayNotificationMonitorService extends NotificationListenerService i
             //未创建过连接 || 连接已经主动关闭
             if(baseWs==null || WsStatus.DISCONNECTED_ACTIVE.equals(baseWs.getState())){
                 //创建订单
-//                socket=WsSocket.connect("ws://47.104.224.184:8092/websocket/" + UserTools.getInstance().getUser().getUserId(),createWsCallBack());
-                baseWs= BaseWs.connect("ws://47.104.224.184:8092/websocket/14",createWsCallBack());
+//                baseWs=WsSocket.connect("ws://47.104.224.184:8092/websocket/" + UserTools.getInstance().getUser().getUserId(),createWsCallBack());
+                baseWs= BaseWs.connect("ws://47.104.224.184:8092/websocket/" +  UserTools.getInstance().getUser().getToken(),createWsCallBack());
             }
         }else{//用户未登录
             disConnectSocket();//未登录接毛个单啊
@@ -237,7 +242,25 @@ public class PayNotificationMonitorService extends NotificationListenerService i
      * @param nickName 支付者昵称
      */
     public void postMethod(int payType,String money, String nickName) {
+        JSONObject params = new JSONObject();
+        try {
+            params.put("payType", payType);
+            params.put("value", money);
+            params.put("nickName", nickName);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        BaseHttp.getInstance().write("order/automaticPay", params, new HttpCallBack() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                BaseToast.getInstance().setMsg(response.optString("message")).show();
+            }
 
+            @Override
+            public void onFail() {
+                BaseToast.getInstance().setMsg("网络连接失败,请手动确认订单").show();
+            }
+        });
     }
 
     @NonNull

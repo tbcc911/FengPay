@@ -76,6 +76,7 @@ public class LoginInterceptor implements IInterceptor {
         interceptorMap.put("/mine/MineFeedBackUI", "/mine/MineFeedBackUI");
         interceptorMap.put("/mine/MineCollectionRUI", "/mine/MineCollectionRUI");
         interceptorMap.put("/mine/MineOrderRUI", "/mine/MineOrderRUI");
+        interceptorMap.put("/mine/MineUserInfoUI", "/mine/MineUserInfoUI");
 
         interceptorMap.put("/ad/ClientIndexUI", "/ad/ClientIndexUI");
         interceptorMap.put("/ad/ClientRealnameUI", "/ad/ClientRealnameUI");

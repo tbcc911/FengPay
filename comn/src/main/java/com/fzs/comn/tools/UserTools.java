@@ -107,10 +107,11 @@ public class UserTools {
                 .setPhone(user.getPhone())
                 .setAcount(user.getAcount())
                 .setPassword(user.getPassword())
-                .setToken(userJson.optString("tokenHead")+" "+userJson.optString("token"));
+                .setTokenHead(userJson.optString("tokenHead"))
+                .setToken(userJson.optString("token"));
         mUser.save();
         BaseSP.getInstance().put("login", true);
-        BaseSP.getInstance().put("token", mUser.getToken());
+        BaseSP.getInstance().put("token", mUser.getTokenHead()+" "+mUser.getToken());
         return mUser;
     }
 
@@ -252,7 +253,8 @@ public class UserTools {
                             .setUserId(userJson.optString("memberId")) //会员ID
                             .setUserName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name")) //姓名
                             .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname")) //会员昵称
-                            .setStatus(userJson.optString("status")); //账号启用状态 0禁用 1启用
+                            .setStatus(userJson.optString("status")) //账号启用状态 0禁用 1启用
+                            .setIsActivation(!Util.isEmpty(mUser.getIsActivation()));//是否激活
 //                            .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname"))
 //                            .setAlipayName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name"))
 //                            .setBankAccount(userJson.optString("bankAccount"))
@@ -261,13 +263,13 @@ public class UserTools {
 //                            .setIdCardBack(userJson.optString("idCardBack"))
 //                            .setIdCardFront(userJson.optString("idCardFront"))
 //                            .setInviteCode(userJson.optString("inviteCode"))
-//                            .setIsActivation(userJson.optBoolean("isActivation"))
 //                            .setUsdtAddress(userJson.optString("usdtAddress"))
 //                            .setInviter(userJson.optString("inviter"));
                     
-                    if(!Util.isEmpty(userJson.optString("token"))){
+                    if(!Util.isEmpty(userJson.optString("tokenHead")) && !Util.isEmpty(userJson.optString("token"))){
+                        mUser.setTokenHead(userJson.optString("tokenHead"));
                         mUser.setToken(userJson.optString("token"));
-                        BaseSP.getInstance().put("token", mUser.getToken());
+                        BaseSP.getInstance().put("token", mUser.getTokenHead()+" "+mUser.getToken());
                     }
                     mUser.save();
 
