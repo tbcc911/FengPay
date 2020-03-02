@@ -11,7 +11,7 @@ MobSDK {
                 sortId 1
                 appKey "772863226"
                 appSecret "731c29a228f26c87cc09a5eb0df00e97"
-                callbackUri "http://www.zh740.com"
+                callbackUri "http://www.baidu.com"
                 shareByAppClient true
                 enable true
             }

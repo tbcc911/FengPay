@@ -13,7 +13,7 @@ public class ComnConfig extends BaseInitData {
     public static final String LANG_RU = "ru";
 
     //公司 | 官方网站
-    public static final String www="http://www.507buy.com";
+    public static final String www="http://www.baidu.com";
     public static final String phone="66666666";
 
     //初始化

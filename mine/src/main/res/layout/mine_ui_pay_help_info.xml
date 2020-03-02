@@ -103,7 +103,7 @@
                         android:layout_below="@id/addresssName"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@id/image"
-                        android:text="收货地址：重庆 重庆市 南岸区 南坪街道 南坪东路42号广胜大厦13-3"
+                        android:text="收货地址："
                         android:textColor="#666666"
                         android:textSize="14sp"/>
                 </RelativeLayout>

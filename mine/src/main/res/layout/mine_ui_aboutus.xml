@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:textSize="12sp"
-            tools:text="02367085337" />
+            tools:text="000-66666666" />
 
         <ImageView
             android:layout_width="wrap_content"

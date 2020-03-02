@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="left"
                             android:maxLines="1"
-                            android:text="【重庆市】快件已到达 重庆南岸一公司"
+                            android:text="【XXX】XXXXXXXXXX"
                             android:textColor="@color/green"
                             android:textSize="14sp"/>
 
@@ -120,7 +120,7 @@
                         android:layout_below="@id/tv_3"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@id/image"
-                        android:text="收货地址：重庆 重庆市 南岸区 南坪街道 南坪东路42号广胜大厦13-3"
+                        android:text="收货地址：XXXXXXXXXXXXXXXXXX"
                         android:textColor="#666666"
                         android:textSize="14sp"/>
                 </RelativeLayout>

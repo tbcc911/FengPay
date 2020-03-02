@@ -49,7 +49,7 @@
             android:layout_marginTop="10dp"
             android:clickable="true"
             android:onClick="goPhone"
-            android:text="023XXXXXXXX"
+            android:text="000XXXXXXXX"
             android:textColor="#E84C3D"
             android:textSize="11sp"
             android:visibility="gone" />
