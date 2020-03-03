@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -27,10 +28,13 @@ import com.fzs.comn.tools.UriUtil;
 import com.fzs.comn.tools.Util;
 import com.fzs.mine.R;
 import com.hzh.frame.comn.ItemDecoration.BaseGridSpacingItemDecoration;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
+import com.hzh.frame.comn.model.BaseRadio;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.activity.BaseUI;
 import com.hzh.frame.util.AndroidUtil;
+import com.hzh.frame.widget.xdialog.XDialogRadio;
 import com.hzh.frame.widget.xrecyclerview.BaseRecyclerAdapter;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 import com.yalantis.ucrop.UCrop;
@@ -59,9 +63,12 @@ public class MineFeedBackUI extends BaseUI {
     TextView number; //输入字符串长度
     Button submit;
     RecyclerView imageUploadRecyclerView;
+    LinearLayout type;
+    TextView typeContent;
     private List<String> issueImageUrl;
     private String imageUrl = "";
     private int zero = 0;
+    List<BaseRadio> list=new ArrayList<>();
 
     @Override
     protected void onCreateBase() {
@@ -70,6 +77,8 @@ public class MineFeedBackUI extends BaseUI {
         tel = (EditText) findViewById(R.id.tel);
         number = (TextView) findViewById(R.id.number);
         submit = (Button) findViewById(R.id.submit);
+        type = (LinearLayout) findViewById(R.id.type);
+        typeContent = (TextView) findViewById(R.id.typeContent); 
         imageUploadRecyclerView = (RecyclerView) findViewById(R.id.image_upload_recyclerView);
         getTitleView().setContent("意见反馈");
         feedback.addTextChangedListener(new TextWatcher() {
@@ -88,7 +97,6 @@ public class MineFeedBackUI extends BaseUI {
                 number.setText(s.length() + "/99");
             }
         });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +104,11 @@ public class MineFeedBackUI extends BaseUI {
             }
         });
         initImageUploadGridview();
+        list.add(new BaseRadio().setName("订单").setId("0").setChecked(true));
+        list.add(new BaseRadio().setName("其它").setId("1").setChecked(false));
+        type.setOnClickListener(v -> {
+            setType();
+        });
     }
 
     private void uploadImage() {
@@ -345,12 +358,12 @@ public class MineFeedBackUI extends BaseUI {
     }
     
     private void setSubmit(){
-//        new Gson().toJson(issueImageUrl)
         JSONObject params = new JSONObject();
         try {
             params.put("contactWay", tel.getText().toString().trim());
             params.put("content", feedback.getText().toString().trim());
             params.put("issueImageUrl", imageUrl);
+            params.put("issueType", typeContent.getTag().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -362,12 +375,27 @@ public class MineFeedBackUI extends BaseUI {
                     tel.getText().clear();
                     feedback.getText().clear();
                     initImageUploadGridview();
+                    typeContent.setTag("0");
+                    typeContent.setText("订单");
                     alert(response.optString("message"));
                 }else {
                     alert(response.optString("message"));
                 }
             }
         });
+    }
+    
+    private void setType(){
+        new XDialogRadio<>()
+                .setTitle("请选择问题反馈类型")
+                .setData(list)
+                .setCallBack(new CallBack<BaseRadio>() {
+                    @Override
+                    public void onSuccess(BaseRadio item) {
+                        typeContent.setTag(item.getId());
+                        typeContent.setText(item.getName());
+                    }
+                }).show(getSupportFragmentManager());
     }
     
 }

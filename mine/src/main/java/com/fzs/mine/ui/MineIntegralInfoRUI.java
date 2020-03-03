@@ -11,6 +11,7 @@ import com.fzs.comn.tools.UserTools;
 import com.fzs.mine.ItemDecoration.ComnItemDecoration;
 import com.fzs.mine.ItemDecoration.MessageItemDecoration;
 import com.fzs.mine.ItemDecoration.TeamItemDecoration;
+import com.fzs.mine.ItemDecoration.TransactionItemDecoration;
 import com.fzs.mine.R;
 import com.hzh.frame.ui.activity.AbsRecyclerViewUI;
 import com.hzh.frame.util.Util;
@@ -45,7 +46,7 @@ public class MineIntegralInfoRUI extends AbsRecyclerViewUI<MineIntegration> {
 
     @Override
     protected RecyclerView.ItemDecoration setRecyclerViewItemDecoration() {
-        return new ComnItemDecoration(getApplicationContext(), R.color.base_bg,Util.dip2px(this,10));
+        return new TransactionItemDecoration(getApplicationContext(), R.color.base_bg,getResources().getDimension(R.dimen.dp_10));
     }
 
     @Override

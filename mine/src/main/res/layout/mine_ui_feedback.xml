@@ -40,8 +40,7 @@
         android:background="@color/white"
         android:numColumns="5"
         android:stretchMode="columnWidth" />
-
-
+    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/image_upload_recyclerView"
         android:layout_width="match_parent"
@@ -50,11 +49,44 @@
         android:paddingRight="@dimen/dp_10"
         android:background="@color/white" />
 
+    <LinearLayout
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="问题类型"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/text_333"/>
+
+        <TextView
+            android:id="@+id/typeContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="订单"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/application_color"
+            android:drawableRight="@mipmap/base_arrow_right_black"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="end|center_vertical"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="@dimen/dp_10">
+        android:padding="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_1">
 
         <TextView
             android:id="@+id/phone"
