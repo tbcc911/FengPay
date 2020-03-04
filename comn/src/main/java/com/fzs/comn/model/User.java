@@ -100,6 +100,10 @@ public class User extends Model {
     private String status;// 账号启用状态: 0禁用 1启用
     @Column(name = "alipayBindingStatus")
     private String alipayBindingStatus;// 支付宝绑定状态: 0->未绑定; 1->已绑定
+    @Column(name = "successLevel")
+    private String successLevel;// 成功等级
+    @Column(name = "successRate")
+    private String successRate;// 成功率(直接在后面加上%号)
     
     private String usdtAddress;//USDT地址
 
@@ -410,6 +414,22 @@ public class User extends Model {
     }
     public User setUsdtAddress(String usdtAddress) {
         this.usdtAddress = usdtAddress;
+        return this;
+    }
+
+    public String getSuccessLevel() {
+        return successLevel;
+    }
+    public User setSuccessLevel(String successLevel) {
+        this.successLevel = successLevel;
+        return this;
+    }
+
+    public String getSuccessRate() {
+        return successRate;
+    }
+    public User setSuccessRate(String successRate) {
+        this.successRate = successRate;
         return this;
     }
 

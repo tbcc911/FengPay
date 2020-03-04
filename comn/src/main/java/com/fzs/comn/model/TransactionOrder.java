@@ -28,6 +28,10 @@ public class TransactionOrder extends Model {
     private String createTime;
     @Column(name = "statusName") //充值状态名称
     private String statusName;
+    @Column(name = "orderNo") //订单编号
+    private String orderNo;
+    @Column(name = "payTime") //支付时间
+    private String payTime;
 
     public String getNid() {
         return nid;
@@ -107,5 +111,21 @@ public class TransactionOrder extends Model {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
     }
 }

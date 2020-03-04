@@ -17,6 +17,7 @@ import com.baidu.location.BDLocation;
 import com.fzs.comn.tools.BaiduLocation;
 import com.fzs.comn.tools.BaiduLocationCallBack;
 import com.fzs.comn.tools.UserTools;
+import com.fzs.comn.tools.Util;
 import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.agent.AgentRFM;
 import com.fzs.fengpay.ui.main.MainFM;
@@ -32,12 +33,16 @@ import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.activity.BaseUI;
 import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.util.PowerUtil;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.xdialog.XDialogUpdateAPP;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 import q.rorbin.badgeview.QBadgeView;
 
 @Route(path = "/main/MainUI")
@@ -69,7 +74,7 @@ public class MainUI extends BaseUI{
 		
 		init();
 		getUpgrade();
-		
+		getEvent();
 		//用户收益-->提升收益-->回到首页我是客户页面
 		if( BaseSP.getInstance().getBoolean("UserProfitAddMoney", false)){
 			BaseSP.getInstance().put("UserProfitAddMoney", false);
@@ -311,5 +316,18 @@ public class MainUI extends BaseUI{
             int switchTab = intent.getExtras().getInt("switchTab", 0);
             mViewPager.setCurrentItem(switchTab);
         }
+    }
+    
+    private void getEvent(){
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(msgEvent -> msgEvent.getTag().equals(MineIndexFM.TAG))
+                .subscribe(msgEvent -> {
+                    if (!Util.isEmpty(msgEvent.getMsg().toString())){
+                        int switchTab = Integer.parseInt(msgEvent.getMsg().toString());
+                        mViewPager.setCurrentItem(switchTab);
+                    }
+                });
+                
     }
 }

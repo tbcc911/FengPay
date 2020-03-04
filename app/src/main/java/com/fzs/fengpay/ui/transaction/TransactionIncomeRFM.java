@@ -100,7 +100,7 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
     
     @Override
     protected int setItemLayoutId(int viewType) {
-        return R.layout.item_rv_transaction;
+        return R.layout.item_rv_income;
     }
 
     @Override
@@ -108,6 +108,7 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
         holder.setText(R.id.incomeTile,model.getIncometitle());
         holder.setText(R.id.time,model.getCreateTime());
         holder.setText(R.id.money,model.getAfterValue());
+        holder.setText(R.id.aftermoney,"当前余额:" + model.getAfterValue());
         Float type = Float.parseFloat(model.getAfterValue()) - Float.parseFloat(model.getBeforeValue());
         if (type >= 0){
             holder.setText(R.id.annotation,"+" + model.getValue());

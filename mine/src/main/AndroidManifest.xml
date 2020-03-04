@@ -32,6 +32,8 @@
         <activity android:name="com.fzs.mine.ui.MineCollectMoneyCodeUI"/>
         <activity android:name="com.fzs.mine.ui.MineTurnMoneyUI"/>
         <activity android:name="com.fzs.mine.ui.MineIntegralInfoRUI"/>
+        <activity android:name="com.fzs.mine.ui.MinePayBankUI"/>
+        <activity android:name="com.fzs.mine.ui.MinePayAliOrWxUI"/>
     </application>
 
 </manifest>

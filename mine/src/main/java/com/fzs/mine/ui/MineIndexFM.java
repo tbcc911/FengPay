@@ -21,6 +21,7 @@ import com.fzs.service.PayNotificationMonitorService;
 import com.fzs.service.tools.ServicePowerTools;
 import com.fzs.service.tools.ServiceTools;
 import com.google.gson.Gson;
+import com.hzh.frame.BaseInitData;
 import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.comn.model.BaseRadio;
@@ -52,7 +53,7 @@ import okhttp3.WebSocket;
  * 个人中心
  */
 public class MineIndexFM extends BaseFM implements OnClickListener {
-
+    public static final String TAG="MineIndexFM";
     List<HashMap<String, Object>> list=new ArrayList<>();
     private WebSocket mSocket;
     private XDialog2Button activation;//激活
@@ -216,19 +217,35 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         }else 
         if (id == R.id.mineRecharge) {//充值
 //            if (isLoginAndActivation()) {
-                List<BaseRadio> list = new ArrayList<>();
-                list.add(new BaseRadio().setName("USDT支付").setId("1").setChecked(true));
-                list.add(new BaseRadio().setName("银行卡转账").setId("2").setChecked(false));
-                list.add(new BaseRadio().setName("扫码支付").setId("3").setChecked(false));
+            List<BaseRadio> list = new ArrayList<>();
+            list.add(new BaseRadio().setName("银行卡").setId("0").setChecked(true));
+            list.add(new BaseRadio().setName("支付宝").setId("1").setChecked(false));
+            list.add(new BaseRadio().setName("微信").setId("2").setChecked(false));
+            list.add(new BaseRadio().setName("USDT").setId("3").setChecked(false));
                 new XDialogRadio<>()
                         .setData(list)
-                        .setTitle("选择支付方式")
+                        .setTitle("选择充值方式")
                         .setOkAndNoName("去支付","再想想")
                         .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 8)
                         .setCallBack(new CallBack<BaseRadio>() {
                             @Override
                             public void onSuccess(BaseRadio baseRadio) {
-                                alert(baseRadio.getName());
+//                                alert(baseRadio.getName());
+                                if (baseRadio.getId().equals("0")){
+                                    ARouter.getInstance().build("/mine/MinePayBankUI")
+                                            .withString("rechargeType",baseRadio.getId())
+                                            .navigation();
+                                }else if (baseRadio.getId().equals("1")){
+                                    ARouter.getInstance().build("/mine/MinePayAliOrWxUI")
+                                            .withString("rechargeType",baseRadio.getId())
+                                            .withString("payTitle","支付宝充值")
+                                            .navigation();
+                                }else if (baseRadio.getId().equals("2")){
+                                    ARouter.getInstance().build("/mine/MinePayAliOrWxUI")
+                                            .withString("rechargeType",baseRadio.getId())
+                                            .withString("payTitle","微信充值")
+                                            .navigation();
+                                }
                             }
                         })
                         .show(getFragmentManager());
@@ -254,20 +271,24 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         if (id == R.id.mine_feedback) {
             ARouter.getInstance().build("/mine/MineFeedBackUI").navigation();
         } else 
-        if (id == R.id.mine_team) {
+        if (id == R.id.mine_team) { //我的团队
+            RxBus.getInstance().post(new MsgEvent(MineIndexFM.TAG, "3"));
 //            ARouter.getInstance().build("/mine/MineTeamRUI").navigation();
-            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",3).navigation();
+//            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",3).navigation();
         } else 
         if (id == R.id.updata) {//版本更新
             getUpgrade();
         } else 
         if (id == R.id.mine_share) { //分享好友
+            RxBus.getInstance().post(new MsgEvent(MineIndexFM.TAG, "2"));
 //            ARouter.getInstance().build("/chain/ChainShareUI").navigation();
-            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",2).navigation();
+//            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",2).navigation();
         } else 
         if (id == R.id.mine_transaction) { //TBCC交易
 //            ARouter.getInstance().build("/c2c/C2CtransactionUI").navigation();
-            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",1).navigation();
+//            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",1).navigation();
+            RxBus.getInstance().post(new MsgEvent(MineIndexFM.TAG, "1"));
+
         }
     }
     

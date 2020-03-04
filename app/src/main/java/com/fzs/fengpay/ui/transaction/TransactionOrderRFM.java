@@ -10,6 +10,7 @@ import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
 import com.hzh.frame.util.FileUtil;
+import com.hzh.frame.util.Util;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -96,6 +97,8 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
                         model.setStatusName(obj.optString("orderStatusName")); //订单状态名称: 支付中; 已完成; 支付失败
                         model.setTime(obj.optString("payTime")); //支付时间
                         model.setType(obj.optString("payType")); //支付方式: 0->支付宝
+                        model.setOrderNo(obj.optString("orderNo"));
+                        model.setPayTime(obj.optString("payTime"));
                         listModel.add(model);
                     }
                 }
@@ -112,11 +115,17 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
 
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
-        holder.setText(R.id.time,model.getCreateTime());
+        holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
         holder.getView(R.id.flag).setVisibility(View.GONE);
         holder.getView(R.id.annotation).setVisibility(View.GONE);
         holder.setText(R.id.state,model.getStatusName());
+        holder.setText(R.id.desc,"订单编号:" + model.getOrderNo());
+        if (Util.isEmpty(model.getPayTime())){
+            holder.setText(R.id.paytime,"未支付");
+        }else {
+            holder.setText(R.id.paytime,"支付时间:" + model.getPayTime());
+        }
         if("1".equals(model.getState())){
             holder.setTextColor(R.id.state,"#228B22");
         } else
@@ -127,16 +136,12 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
             holder.setTextColor(R.id.state,"#837DF9");
         }
         if ("0".equals(model.getType())){
-            holder.setText(R.id.desc,"银行卡");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
         }else if ("1".equals(model.getType())){
-            holder.setText(R.id.desc,"支付宝");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
         }else if ("2".equals(model.getType())){
-            holder.setText(R.id.desc,"微信");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
         }else if ("3".equals(model.getType())){
-            holder.setText(R.id.desc,"USDT");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.default_icon);
         }
     }

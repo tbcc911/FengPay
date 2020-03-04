@@ -80,7 +80,8 @@ public class MineFeedBackUI extends BaseUI {
         type = (LinearLayout) findViewById(R.id.type);
         typeContent = (TextView) findViewById(R.id.typeContent); 
         imageUploadRecyclerView = (RecyclerView) findViewById(R.id.image_upload_recyclerView);
-        getTitleView().setContent("意见反馈");
+        getTitleView().setContent("评价反馈");
+        typeContent.setTag("1");
         feedback.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -147,7 +148,7 @@ public class MineFeedBackUI extends BaseUI {
                         }
                     });
                 }else {
-                    
+                    setSubmit();
                 }
             }
         }

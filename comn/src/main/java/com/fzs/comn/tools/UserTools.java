@@ -254,7 +254,9 @@ public class UserTools {
                             .setUserName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name")) //姓名
                             .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname")) //会员昵称
                             .setStatus(userJson.optString("status")) //账号启用状态 0禁用 1启用
-                            .setIsActivation(!Util.isEmpty(mUser.getIsActivation()));//是否激活
+                            .setIsActivation(!Util.isEmpty(mUser.getIsActivation())) //是否激活
+                            .setSuccessLevel(userJson.optString("successLevel")) //成功等级
+                            .setSuccessRate(userJson.optString("successRate"));//成功率(直接在后面加上%号)
 //                            .setNickName(Util.isEmpty(userJson.optString("nickname")) ? "暂无" : userJson.optString("nickname"))
 //                            .setAlipayName(Util.isEmpty(userJson.optString("name")) ? "暂无" : userJson.optString("name"))
 //                            .setBankAccount(userJson.optString("bankAccount"))
