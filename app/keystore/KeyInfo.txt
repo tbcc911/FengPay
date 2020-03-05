@@ -1,10 +1,10 @@
 应用包名:com.fzs.fengpay
 
-alias : helloword
-MD5 : AC:54:53:44:BD:51:92:0C:96:04:F8:6F:51:E7:A5:8E
-SHA1: 9A:4A:90:00:E7:38:DC:8B:55:31:CF:3B:1B:3A:2D:BD:AD:E9:03:B4
-SHA256: F3:C7:0E:56:BD:35:1D:BF:02:8C:69:9D:9B:B7:6D:28:3C:6A:3D:EE:3B:26:46:29:83:91:18:97:22:B8:52:E5
+alias : FengPay
+MD5:  2E:3E:5D:A9:04:45:15:4E:CE:B7:D2:51:A2:02:CC:AA
+SHA1: E5:37:21:09:34:BF:9A:8A:A8:C3:96:93:46:E8:3A:58:D2:07:9F:87
+SHA256: 7C:1D:ED:38:84:7A:B4:9F:66:C8:D8:61:D4:BF:E0:5D:5D:D2:10:67:51:B1:BD:C7:CB:CE:B4:12:17:7D:17:E1
 
-StorePassword:www.shop7.com
-Alias:helloword
-KeyPassword:www.shop7.net
+StorePassword:www.FengPay.com
+Alias:FengPay
+KeyPassword:www.FengPay.net
