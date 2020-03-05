@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -92,7 +93,7 @@ public class MinePayBankUI extends BaseUI {
         submitButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFileList();
+                submitPay();
             }
         });
 	}
@@ -241,38 +242,50 @@ public class MinePayBankUI extends BaseUI {
         });
     }
 
-    private void getFileList(){
+    private void getFileList(fileCallBack fileCallBack){
         List<HashMap<String,Object>> fileList;
         ItemAdapter adapter= (ItemAdapter) imageUploadRecyclerView.getAdapter();
         List<UploadImage> list = adapter.getDatalist();
         issueImageUrl = new ArrayList<>();
         imageUrl = "";
         zero = 0;
-        for(int i=0;i<list.size();i++){
-            fileList=new ArrayList<>();
-            UploadImage model=list.get(i);
-            if (!Util.isEmpty(model.getUri())) {
-                HashMap<String,Object> map = new HashMap<>();
-                map.put("name","file");
-                map.put("file",new File(model.getUri()));
-                fileList.add(map);
-            }
-            BaseHttp.getInstance().uploadFile(MinePayBankUI.this,"file/upload", fileList, new HttpCallBack() {
-                @Override
-                public void onSuccess(JSONObject response) {
-                    super.onSuccess(response);
-                    if (response.optInt("code") == 200){
-                        JSONObject data = response.optJSONObject("data");
-                        if (data != null && data.length() > 0){
-                            if (Util.isEmpty(imageUrl)){
-                                imageUrl = data.optString("url");
-                            }else {
-                                imageUrl = imageUrl + "," + imageUrl;
+        if (list != null && list.size() > 0){
+            for(int i=0;i<list.size();i++){
+                Log.e("xxxx","222222222222222" + "/" + list.size() + "/" + i);
+                fileList=new ArrayList<>();
+                UploadImage model=list.get(i);
+                if (!Util.isEmpty(model.getUri())) {
+                    HashMap<String,Object> map = new HashMap<>();
+                    map.put("name","file");
+                    map.put("file",new File(model.getUri()));
+                    fileList.add(map);
+                }
+                int finalI = i;
+                BaseHttp.getInstance().uploadFile(MinePayBankUI.this,"file/upload", fileList, new HttpCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        super.onSuccess(response);
+                        Log.e("xxxx","55555555555555555");
+                        if (response.optInt("code") == 200){
+                            JSONObject data = response.optJSONObject("data");
+                            if (data != null && data.length() > 0){
+                                if (Util.isEmpty(imageUrl)){
+                                    imageUrl = data.optString("url");
+                                }else {
+                                    imageUrl = imageUrl + "," + imageUrl;
+                                }
                             }
                         }
+                        if (finalI + 1 == list.size()){
+                            Log.e("xxxx","3333333333333333");
+                            fileCallBack.onSuccess(imageUrl);
+                        }
                     }
-                }
-            });
+                });
+            }
+        }else {
+            Log.e("xxxx","4444444444444444");
+            fileCallBack.onSuccess("");
         }
     }
     
@@ -281,6 +294,8 @@ public class MinePayBankUI extends BaseUI {
         String cardName = fCardName.getText().toString().trim();
         String card = fCard.getText().toString().trim();
         String money = fMoney.getText().toString().trim();
+        ItemAdapter itemAdapter = (ItemAdapter) imageUploadRecyclerView.getAdapter();
+        List<UploadImage> list = itemAdapter.getDatalist();
         if (Util.isEmpty(name)){
             alert("请输入账户名");
             return;
@@ -297,40 +312,58 @@ public class MinePayBankUI extends BaseUI {
             alert("请输入充值金额");
             return;
         }
-        if (Util.isEmpty(imageUrl)){
+        if (list != null && list.size() > 0){
+            
+        }else {
             alert("请上传截图");
             return;
         }
         
-        JSONObject params=new JSONObject();
-        try {
-            params.put("collectionId", collectionId);
-            params.put("paymentAccountName", name);
-            params.put("paymentBankCardNo", card);
-            params.put("paymentBankName", cardName);
-            params.put("paymentScreenshot", imageUrl);
-            params.put("value", money);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        
-        BaseHttp.getInstance().query("finance/recharge", params, new HttpCallBack() {
+        getFileList(new fileCallBack() {
             @Override
-            public void onSuccess(JSONObject response) {
-                super.onSuccess(response);
-                if (response.optInt("code") == 200){
-                    fName.getText().clear();
-                    fCardName.getText().clear();
-                    fCard.getText().clear();
-                    fMoney.getText().clear();
-                    initImageUploadGridview();
-                }else {
-                    
+            public void onSuccess(String imgUrl) {
+                Log.e("xxxx","1111111111111");
+                JSONObject params=new JSONObject();
+                try   {
+                    params.put("collectionId", collectionId);
+                    params.put("paymentAccountName", name);
+                    params.put("paymentBankCardNo", card);
+                    params.put("paymentBankName", cardName);
+                    params.put("paymentScreenshot", imgUrl);
+                    params.put("value", money);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                alert(response.optString("message"));
+
+                BaseHttp.getInstance().query("finance/recharge", params, new HttpCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        super.onSuccess(response);
+                        if (response.optInt("code") == 200){
+                            fName.getText().clear();
+                            fCardName.getText().clear();
+                            fCard.getText().clear();
+                            fMoney.getText().clear();
+                            initImageUploadGridview();
+                        }else {
+
+                        }
+                        alert(response.optString("message"));
+                    }
+                });
+            }
+
+            @Override
+            public void onFail(String msg) {
+                
             }
         });
-        
     }
+    public interface fileCallBack {
+        void onSuccess(String imgUrl);
+
+        void onFail(String msg);
+    }
+    
 
 }
