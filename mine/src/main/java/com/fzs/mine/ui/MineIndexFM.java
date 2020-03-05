@@ -441,6 +441,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             //界面可见
+//            onOroffService();
             loadUserInfo();
             InitTools.getInstance().loadConfig();
             if (UserTools.getInstance(getContext()).getIsLogin()) {
@@ -448,6 +449,44 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             }
         } else {
             //界面不可见 相当于onpause
+        }
+    }
+    
+    private void onOroffService(){
+        if (!Util.isEmpty(BaseSP.getInstance().getString("switch_ischeck"))){
+            if (BaseSP.getInstance().getString("switch_ischeck").equals("1")){
+                if(!ServicePowerTools.isNotificationPower(getActivity())){
+                    new XDialog2Button(getActivity())
+                            .setMsg("请开启 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
+                            .setConfirmName("立即前往","稍后")
+                            .setCallback(new CallBack() {
+                                @Override
+                                public void onSuccess(Object object) {
+                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
+                                }
+                            }).show();
+                }else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));
+                    }
+                }
+            }else if (BaseSP.getInstance().getString("switch_ischeck").equals("0")){
+                if(ServicePowerTools.isNotificationPower(getActivity())){
+                    new XDialog2Button(getActivity())
+                            .setMsg("请关闭 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
+                            .setConfirmName("立即前往","稍后")
+                            .setCallback(new CallBack() {
+                                @Override
+                                public void onSuccess(Object object) {
+                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
+                                }
+                            }).show();
+                }else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+                    }
+                }
+            }
         }
     }
 

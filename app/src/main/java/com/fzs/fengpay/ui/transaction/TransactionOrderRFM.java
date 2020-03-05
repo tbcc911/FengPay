@@ -142,7 +142,7 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
         }else if ("2".equals(model.getType())){
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
         }else if ("3".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.default_icon);
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
     }
 

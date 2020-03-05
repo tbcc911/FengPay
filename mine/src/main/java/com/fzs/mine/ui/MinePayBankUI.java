@@ -253,7 +253,7 @@ public class MinePayBankUI extends BaseUI {
             UploadImage model=list.get(i);
             if (!Util.isEmpty(model.getUri())) {
                 HashMap<String,Object> map = new HashMap<>();
-                map.put("name","Image" + i);
+                map.put("name","file");
                 map.put("file",new File(model.getUri()));
                 fileList.add(map);
             }

@@ -66,7 +66,6 @@ public class MinePayAliOrWxUI extends BaseUI {
 	@Override
 	protected void onCreateBase() {
 		setContentView(R.layout.mine_ui_pay_aliorwx);
-        mXDialog1Button=new XDialog1Button(this,"二维码已保存到相册",new SaveCameraCallBack());
         showLoding();
 		getTitleView().setContent(getIntent().getStringExtra("payTitle"));
         rechargeType = getIntent().getStringExtra("rechargeType");
@@ -83,7 +82,13 @@ public class MinePayAliOrWxUI extends BaseUI {
             }else {
                 ImageTools.saveBitmap2Camera(this,bitmap,"Wxpay");
             }
-            mXDialog1Button.setButtonName("去充值").show();
+            mXDialog1Button=new XDialog1Button(this, "二维码已保存到相册", new CallBack() {
+                @Override
+                public void onSuccess(Object o) {
+                    
+                }
+            });
+            mXDialog1Button.setButtonName("确定").show();
         });
 	}
 	
@@ -124,12 +129,13 @@ public class MinePayAliOrWxUI extends BaseUI {
 
         @Override
         public void onSuccess(Object o) {
-            Intent lan = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setComponent(lan.getComponent());
-            startActivity(intent);
+            
+//            Intent lan = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+//            Intent intent = new Intent(Intent.ACTION_MAIN);
+//            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent.setComponent(lan.getComponent());
+//            startActivity(intent);
         }
     }
 
