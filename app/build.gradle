@@ -63,16 +63,16 @@ android {
     // 签名配置
     signingConfigs {
         release {
-            storeFile file("./keystore/Shop7.keystore")
-            storePassword "www.shop7.com"
-            keyAlias "helloword"
-            keyPassword "www.shop7.net"
+            storeFile file("./keystore/FengPay.jks")
+            storePassword "www.FengPay.com"
+            keyAlias "FengPay"
+            keyPassword "www.FengPay.net"
         }
         debug {
-            storeFile file("./keystore/Shop7.keystore")
-            storePassword "www.shop7.com"
-            keyAlias "helloword"
-            keyPassword "www.shop7.net"
+            storeFile file("./keystore/FengPay.jks")
+            storePassword "www.FengPay.com"
+            keyAlias "FengPay"
+            keyPassword "www.FengPay.net"
         }
     }
     sourceSets {
