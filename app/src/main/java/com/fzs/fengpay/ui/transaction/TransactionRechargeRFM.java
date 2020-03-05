@@ -118,11 +118,12 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
 
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
-        holder.setText(R.id.time,model.getCreateTime());
+        holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
         holder.getView(R.id.flag).setVisibility(View.GONE);
         holder.getView(R.id.annotation).setVisibility(View.GONE);
         holder.setText(R.id.state,model.getStatusName());
+        holder.setText(R.id.paytime,"审核时间:" + model.getAuditTime());
         if("1".equals(model.getState())){
             holder.setTextColor(R.id.state,"#228B22");
         } else
@@ -143,7 +144,7 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
         }else if ("3".equals(model.getType())){
             holder.setText(R.id.desc,"USDT");
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.default_icon);
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
     }
 

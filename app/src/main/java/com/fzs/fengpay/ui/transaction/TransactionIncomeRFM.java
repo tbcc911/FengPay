@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fzs.comn.model.TransactionIncome;
 import com.fzs.comn.model.TransactionOrder;
 import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * 收入
  */
-public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionOrder> {
+public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
     private View headView;
     private TextView sumMoney;
     private TextView successMoney;
@@ -63,50 +64,31 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionOrder> {
     protected int setHeadLayoutId() {
         return R.layout.head_rv_transaction_income;
     }
-
-    @Override
-    protected JSONObject setHttpParams() {
-        JSONObject map=new JSONObject();
-        try {
-            map.put("accountType", getArguments().getString("type"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
     
     @Override
     protected String setHttpPath() {
-        return "member/getMemberInfo";
+        return "finance/getIncomeDetail";
     }
 
     @Override
-    protected List<TransactionOrder> handleHttpData(JSONObject response) {
-        try {
-            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionIncome.json");
-            response = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        List<TransactionOrder> listModel = new ArrayList<>();
+    protected List<TransactionIncome> handleHttpData(JSONObject response) {
+        List<TransactionIncome> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
             if (data != null && data.length() > 0){
-                sumMoney.setText(data.optString("sumMoney"));
-                successMoney.setText(data.optString("successMoney"));
-                frozenMoney.setText(data.optString("frozenMoney"));
-                JSONArray list = data.optJSONArray("accountDetailList");
+                sumMoney.setText(data.optString("totalIncome"));
+                successMoney.setText(data.optString("todayIncome"));
+                frozenMoney.setText(data.optString("mothIncome"));
+                JSONArray list = data.optJSONArray("list");
                 if (list != null && list.length() > 0) {
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject obj = list.optJSONObject(i);
-                        TransactionOrder model = new TransactionOrder();
-                        model.setNid(obj.optString("id"));
-                        model.setType(obj.optString("type"));
-                        model.setIntegral(obj.optString("integral"));
-                        model.setMoney(obj.optString("money"));
-                        model.setDesc(obj.optString("desc"));
-                        model.setTime(obj.optString("time"));
-                        model.setState(obj.optString("state"));
+                        TransactionIncome model = new TransactionIncome();
+                        model.setAfterValue(obj.optString("afterValue"));
+                        model.setBeforeValue(obj.optString("beforeValue"));
+                        model.setCreateTime(obj.optString("createTime"));
+                        model.setIncometitle(obj.optString("title"));
+                        model.setValue(obj.optString("value"));
                         listModel.add(model);
                     }
                 }
@@ -118,30 +100,20 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionOrder> {
     
     @Override
     protected int setItemLayoutId(int viewType) {
-        return R.layout.item_rv_transaction;
+        return R.layout.item_rv_income;
     }
 
     @Override
-    protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
-        holder.setText(R.id.time,model.getTime());
-        holder.setText(R.id.desc,model.getDesc());
-        holder.setText(R.id.state,"已完成");
-        holder.setTextColor(R.id.state,"#228B22");
-        holder.getView(R.id.flag).setVisibility(View.GONE);
-        holder.getView(R.id.annotation).setVisibility(View.GONE);
-        if ("alipay".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
-            holder.setText(R.id.money,"¥"+model.getMoney());
-        } else
-        if("wchat".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
-            holder.setText(R.id.money,"¥"+model.getMoney());
-        } else 
-        if("share".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_share);
-            holder.setText(R.id.money,model.getIntegral()+"积分");
-        }else{
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_unknown);
+    protected void bindItemData(RecyclerViewHolder holder, int position, TransactionIncome model) {
+        holder.setText(R.id.incomeTile,model.getIncometitle());
+        holder.setText(R.id.time,model.getCreateTime());
+        holder.setText(R.id.money,model.getAfterValue());
+        holder.setText(R.id.aftermoney,"当前余额:" + model.getAfterValue());
+        Float type = Float.parseFloat(model.getAfterValue()) - Float.parseFloat(model.getBeforeValue());
+        if (type >= 0){
+            holder.setText(R.id.annotation,"+" + model.getValue());
+        }else {
+            holder.setText(R.id.annotation,"-" + model.getValue());
         }
     }
 

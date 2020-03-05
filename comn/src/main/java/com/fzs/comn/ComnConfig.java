@@ -28,7 +28,7 @@ public class ComnConfig extends BaseInitData {
         SharedPreferencesFileName = "fzs_share_data";
         WX_KEY = "wx7d314006a5998a80";
 
-        base_theme_Tone = true;
+        base_theme_Tone = false;
         //是否强制登录
         force_login= false;
     }

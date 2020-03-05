@@ -10,6 +10,7 @@ import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
 import com.hzh.frame.util.FileUtil;
+import com.hzh.frame.util.Util;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -37,7 +38,7 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
     
     @Override
     protected void bindView(View view) {
-        setLoadPattern(2);
+//        setLoadPattern(2);
         headView = getAdapter().getHeaderView();
         sumMoney = headView.findViewById(R.id.sumMoney);
         successMoney = headView.findViewById(R.id.successMoney);
@@ -63,50 +64,41 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
     protected int setHeadLayoutId() {
         return R.layout.head_rv_transaction_order;
     }
-
-    @Override
-    protected JSONObject setHttpParams() {
-        JSONObject map=new JSONObject();
-        try {
-            map.put("accountType", getArguments().getString("type"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
     
     @Override
     protected String setHttpPath() {
-        return "member/getMemberInfo";
+        return "finance/getOrderDetail";
     }
 
     @Override
     protected List<TransactionOrder> handleHttpData(JSONObject response) {
-        try {
-            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionOrder.json");
-            response = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionOrder.json");
+//            response = new JSONObject(json);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         List<TransactionOrder> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
             if (data != null && data.length() > 0){
-                sumMoney.setText(data.optString("sumMoney"));
-                successMoney.setText(data.optString("successMoney"));
-                frozenMoney.setText(data.optString("frozenMoney"));
-                JSONArray list = data.optJSONArray("accountDetailList");
+                sumMoney.setText(data.optString("totalAmount"));
+                successMoney.setText(data.optString("successAmount"));
+                frozenMoney.setText(data.optString("freezeAmount"));
+                JSONArray list = data.optJSONArray("list");
                 if (list != null && list.length() > 0) {
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject obj = list.optJSONObject(i);
                         TransactionOrder model = new TransactionOrder();
-                        model.setNid(obj.optString("id"));
-                        model.setType(obj.optString("type"));
-                        model.setIntegral(obj.optString("integral"));
-                        model.setMoney(obj.optString("money"));
-                        model.setDesc(obj.optString("desc"));
-                        model.setTime(obj.optString("time"));
-                        model.setState(obj.optString("state"));
+                        model.setMoney(obj.optString("amount")); //订单金额
+                        model.setCreateTime(obj.optString("createTime")); //创建时间
+                        model.setNid(obj.optString("orderNo")); //订单编号
+                        model.setState(obj.optString("orderStatus")); //订单状态: 订单状态: 0->未支付; 1->已支付; 2->订单超时
+                        model.setStatusName(obj.optString("orderStatusName")); //订单状态名称: 支付中; 已完成; 支付失败
+                        model.setTime(obj.optString("payTime")); //支付时间
+                        model.setType(obj.optString("payType")); //支付方式: 0->支付宝
+                        model.setOrderNo(obj.optString("orderNo"));
+                        model.setPayTime(obj.optString("payTime"));
                         listModel.add(model);
                     }
                 }
@@ -123,30 +115,34 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
 
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
-        holder.setText(R.id.time,model.getTime());
+        holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
-        holder.setText(R.id.desc,model.getDesc());
         holder.getView(R.id.flag).setVisibility(View.GONE);
         holder.getView(R.id.annotation).setVisibility(View.GONE);
+        holder.setText(R.id.state,model.getStatusName());
+        holder.setText(R.id.desc,"订单编号:" + model.getOrderNo());
+        if (Util.isEmpty(model.getPayTime())){
+            holder.setText(R.id.paytime,"未支付");
+        }else {
+            holder.setText(R.id.paytime,"支付时间:" + model.getPayTime());
+        }
         if("1".equals(model.getState())){
-            holder.setText(R.id.state,"已完成");
             holder.setTextColor(R.id.state,"#228B22");
         } else
         if("2".equals(model.getState())){
-            holder.setText(R.id.state,"支付中");
-            holder.setTextColor(R.id.state,"#837DF9");
-        } else
-        if("3".equals(model.getState())){
-            holder.setText(R.id.state,"支付失败");
             holder.setTextColor(R.id.state,"#e84c3d");
-        }
-        if ("alipay".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
         } else
-        if("wchat".equals(model.getType())){
+        if("0".equals(model.getState())){
+            holder.setTextColor(R.id.state,"#837DF9");
+        }
+        if ("0".equals(model.getType())){
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
+        }else if ("1".equals(model.getType())){
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
+        }else if ("2".equals(model.getType())){
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
-        } else{
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_unknown);
+        }else if ("3".equals(model.getType())){
+            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
     }
 

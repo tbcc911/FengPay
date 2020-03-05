@@ -94,6 +94,7 @@
                            com.fzs.comn.model.C2CqueryOrder,
                            com.fzs.comn.model.C2CqueryTrade,
                            com.fzs.comn.model.MineIntegration,
+                           com.fzs.comn.model.TransactionIncome,
                            com.fzs.comn.model.AppConfig" />
 
         <activity android:name="com.yalantis.ucrop.UCropActivity" />

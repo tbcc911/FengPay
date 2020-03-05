@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/base_666666"
                 android:textSize="@dimen/sp_11"
-                tools:text="(-8.05积分)" />
+                tools:text="(-8.05积分)" 
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/time"
@@ -84,13 +85,32 @@
                 tools:text="明细" />
 
             <TextView
-                android:id="@+id/state"
+                android:id="@+id/paytime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/base_666666"
                 android:textSize="@dimen/sp_10"
                 tools:text="已完成" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/base_666666"
+                android:textSize="@dimen/sp_10"
+                tools:text="已完成" 
+                android:layout_gravity="end"/>
 
         </LinearLayout>
 

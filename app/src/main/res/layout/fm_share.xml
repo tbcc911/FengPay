@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:scrollbars="none">
 
 
@@ -61,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="123456"
+                tools:text="123456"
                 android:textColor="@color/share_bg"
                 android:textSize="@dimen/sp_24" />
 
@@ -72,7 +73,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_5"
                 android:elevation="@dimen/dp_10"
-                android:src="@mipmap/comn_icon_test_code" />
+                android:src="@mipmap/comn_icon_code" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,27 +92,48 @@
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_20"
-            android:background="@drawable/fm_transation_proportion"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
-                android:text="佣金比例"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_15" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_2"
-                android:background="#23ffffff" />
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_100">
+                android:layout_height="wrap_content"
+                android:background="@drawable/fm_transation_proportion">
+
+                <EditText
+                    android:id="@+id/myRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dp_0"
+                    android:minWidth="@dimen/dp_0"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:hint="请输入您的代理比例"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="@dimen/sp_12"
+                    android:gravity="center"
+                    android:background="@drawable/comn_white_stork_r5"
+                    android:inputType="numberDecimal"/>
+                
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/comn_white_stork_r5"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="生成二维码"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_13"
+                android:layout_gravity="center_horizontal"/>
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
