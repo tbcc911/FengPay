@@ -106,7 +106,6 @@ public class MinePayBankUI extends BaseUI {
         resourceList.add(new UploadImage());
         imageUploadRecyclerView.setAdapter(new ItemAdapter(MinePayBankUI.this,resourceList));
     }
-
     
     private class ItemAdapter extends BaseRecyclerAdapter<UploadImage> {
 
@@ -249,9 +248,8 @@ public class MinePayBankUI extends BaseUI {
         issueImageUrl = new ArrayList<>();
         imageUrl = "";
         zero = 0;
-        if (list != null && list.size() > 0){
-            for(int i=0;i<list.size();i++){
-                Log.e("xxxx","222222222222222" + "/" + list.size() + "/" + i);
+        if (list != null && list.size() > 1){
+            for(int i=0;i <= list.size() - 2;i++){
                 fileList=new ArrayList<>();
                 UploadImage model=list.get(i);
                 if (!Util.isEmpty(model.getUri())) {
@@ -265,26 +263,20 @@ public class MinePayBankUI extends BaseUI {
                     @Override
                     public void onSuccess(JSONObject response) {
                         super.onSuccess(response);
-                        Log.e("xxxx","55555555555555555");
                         if (response.optInt("code") == 200){
-                            JSONObject data = response.optJSONObject("data");
-                            if (data != null && data.length() > 0){
-                                if (Util.isEmpty(imageUrl)){
-                                    imageUrl = data.optString("url");
-                                }else {
-                                    imageUrl = imageUrl + "," + imageUrl;
-                                }
+                            if (Util.isEmpty(imageUrl)){
+                                imageUrl = response.optString("data");
+                            }else {
+                                imageUrl = imageUrl + "," + response.optString("data");
                             }
                         }
-                        if (finalI + 1 == list.size()){
-                            Log.e("xxxx","3333333333333333");
+                        if (finalI + 2 == list.size()){
                             fileCallBack.onSuccess(imageUrl);
                         }
                     }
                 });
             }
         }else {
-            Log.e("xxxx","4444444444444444");
             fileCallBack.onSuccess("");
         }
     }
@@ -312,7 +304,7 @@ public class MinePayBankUI extends BaseUI {
             alert("请输入充值金额");
             return;
         }
-        if (list != null && list.size() > 0){
+        if (list != null && list.size() > 1){
             
         }else {
             alert("请上传截图");
@@ -322,7 +314,6 @@ public class MinePayBankUI extends BaseUI {
         getFileList(new fileCallBack() {
             @Override
             public void onSuccess(String imgUrl) {
-                Log.e("xxxx","1111111111111");
                 JSONObject params=new JSONObject();
                 try   {
                     params.put("collectionId", collectionId);
@@ -335,7 +326,7 @@ public class MinePayBankUI extends BaseUI {
                     e.printStackTrace();
                 }
 
-                BaseHttp.getInstance().query("finance/recharge", params, new HttpCallBack() {
+                BaseHttp.getInstance().write("finance/recharge", params, new HttpCallBack() {
                     @Override
                     public void onSuccess(JSONObject response) {
                         super.onSuccess(response);

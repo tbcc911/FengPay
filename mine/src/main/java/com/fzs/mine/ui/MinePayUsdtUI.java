@@ -1,5 +1,7 @@
 package com.fzs.mine.ui;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,6 +31,8 @@ import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.activity.BaseUI;
 import com.hzh.frame.util.AndroidUtil;
+import com.hzh.frame.util.Code2Util;
+import com.hzh.frame.widget.toast.BaseToast;
 import com.hzh.frame.widget.xdialog.XDialog1Button;
 import com.hzh.frame.widget.xrecyclerview.BaseRecyclerAdapter;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
@@ -47,18 +51,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import io.reactivex.internal.schedulers.NewThreadWorker;
-
 /**
  *支付宝或者微信充值
  * */
-@Route(path = "/mine/MinePayAliOrWxUI")
-public class MinePayAliOrWxUI extends BaseUI {
+@Route(path = "/mine/MinePayUsdtUI")
+public class MinePayUsdtUI extends BaseUI {
+    ImageView usdtQr;
+    TextView usdtAddress;
+    RecyclerView imageUploadRecyclerView;
+    Button copyAddress;
+    Button saveImg;
+    Button submitButton;
+    EditText fMoney;
     private String rechargeType = "";
-    private Button submitButton;
-    private Button saveImg;
-    private RecyclerView imageUploadRecyclerView; //图片
-    private ExpandImageView payQr;
     private static final int REQUEST_IMAGE = 1;// 图片选择
     private static final int REQUEST_CROP = 2;// 图片剪裁
     XDialog1Button mXDialog1Button;
@@ -66,32 +71,29 @@ public class MinePayAliOrWxUI extends BaseUI {
     private int zero = 0;
     private List<String> issueImageUrl;
     private String collectionId = "";
-    private EditText fMoney;
     
 	@Override
 	protected void onCreateBase() {
-		setContentView(R.layout.mine_ui_pay_aliorwx);
+		setContentView(R.layout.mine_ui_pay_usdt);
+		getTitleView().setContent("USDT充值");
         showLoding();
-		getTitleView().setContent(getIntent().getStringExtra("payTitle"));
         rechargeType = getIntent().getStringExtra("rechargeType");
-        submitButton = findViewById(R.id.submitButton);
-        saveImg = findViewById(R.id.saveImg);
+        usdtQr = findViewById(R.id.usdtQr);
+        usdtAddress = findViewById(R.id.usdtAddress);
         imageUploadRecyclerView = findViewById(R.id.image_upload_recyclerView);
-        payQr = findViewById(R.id.payQr);
+        copyAddress = findViewById(R.id.copyAddress);
+        saveImg = findViewById(R.id.saveImg);
+        submitButton = findViewById(R.id.submitButton);
         fMoney = findViewById(R.id.fMoney);
-        getCollectionInfo();
+		getCollectionInfo();
         initImageUploadGridview();
         saveImg.setOnClickListener(v -> {
-            Bitmap bitmap= ImageTools.getImageViewBitmap(payQr);
-            if (submitButton.equals("1")){
-                ImageTools.saveBitmap2Camera(this,bitmap,"ALipay");
-            }else {
-                ImageTools.saveBitmap2Camera(this,bitmap,"Wxpay");
-            }
+            Bitmap bitmap= ImageTools.getImageViewBitmap(usdtQr);
+            ImageTools.saveBitmap2Camera(this,bitmap,"Usdtpay");
             mXDialog1Button=new XDialog1Button(this, "二维码已保存到相册", new CallBack() {
                 @Override
                 public void onSuccess(Object o) {
-                    
+
                 }
             });
             mXDialog1Button.setButtonName("确定").show();
@@ -99,8 +101,22 @@ public class MinePayAliOrWxUI extends BaseUI {
         submitButton.setOnClickListener(v -> {
             submitPay();
         });
+        usdtAddress.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!Util.isEmpty(usdtAddress.getText().toString().trim())){
+                    ClipboardManager cmb = (ClipboardManager) MinePayUsdtUI.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData myClip = ClipData.newPlainText("UsdtAddress",usdtAddress.getText().toString().trim());
+                    cmb.setPrimaryClip(myClip);
+                    BaseToast.getInstance().setMsg("成功复制充值地址:" + usdtAddress.getText().toString().trim()).show();
+                }else {
+                    alert("暂无充值地址");
+                }
+                return false;
+            }
+        });
 	}
-	
+
     private void getCollectionInfo(){
         JSONObject params=new JSONObject();
         try {
@@ -108,7 +124,7 @@ public class MinePayAliOrWxUI extends BaseUI {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         BaseHttp.getInstance().query("finance/getCollectionInfo", params, new HttpCallBack() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -117,7 +133,9 @@ public class MinePayAliOrWxUI extends BaseUI {
                     JSONObject data = response.optJSONObject("data");
                     if (data != null && data.length() > 0){
                         collectionId = data.optString("collectionId");
-                        payQr.setImageURI(data.optString("qrCode"));
+                        usdtAddress.setText(data.optString("usdtAddress"));
+                        usdtQr.setImageBitmap(Code2Util.create(data.optString("usdtAddress"),(int)(MinePayUsdtUI.this.getResources().getDimension(R.dimen.dp_180)),
+                                (int)(getResources().getDimension(R.dimen.dp_80))));
                     }
                 }else {
                     alert(response.optString("message"));
@@ -135,14 +153,13 @@ public class MinePayAliOrWxUI extends BaseUI {
     }
 
     public void initImageUploadGridview() {
-        imageUploadRecyclerView.setLayoutManager(new GridLayoutManager(MinePayAliOrWxUI.this,5));
-        imageUploadRecyclerView.addItemDecoration(new BaseGridSpacingItemDecoration(MinePayAliOrWxUI.this,5,3));
+        imageUploadRecyclerView.setLayoutManager(new GridLayoutManager(MinePayUsdtUI.this,5));
+        imageUploadRecyclerView.addItemDecoration(new BaseGridSpacingItemDecoration(MinePayUsdtUI.this,5,3));
         List<UploadImage> resourceList;
         resourceList = new ArrayList<>();
         resourceList.add(new UploadImage());
-        imageUploadRecyclerView.setAdapter(new ItemAdapter(MinePayAliOrWxUI.this,resourceList));
+        imageUploadRecyclerView.setAdapter(new ItemAdapter(MinePayUsdtUI.this,resourceList));
     }
-
 
     private class ItemAdapter extends BaseRecyclerAdapter<UploadImage> {
 
@@ -226,13 +243,13 @@ public class MinePayAliOrWxUI extends BaseUI {
 
     public void setImage(Uri uri) {
         localHead = uri;
-        headBitmap = BitmapFactory.decodeFile(UriUtil.getRealFilePath(MinePayAliOrWxUI.this, uri), getBitmapOption(1)); //将图片的长和宽缩小味原来的1/2
+        headBitmap = BitmapFactory.decodeFile(UriUtil.getRealFilePath(MinePayUsdtUI.this, uri), getBitmapOption(1)); //将图片的长和宽缩小味原来的1/2
         headBitmap = ImageUtil.Bytes2Bimap(ImageUtil.zoom(headBitmap, 200));
 
         ItemAdapter itemAdapter = (ItemAdapter) imageUploadRecyclerView.getAdapter();
         List<UploadImage> list = itemAdapter.getDatalist();
         UploadImage model = new UploadImage();
-        model.setUri(UriUtil.getRealFilePath(MinePayAliOrWxUI.this, uri));
+        model.setUri(UriUtil.getRealFilePath(MinePayUsdtUI.this, uri));
         list.add(list.size()-1, model);
         itemAdapter.notifyDataSetChanged();
     }
@@ -319,7 +336,7 @@ public class MinePayAliOrWxUI extends BaseUI {
                     fileList.add(map);
                 }
                 int finalI = i;
-                BaseHttp.getInstance().uploadFile(MinePayAliOrWxUI.this,"file/upload", fileList, new HttpCallBack() {
+                BaseHttp.getInstance().uploadFile(MinePayUsdtUI.this,"file/upload", fileList, new HttpCallBack() {
                     @Override
                     public void onSuccess(JSONObject response) {
                         super.onSuccess(response);

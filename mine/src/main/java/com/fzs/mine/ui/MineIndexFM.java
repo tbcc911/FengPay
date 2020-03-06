@@ -245,6 +245,10 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                                             .withString("rechargeType",baseRadio.getId())
                                             .withString("payTitle","微信充值")
                                             .navigation();
+                                }else if (baseRadio.getId().equals("3")){
+                                    ARouter.getInstance().build("/mine/MinePayUsdtUI")
+                                            .withString("rechargeType",baseRadio.getId())
+                                            .navigation();
                                 }
                             }
                         })
@@ -289,7 +293,10 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
 //            ARouter.getInstance().build("/main/MainUI").withInt("switchTab",1).navigation();
             RxBus.getInstance().post(new MsgEvent(MineIndexFM.TAG, "1"));
 
-        }
+        } else 
+        if (id == R.id.userLv){ //用户等级
+            ARouter.getInstance().build("/mine/MineUserInfoUI").with(bd).navigation();
+        }   
     }
     
     //判断是否登录和激活
@@ -345,11 +352,13 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             ((TextView) findViewById(R.id.phone)).setText(Util.phoneHide(user.getPhone()));
             ((TextView) findViewById(R.id.usdt)).setText(Util.doubleFormat(user.getIntegration(),"#0.00"));
             ((TextView) findViewById(R.id.activationState)).setText(user.getIsActivation() ? "已激活":"未激活");
+            ((TextView) findViewById(R.id.userLv)).setText("Lv" + user.getSuccessLevel());
         } else {
             ((ExpandImageView) findViewById(R.id.userHead)).setImageResource(R.mipmap.base_image_face);
             ((TextView) findViewById(R.id.userNice)).setText("点击登录");
             ((TextView) findViewById(R.id.phone)).setText("登录查看更多资料");
             ((TextView) findViewById(R.id.activationState)).setText("未激活");
+            ((TextView) findViewById(R.id.userLv)).setVisibility(View.GONE);
         }
         loadReceiptState();
     }

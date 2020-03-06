@@ -20,7 +20,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="@dimen/dp_16"
@@ -52,7 +52,9 @@
             android:paddingLeft="10dp"
             android:text="搜索你感兴趣的资讯"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="11sp" 
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"/>
 
         <LinearLayout
             android:id="@+id/title_right"
@@ -61,7 +63,8 @@
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"

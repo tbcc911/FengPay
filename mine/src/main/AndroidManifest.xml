@@ -34,6 +34,7 @@
         <activity android:name="com.fzs.mine.ui.MineIntegralInfoRUI"/>
         <activity android:name="com.fzs.mine.ui.MinePayBankUI"/>
         <activity android:name="com.fzs.mine.ui.MinePayAliOrWxUI"/>
+        <activity android:name="com.fzs.mine.ui.MinePayUsdtUI"/>
     </application>
 
 </manifest>

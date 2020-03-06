@@ -10,6 +10,7 @@ import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
 import com.hzh.frame.util.FileUtil;
+import com.hzh.frame.util.Util;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -123,14 +124,20 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
         holder.getView(R.id.flag).setVisibility(View.GONE);
         holder.getView(R.id.annotation).setVisibility(View.GONE);
         holder.setText(R.id.state,model.getStatusName());
-        holder.setText(R.id.paytime,"审核时间:" + model.getAuditTime());
-        if("1".equals(model.getState())){
-            holder.setTextColor(R.id.state,"#228B22");
-        } else
-        if("2".equals(model.getState())){
-            holder.setTextColor(R.id.state,"#837DF9");
-        } else
-        if("3".equals(model.getState())){
+        if (!Util.isEmpty(model.getAuditTime())){
+            holder.setText(R.id.paytime,"审核时间:" + model.getAuditTime());
+        }
+        if (!Util.isEmpty(model.getState())){
+            if("1".equals(model.getState())){
+                holder.setTextColor(R.id.state,"#228B22");
+            } else
+            if("2".equals(model.getState())){
+                holder.setTextColor(R.id.state,"#837DF9");
+            } else
+            if("3".equals(model.getState())){
+                holder.setTextColor(R.id.state,"#ff0000");
+            }
+        }else {
             holder.setTextColor(R.id.state,"#ff0000");
         }
         if ("0".equals(model.getType())){

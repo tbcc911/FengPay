@@ -106,7 +106,7 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionIncome model) {
         holder.setText(R.id.incomeTile,model.getIncometitle());
-        holder.setText(R.id.time,model.getCreateTime());
+        holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,model.getAfterValue());
         holder.setText(R.id.aftermoney,"当前余额:" + model.getAfterValue());
         Float type = Float.parseFloat(model.getAfterValue()) - Float.parseFloat(model.getBeforeValue());

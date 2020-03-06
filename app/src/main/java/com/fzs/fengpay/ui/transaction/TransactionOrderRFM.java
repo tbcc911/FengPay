@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.fzs.comn.model.TransactionOrder;
 import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
+import com.hzh.frame.comn.callback.HttpCallBack;
+import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
 import com.hzh.frame.util.FileUtil;
 import com.hzh.frame.util.Util;
@@ -90,9 +92,10 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject obj = list.optJSONObject(i);
                         TransactionOrder model = new TransactionOrder();
+                        model.setNid(obj.optString("orderId")); //订单ID
                         model.setMoney(obj.optString("amount")); //订单金额
                         model.setCreateTime(obj.optString("createTime")); //创建时间
-                        model.setNid(obj.optString("orderNo")); //订单编号
+                        model.setOrderNo(obj.optString("orderNo")); //订单编号
                         model.setState(obj.optString("orderStatus")); //订单状态: 订单状态: 0->未支付; 1->已支付; 2->订单超时
                         model.setStatusName(obj.optString("orderStatusName")); //订单状态名称: 支付中; 已完成; 支付失败
                         model.setTime(obj.optString("payTime")); //支付时间
@@ -110,17 +113,16 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
     
     @Override
     protected int setItemLayoutId(int viewType) {
-        return R.layout.item_rv_transaction;
+        return R.layout.item_rv_order;
     }
 
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
         holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
-        holder.getView(R.id.flag).setVisibility(View.GONE);
-        holder.getView(R.id.annotation).setVisibility(View.GONE);
         holder.setText(R.id.state,model.getStatusName());
         holder.setText(R.id.desc,"订单编号:" + model.getOrderNo());
+        TextView manualPay = holder.itemView.findViewById(R.id.manualPay);
         if (Util.isEmpty(model.getPayTime())){
             holder.setText(R.id.paytime,"未支付");
         }else {
@@ -128,12 +130,15 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
         }
         if("1".equals(model.getState())){
             holder.setTextColor(R.id.state,"#228B22");
+            manualPay.setVisibility(View.GONE);
         } else
         if("2".equals(model.getState())){
             holder.setTextColor(R.id.state,"#e84c3d");
+            manualPay.setVisibility(View.VISIBLE);
         } else
         if("0".equals(model.getState())){
             holder.setTextColor(R.id.state,"#837DF9");
+            manualPay.setVisibility(View.VISIBLE);
         }
         if ("0".equals(model.getType())){
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
@@ -144,6 +149,26 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
         }else if ("3".equals(model.getType())){
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
+
+        manualPay.setOnClickListener(v -> {
+            JSONObject params = new JSONObject();
+            try {
+                params.put("orderId", model.getNid());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            BaseHttp.getInstance().write("order/manualPay", params, new HttpCallBack() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    super.onSuccess(response);
+                    if (response.optInt("code") == 200){
+                        onRefresh();
+                    }
+                    alert(response.optString("message"));
+                }
+            });
+        });
     }
 
     @Override

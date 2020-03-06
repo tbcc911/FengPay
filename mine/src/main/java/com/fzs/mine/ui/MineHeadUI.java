@@ -10,14 +10,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.fzs.comn.ComnConfig;
 import com.fzs.comn.matisse.GifSizeFilter;
+import com.fzs.comn.model.UploadImage;
 import com.fzs.comn.tools.QiniuTools;
 import com.fzs.comn.tools.UriUtil;
 import com.fzs.comn.tools.UserTools;
+import com.fzs.comn.tools.Util;
 import com.fzs.comn.widget.imageview.ExpandImageView;
 import com.fzs.mine.R;
 import com.hzh.frame.comn.callback.HttpCallBack;
@@ -38,6 +41,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -58,6 +63,9 @@ public class MineHeadUI extends BaseUI {
     private Bitmap headBitmap;
     private String headUrl = "";
     private XDialogSubmit loading;
+    private List<String> issueImageUrl;
+    private String imageUrl = "";
+    private int zero = 0;
 	
 	@Override
 	protected void onCreateBase() {
@@ -167,35 +175,41 @@ public class MineHeadUI extends BaseUI {
         headBitmap = com.hzh.frame.util.ImageUtil.Bytes2Bimap(com.hzh.frame.util.ImageUtil.zoom(headBitmap, 200));
         headUri = uri;
         //图片显示
-//        BaseHttp.getInstance().query("qiniu", null, new HttpCallBack() {
+        loading.show();
+        getFileList(headUri);
+//        getFileList(headUri,new fileCallBack() {
 //            @Override
-//            public void onSuccess(JSONObject response) {
-//                super.onSuccess(response);
+//            public void onSuccess(String imgUrl) {
+//                setSubmit(imgUrl);
+//            }
+//
+//            @Override
+//            public void onFail(String msg) {
+//
 //            }
 //        });
-        loading.show();
-        QiniuTools.getInstance().loadToken("qiniu", new QiniuTools.QiniuCallBack() {
-            @Override
-            public void onSuccess(String sevenToken, String sevenCdnurl) {
-                QiniuTools.getInstance().loadImage(MineHeadUI.this, headUri, 1, new QiniuTools.UpLodImageCallBack() {
-                    @Override
-                    public void onSuccess(String keys, int type) {
-                        headUrl = keys;
-                        setSubmit(keys);
-                    }
-
-                    @Override
-                    public void onFail(String msg) {
-                        alert(msg);
-                    }
-                });
-            }
-
-            @Override
-            public void onFail(String msg) {
-                alert(msg);
-            }
-        });
+//        QiniuTools.getInstance().loadToken("qiniu", new QiniuTools.QiniuCallBack() {
+//            @Override
+//            public void onSuccess(String sevenToken, String sevenCdnurl) {
+//                QiniuTools.getInstance().loadImage(MineHeadUI.this, headUri, 1, new QiniuTools.UpLodImageCallBack() {
+//                    @Override
+//                    public void onSuccess(String keys, int type) {
+//                        headUrl = keys;
+//                        setSubmit(keys);
+//                    }
+//
+//                    @Override
+//                    public void onFail(String msg) {
+//                        alert(msg);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFail(String msg) {
+//                alert(msg);
+//            }
+//        });
     }
 
     private BitmapFactory.Options getBitmapOption(int inSampleSize) {
@@ -206,7 +220,7 @@ public class MineHeadUI extends BaseUI {
         return options;
     }
     
-    private void setSubmit(String headUrl){
+    private void setSubmitHead(String headUrl){
         JSONObject params = new JSONObject();
         try {
             params.put("avatarUrl", headUrl);
@@ -214,7 +228,7 @@ public class MineHeadUI extends BaseUI {
             e.printStackTrace();
         }
         
-        BaseHttp.getInstance().query("member/updateAvatarUrl", params,new HttpCallBack() {
+        BaseHttp.getInstance().write("member/updateAvatarUrl", params,new HttpCallBack() {
             @Override
             public void onSuccess(JSONObject response) {
                 super.onSuccess(response);
@@ -224,6 +238,38 @@ public class MineHeadUI extends BaseUI {
                     UserTools.getInstance().updUser(UserTools.getInstance().getUser().setHead(headUrl));
                 }
                 alert(response.optString("message"));
+            }
+        });
+    }
+
+    public interface fileCallBack {
+        void onSuccess(String imgUrl);
+
+        void onFail(String msg);
+    }
+
+    private void getFileList(Uri uri){
+        List<HashMap<String,Object>> fileList;
+        fileList=new ArrayList<>();
+        if (!Util.isEmpty(UriUtil.getRealFilePath(MineHeadUI.this, uri))) {
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("name","file");
+            map.put("file",new File(UriUtil.getRealFilePath(MineHeadUI.this, uri)));
+            fileList.add(map);
+        }
+        imageUrl = "";
+        BaseHttp.getInstance().uploadFile(MineHeadUI.this,"file/upload", fileList, new HttpCallBack() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                super.onSuccess(response);
+                if (response.optInt("code") == 200){
+                    if (Util.isEmpty(imageUrl)){
+                        imageUrl = response.optString("data");
+                    }else {
+                        imageUrl = imageUrl + "," + response.optString("data");
+                    }
+                }
+                setSubmitHead(imageUrl);
             }
         });
     }

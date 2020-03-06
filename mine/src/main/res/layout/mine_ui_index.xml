@@ -92,6 +92,23 @@
                                 android:textSize="@dimen/sp_8"
                                 tools:text="激活状态" />
 
+                            <TextView
+                                android:id="@+id/userLv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:background="@drawable/mine_button_white_border"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:paddingLeft="@dimen/dp_8"
+                                android:paddingTop="@dimen/dp_3"
+                                android:paddingRight="@dimen/dp_8"
+                                android:paddingBottom="@dimen/dp_3"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_8"
+                                tools:text="用户等级" />
+
                         </LinearLayout>
 
                         <TextView
@@ -144,7 +161,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="35dp"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_10">
@@ -220,7 +237,8 @@
                         android:paddingBottom="@dimen/dp_5"
                         android:text="转账"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/sp_13" />
+                        android:textSize="@dimen/sp_13" 
+                        android:visibility="gone"/>
                 </LinearLayout>
 
 
@@ -233,7 +251,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-35dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -243,7 +260,8 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@drawable/comn_bg_white_fillet_small"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
                 <LinearLayout
@@ -547,7 +565,8 @@
                     android:onClick="userInfo"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
+                    android:paddingRight="@dimen/dp_10"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/dp_15"

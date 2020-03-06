@@ -119,37 +119,49 @@ public class MineFeedBackUI extends BaseUI {
             if (tel.getText().length()<11){
                 alert("请输入正确的联系方式");
             }else {
-                List<HashMap<String,Object>> fileList=new ArrayList<>();
-                ItemAdapter adapter= (ItemAdapter) imageUploadRecyclerView.getAdapter();
-                List<UploadImage> list = adapter.getDatalist();
-                for(int i=0;i<list.size();i++){
-                    UploadImage model=list.get(i);
-                    if (!Util.isEmpty(model.getUri())) {
-                        HashMap<String,Object> map = new HashMap<>();
-                        map.put("file",new File(model.getUri()));
-                        fileList.add(map);
+                getFileList(new fileCallBack() {
+                    @Override
+                    public void onSuccess(String imgUrl) {
+                        setSubmit(imgUrl);
                     }
-                }
-                if (fileList.size()>0){
-                    issueImageUrl = new ArrayList<>();
-                    imageUrl = "";
-                    zero = 0;
-                    QiniuTools.getInstance().loadToken("qiniu", new QiniuTools.QiniuCallBack() {
-                        @Override
-                        public void onSuccess(String sevenToken, String sevenCdnurl) {
-                            for (int y = 0;y<fileList.size();y++){
-                                setissueImageUrl(Uri.fromFile(new File(fileList.get(y).get("file").toString())),zero,fileList.size());
-                            }
-                        }
 
-                        @Override
-                        public void onFail(String msg) {
-                            alert(msg);
-                        }
-                    });
-                }else {
-                    setSubmit();
-                }
+                    @Override
+                    public void onFail(String msg) {
+
+                    }
+                });
+//                
+//                List<HashMap<String,Object>> fileList=new ArrayList<>();
+//                ItemAdapter adapter= (ItemAdapter) imageUploadRecyclerView.getAdapter();
+//                List<UploadImage> list = adapter.getDatalist();
+//                for(int i=0;i<list.size();i++){
+//                    UploadImage model=list.get(i);
+//                    if (!Util.isEmpty(model.getUri())) {
+//                        HashMap<String,Object> map = new HashMap<>();
+//                        map.put("file",new File(model.getUri()));
+//                        fileList.add(map);
+//                    }
+//                }
+//                if (fileList.size()>0){
+//                    issueImageUrl = new ArrayList<>();
+//                    imageUrl = "";
+//                    zero = 0;
+//                    QiniuTools.getInstance().loadToken("qiniu", new QiniuTools.QiniuCallBack() {
+//                        @Override
+//                        public void onSuccess(String sevenToken, String sevenCdnurl) {
+//                            for (int y = 0;y<fileList.size();y++){
+//                                setissueImageUrl(Uri.fromFile(new File(fileList.get(y).get("file").toString())),zero,fileList.size());
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFail(String msg) {
+//                            alert(msg);
+//                        }
+//                    });
+//                }else {
+//                    setSubmit();
+//                }
             }
         }
     }
@@ -345,7 +357,7 @@ public class MineFeedBackUI extends BaseUI {
 //                issueImageUrl.add(keys);
                 if (zero == size){
                     imageUrl = imageUrl + keys;
-                    setSubmit();
+                    setSubmit(imageUrl);
                 }else {
                     imageUrl = imageUrl + keys + ",";
                 }
@@ -358,12 +370,12 @@ public class MineFeedBackUI extends BaseUI {
         });
     }
     
-    private void setSubmit(){
+    private void setSubmit(String image){
         JSONObject params = new JSONObject();
         try {
             params.put("contactWay", tel.getText().toString().trim());
             params.put("content", feedback.getText().toString().trim());
-            params.put("issueImageUrl", imageUrl);
+            params.put("issueImageUrl", image);
             params.put("issueType", typeContent.getTag().toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -398,5 +410,50 @@ public class MineFeedBackUI extends BaseUI {
                     }
                 }).show(getSupportFragmentManager());
     }
-    
+
+    public interface fileCallBack {
+        void onSuccess(String imgUrl);
+
+        void onFail(String msg);
+    }
+
+    private void getFileList(fileCallBack fileCallBack){
+        List<HashMap<String,Object>> fileList;
+        ItemAdapter adapter= (ItemAdapter) imageUploadRecyclerView.getAdapter();
+        List<UploadImage> list = adapter.getDatalist();
+        issueImageUrl = new ArrayList<>();
+        imageUrl = "";
+        zero = 0;
+        if (list != null && list.size() > 1){
+            for(int i=0;i <= list.size() - 2;i++){
+                fileList=new ArrayList<>();
+                UploadImage model=list.get(i);
+                if (!Util.isEmpty(model.getUri())) {
+                    HashMap<String,Object> map = new HashMap<>();
+                    map.put("name","file");
+                    map.put("file",new File(model.getUri()));
+                    fileList.add(map);
+                }
+                int finalI = i;
+                BaseHttp.getInstance().uploadFile(MineFeedBackUI.this,"file/upload", fileList, new HttpCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        super.onSuccess(response);
+                        if (response.optInt("code") == 200){
+                            if (Util.isEmpty(imageUrl)){
+                                imageUrl = response.optString("data");
+                            }else {
+                                imageUrl = imageUrl + "," + response.optString("data");
+                            }
+                        }
+                        if (finalI + 2 == list.size()){
+                            fileCallBack.onSuccess(imageUrl);
+                        }
+                    }
+                });
+            }
+        }else {
+            fileCallBack.onSuccess("");
+        }
+    }
 }

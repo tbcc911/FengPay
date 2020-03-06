@@ -26,6 +26,8 @@ public class MineUserInfoUI extends BaseUI {
 		((TextView)findViewById(R.id.nc)).setText(UserTools.getInstance().getUser().getNickName());
 		((TextView)findViewById(R.id.inviter)).setText(UserTools.getInstance().getUser().getInviter());
 		((TextView)findViewById(R.id.bankName)).setText(UserTools.getInstance().getUser().getBalnace());
+        ((TextView)findViewById(R.id.userLv)).setText("Lv" + UserTools.getInstance().getUser().getSuccessLevel());
+        ((TextView)findViewById(R.id.userSuccessRate)).setText(UserTools.getInstance().getUser().getSuccessRate() + "%");
         ((ExpandImageView)findViewById(R.id.head)).setImageURI(UserTools.getInstance().getUser().getHead());
 	}
 	

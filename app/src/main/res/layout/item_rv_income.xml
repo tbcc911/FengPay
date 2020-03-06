@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="标题"
-            android:textSize="@dimen/sp_15"
+            android:textSize="@dimen/sp_12"
             android:textColor="@color/text_c_666666"/>
 
         <LinearLayout
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@color/orangered"
-                android:textSize="@dimen/sp_16"
+                android:textSize="@dimen/sp_12"
                 tools:text="0.00" />
 
             <TextView
@@ -44,8 +44,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/orangered"
-                android:textSize="@dimen/sp_11"
-                tools:text="(-8.05积分)" />
+                android:textSize="@dimen/sp_10"
+                tools:text="(-8.05积分)" 
+                android:layout_marginLeft="@dimen/dp_3"/>
 
             <TextView
                 android:id="@+id/time"
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@color/orangered"
-                android:textSize="@dimen/sp_16"
+                android:textSize="@dimen/sp_12"
                 tools:text="0.00" />
 
         </LinearLayout>
