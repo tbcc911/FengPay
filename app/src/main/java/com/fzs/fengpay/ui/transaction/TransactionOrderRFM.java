@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fzs.comn.model.TransactionOrder;
+import com.fzs.fengpay.ItemDecoration.TeamItemDecoration;
 import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.comn.callback.HttpCallBack;

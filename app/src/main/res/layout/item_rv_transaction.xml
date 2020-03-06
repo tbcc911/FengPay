@@ -7,13 +7,30 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/dp_10">
-
-    <ImageView
-        android:id="@+id/type"
-        android:layout_width="@dimen/dp_35"
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/base_image_alipay" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/type"
+            android:layout_width="@dimen/dp_35"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/base_image_alipay" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/orangered"
+            android:textSize="@dimen/sp_16"
+            tools:text="0.00" 
+            android:layout_marginLeft="@dimen/dp_5"/>
+        
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,24 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/flag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="+"
-                android:textColor="@color/orangered"
-                android:textSize="@dimen/sp_15" />
-
-            <TextView
-                android:id="@+id/money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textColor="@color/orangered"
-                android:textSize="@dimen/sp_16"
-                tools:text="0.00" />
 
             <TextView
                 android:id="@+id/annotation"
@@ -74,19 +73,19 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:textColor="@color/base_666666"
-                android:textSize="@dimen/sp_12"
-                tools:text="明细" />
+<!--            <TextView-->
+<!--                android:id="@+id/desc"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="left"-->
+<!--                android:textColor="@color/base_666666"-->
+<!--                android:textSize="@dimen/sp_12"-->
+<!--                tools:text="明细" />-->
 
             <TextView
                 android:id="@+id/paytime"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/base_666666"

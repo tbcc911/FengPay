@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fzs.comn.model.TransactionOrder;
+import com.fzs.fengpay.ItemDecoration.TeamItemDecoration;
 import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
@@ -121,11 +122,14 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
         holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
-        holder.getView(R.id.flag).setVisibility(View.GONE);
-        holder.getView(R.id.annotation).setVisibility(View.GONE);
+//        holder.getView(R.id.flag).setVisibility(View.GONE);
+//        holder.getView(R.id.annotation).setVisibility(View.GONE);
         holder.setText(R.id.state,model.getStatusName());
         if (!Util.isEmpty(model.getAuditTime())){
+            holder.getView(R.id.paytime).setVisibility(View.VISIBLE);
             holder.setText(R.id.paytime,"审核时间:" + model.getAuditTime());
+        }else {
+            holder.getView(R.id.paytime).setVisibility(View.GONE);
         }
         if (!Util.isEmpty(model.getState())){
             if("1".equals(model.getState())){
@@ -141,16 +145,16 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
             holder.setTextColor(R.id.state,"#ff0000");
         }
         if ("0".equals(model.getType())){
-            holder.setText(R.id.desc,"银行卡");
+//            holder.setText(R.id.desc,"银行卡");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
         }else if ("1".equals(model.getType())){
-            holder.setText(R.id.desc,"支付宝");
+//            holder.setText(R.id.desc,"支付宝");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
         }else if ("2".equals(model.getType())){
-            holder.setText(R.id.desc,"微信");
+//            holder.setText(R.id.desc,"微信");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
         }else if ("3".equals(model.getType())){
-            holder.setText(R.id.desc,"USDT");
+//            holder.setText(R.id.desc,"USDT");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
     }

@@ -46,7 +46,7 @@
                 android:textColor="@color/orangered"
                 android:textSize="@dimen/sp_10"
                 tools:text="(-8.05积分)" 
-                android:layout_marginLeft="@dimen/dp_3"/>
+                android:layout_marginLeft="@dimen/dp_5"/>
 
             <TextView
                 android:id="@+id/time"

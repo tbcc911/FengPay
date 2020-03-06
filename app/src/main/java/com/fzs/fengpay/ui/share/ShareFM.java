@@ -1,20 +1,24 @@
 package com.fzs.fengpay.ui.share;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fzs.comn.tools.ImageTools;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
 import com.fzs.fengpay.R;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.fragment.BaseFM;
 import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.util.Code2Util;
+import com.hzh.frame.widget.xdialog.XDialog1Button;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +36,9 @@ public class ShareFM extends BaseFM{
     private ImageView inviteQr;
     private TextView myRate;
     private Button button;
+    private Button saveQr;
+    private String qrUrl = "";
+    XDialog1Button mXDialog1Button;
 
     @Override
     public boolean setTitleIsShow() {
@@ -45,6 +52,7 @@ public class ShareFM extends BaseFM{
         inviteQr = layout.findViewById(R.id.inviteQr);
         myRate = layout.findViewById(R.id.myRate);
         button = layout.findViewById(R.id.button);
+        saveQr = layout.findViewById(R.id.saveQr);
         if (UserTools.getInstance().getIsLogin()){
             inviteCode.setText(UserTools.getInstance().getUser().getInviteCode());
             agentRatio = UserTools.getInstance().getUser().getAgentRatio();
@@ -56,7 +64,21 @@ public class ShareFM extends BaseFM{
         button.setOnClickListener(v -> {
             setMyRate();
         });
-//        layout.findViewById(R.id.statusBar).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, AndroidUtil.getStatusBarHeight()));
+        saveQr.setOnClickListener(v -> {
+            if (!Util.isEmpty(qrUrl)){
+                Bitmap bitmap= ImageTools.getImageViewBitmap(inviteQr);
+                ImageTools.saveBitmap2Camera(getActivity(),bitmap,"share");
+                mXDialog1Button=new XDialog1Button(getActivity(), "二维码已保存到相册", new CallBack() {
+                    @Override
+                    public void onSuccess(Object o) {
+
+                    }
+                });
+                mXDialog1Button.setButtonName("确定").show();
+            }else {
+                alert("暂无二维码可保存");
+            }
+        });
     }
     
     private void getShare(String rate){
@@ -74,7 +96,8 @@ public class ShareFM extends BaseFM{
                 if (response.optInt("code") == 200){
                     JSONObject data = response.optJSONObject("data");
                     if (data != null && data.length() > 0){
-                        inviteQr.setImageBitmap(Code2Util.create(data.optString("url"),(int)(getActivity().getResources().getDimension(R.dimen.dp_160)),
+                        qrUrl = data.optString("url");
+                        inviteQr.setImageBitmap(Code2Util.create(qrUrl,(int)(getActivity().getResources().getDimension(R.dimen.dp_160)),
                                 (int)(getResources().getDimension(R.dimen.dp_80))));
                     }
                 }else {

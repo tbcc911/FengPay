@@ -110,7 +110,7 @@ public class MineIntegralInfoRUI extends AbsRecyclerViewUI<MineIntegration> {
     @Override
     protected void bindItemData(RecyclerViewHolder holder, int position, MineIntegration model) {
         holder.setText(R.id.tvTitle,model.getTvtitle());
-        holder.setText(R.id.money,model.getValue());
+        holder.setText(R.id.money,model.getValue() + "积分");
         holder.setText(R.id.time,model.getCreateTime());
         holder.setText(R.id.desc,model.getNote());
         if (Util.isEmpty(model.getTradeType())){

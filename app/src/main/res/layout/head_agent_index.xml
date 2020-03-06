@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/comn_bg_white_fillet"
     android:orientation="horizontal">
 
@@ -70,7 +71,8 @@
             android:gravity="center"
             android:text="收割"
             android:textColor="@color/base_131313"
-            android:textSize="@dimen/sp_12" />
+            android:textSize="@dimen/sp_12" 
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/sumMoney"
@@ -80,7 +82,15 @@
             android:gravity="center"
             android:text="98000"
             android:textColor="@color/red"
-            android:textSize="@dimen/sp_18" />
+            android:textSize="@dimen/sp_18" 
+            android:visibility="gone"/>
+
+        <com.fzs.comn.widget.imageview.ExpandImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="@dimen/dp_54"
+            android:layout_height="@dimen/dp_54"
+            android:background="@mipmap/base_image_face"
+            fresco:roundAsCircle="true" />
     </LinearLayout>
 
     <LinearLayout

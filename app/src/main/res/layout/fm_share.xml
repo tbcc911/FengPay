@@ -116,19 +116,54 @@
                     android:inputType="numberDecimal"/>
                 
             </FrameLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp_10">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_40"
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="@drawable/comn_white_stork_r5"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="生成二维码"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_13"
-                android:layout_gravity="center_horizontal"/>
+                    <Button
+                        android:id="@+id/saveQr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:background="@drawable/comn_white_stork_r5"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="保存二维码"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_13"
+                        android:layout_gravity="center_horizontal"/>
+                    
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:background="@drawable/comn_white_stork_r5"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="生成二维码"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_13"
+                        android:layout_gravity="center_horizontal"/>
+                    
+                </LinearLayout>
+                
+            </LinearLayout>
             
             <FrameLayout
                 android:layout_width="match_parent"

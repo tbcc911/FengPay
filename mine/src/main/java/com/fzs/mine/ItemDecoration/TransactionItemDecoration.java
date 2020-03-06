@@ -52,6 +52,9 @@ public class TransactionItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.bottom= lineHeight;
                 break;
             case BaseRecyclerAdapter.TYPE_NORMAL:
+                if(itemPosition==parent.getAdapter().getItemCount()-1){
+                    outRect.bottom= lineHeight;
+                }
                 outRect.top= lineHeight;
                 outRect.left= lineHeight;
                 outRect.right= lineHeight;

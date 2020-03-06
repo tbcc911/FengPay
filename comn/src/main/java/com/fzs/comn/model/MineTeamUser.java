@@ -34,6 +34,12 @@ public class MineTeamUser extends Model {
     private int isEffective;//是否有效
     @Column(name = "incomeScale")
     private String incomeScale;//代理收益比例
+    @Column(name = "totalIncome")
+    private String totalIncome;//总收益
+    @Column(name = "effectiveStatus")
+    private String effectiveStatus;//有效会员状态: 0->无效; 1->有效
+    @Column(name = "agentRatio")
+    private String agentRatio;//代理比例
 
 
     public String getAvatarUrl() {
@@ -138,7 +144,6 @@ public class MineTeamUser extends Model {
     public boolean getIsEffective() {
         return isEffective==1;
     }
-
     public void setIsEffective(boolean isEffective) {
         if(isEffective){
             this.isEffective = 1;
@@ -150,8 +155,28 @@ public class MineTeamUser extends Model {
     public String getIncomeScale() {
         return incomeScale;
     }
-
     public void setIncomeScale(String incomeScale) {
         this.incomeScale = incomeScale;
+    }
+
+    public String getTotalIncome() {
+        return totalIncome;
+    }
+    public void setTotalIncome(String totalIncome) {
+        this.totalIncome = totalIncome;
+    }
+
+    public String getAgentRatio() {
+        return agentRatio;
+    }
+    public void setAgentRatio(String agentRatio) {
+        this.agentRatio = agentRatio;
+    }
+
+    public String getEffectiveStatus() {
+        return effectiveStatus;
+    }
+    public void setEffectiveStatus(String effectiveStatus) {
+        this.effectiveStatus = effectiveStatus;
     }
 }

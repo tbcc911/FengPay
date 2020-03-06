@@ -15,7 +15,7 @@
         <!-- 数据库 | 版本号-->
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="12" />
+            android:value="13" />
         <!-- 数据库 | 配置你需要的对应的映射关系表实体类-->
         <meta-data
             android:name="AA_MODELS"

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.fzs.comn.model.TransactionIncome;
 import com.fzs.comn.model.TransactionOrder;
+import com.fzs.fengpay.ItemDecoration.TeamItemDecoration;
 import com.fzs.fengpay.R;
 import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
@@ -107,7 +108,7 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionIncome model) {
         holder.setText(R.id.incomeTile,model.getIncometitle());
         holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
-        holder.setText(R.id.money,model.getAfterValue());
+        holder.setText(R.id.money,model.getBeforeValue());
         holder.setText(R.id.aftermoney,"当前余额:" + model.getAfterValue());
         Float type = Float.parseFloat(model.getAfterValue()) - Float.parseFloat(model.getBeforeValue());
         if (type >= 0){

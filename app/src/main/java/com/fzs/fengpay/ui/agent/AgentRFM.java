@@ -42,7 +42,7 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
             }
             onRefresh();
         });
-        setLoadPattern(2);
+//        setLoadPattern(2);
         mView = getAdapter().getHeaderView();
         showLoding();
         search = findViewById(R.id.search);
@@ -76,7 +76,7 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
 
     @Override
     protected String setHttpPath() {
-        return "member/getMemberInfo";
+        return "member/getTeamInfo";
     }
 
     @Override
@@ -92,12 +92,12 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
 
     @Override
     protected List<MineTeamUser> handleHttpData(JSONObject response) {
-        try {
-            String json = FileUtil.readTextFromFile(getActivity(), "json/Team.json");
-            response = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String json = FileUtil.readTextFromFile(getActivity(), "json/Team.json");
+//            response = new JSONObject(json);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         List<MineTeamUser> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
@@ -107,7 +107,7 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
                 ((TextView)headView.findViewById(R.id.sum_person_effective)).setText(data.optString("teamEffectiveCount"));
                 ((TextView)headView.findViewById(R.id.sum_share)).setText(data.optString("shareCount"));
                 ((TextView)headView.findViewById(R.id.sum_share_effective)).setText(data.optString("shareEffectiveCount"));
-                ((TextView)headView.findViewById(R.id.sumMoney)).setText(data.optString("sumMoney"));
+                ((ExpandImageView)headView.findViewById(R.id.user_avatar)).setImageURI(data.optString("avatarUrl"));
                 JSONArray teamList =data.optJSONArray("teamList");
                 if (teamList != null && teamList.length()>0){
                     for (int i = 0; i < teamList.length(); i++) {
@@ -121,8 +121,12 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
                         mineTeam.setTeamEffectiveCount(model.optString("teamEffectiveCount"));
                         mineTeam.setRegisterTime(model.optString("registerTime"));
                         mineTeam.setPhone(model.optString("phone"));
-                        mineTeam.setIsEffective(model.optBoolean("isEffective"));
-                        mineTeam.setIncomeScale(model.optString("incomeScale"));
+//                        mineTeam.setIsEffective(model.optBoolean("isEffective"));
+//                        mineTeam.setIncomeScale(model.optString("incomeScale"));
+//                        mineTeam.setIsEffective(model.optBoolean("effectiveStatus"));
+                        mineTeam.setEffectiveStatus(model.optString("effectiveStatus"));
+                        mineTeam.setAgentRatio(model.optString("agentRatio"));
+                        mineTeam.setTotalIncome(model.optString("totalIncome"));
                         listModel.add(mineTeam);
                     }
                 }
@@ -153,9 +157,11 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
         holder.setText(R.id.teamCount,model.getTeamCount());
         holder.setText(R.id.teamEffectiveCount,model.getTeamEffectiveCount());
         holder.setText(R.id.shareCount,model.getShareCount());
-        holder.setText(R.id.incomeScale,model.getIncomeScale()+"%");
+        holder.setText(R.id.incomeScale,(Float.parseFloat(model.getAgentRatio())*100) + "%");
+//        holder.setText(R.id.incomeScale,Float.parseFloat(model.getAgentRatio())*100+"%");
         holder.setText(R.id.shareEffectiveCount,model.getShareEffectiveCount());
-        if(model.getIsEffective()){
+        holder.setText(R.id.incomeMoney,model.getTotalIncome());
+        if(model.getEffectiveStatus().equals("1")){
             holder.getImageView(R.id.isEffective).setImageResource(R.drawable.app_icon_agent_true);
         }else{
             holder.getImageView(R.id.isEffective).setImageResource(R.drawable.app_icon_agent_false);
