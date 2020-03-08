@@ -92,8 +92,54 @@
                                 android:textSize="@dimen/sp_8"
                                 tools:text="激活状态" />
 
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:maxLines="1"
+                            android:text="登录查看更多资料"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_11" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="@dimen/dp_5">
+                            
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_vertical">
+                                
+                                <ImageView
+                                    android:id="@+id/lvUpDown"
+                                    android:layout_width="@dimen/dp_18"
+                                    android:layout_height="@dimen/dp_18"
+                                    android:src="@mipmap/mine_lv_up"/>
+
+                                <TextView
+                                    android:id="@+id/userLv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sp_10"
+                                    android:layout_marginLeft="@dimen/dp_5"
+                                    tools:text="用户等级" />
+                                
+                            </LinearLayout>
+
                             <TextView
-                                android:id="@+id/userLv"
+                                android:id="@+id/userRate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -107,20 +153,10 @@
                                 android:paddingBottom="@dimen/dp_3"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sp_8"
-                                tools:text="用户等级" />
+                                tools:text="用户比例"
+                                android:visibility="visible"/>
 
                         </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:maxLines="1"
-                            android:text="登录查看更多资料"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_11" />
                     </LinearLayout>
                 </LinearLayout>
 
