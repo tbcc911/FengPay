@@ -179,14 +179,14 @@
                         android:layout_width="@dimen/dp_16"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/mine_index_state_ok" />
+                        android:src="@drawable/mine_index_state_no" />
 
                     <TextView
                         android:id="@+id/stateName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_3"
-                        android:text="在线"
+                        android:text="休息中"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_13" />
 

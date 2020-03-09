@@ -27,6 +27,8 @@ import com.hzh.frame.widget.rxbus.MsgEvent;
 import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.xdialog.XDialog2Button;
 
+import androidx.annotation.RequiresApi;
+
 /**
  * 设置
  * */
@@ -113,7 +115,12 @@ public class MineSetUI extends BaseUI {
         new XDialog2Button(MineSetUI.this).setMsg("你确定要退出登录吗?").setCallback(new CallBack() {
             @Override
             public void onSuccess(Object object) {
-                CloseAppUtil.restartLogin(MineSetUI.this, "/login/LoginUI", User.class, () -> UserTools.getInstance().clear());
+                CloseAppUtil.restartLogin(MineSetUI.this, "/login/LoginUI", User.class, () -> {
+                    UserTools.getInstance().clear();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并显示的前台通知
+                    }
+                });
             }
         }).show();
 	}
