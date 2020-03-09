@@ -114,7 +114,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                         }).show();
                 return;
             }
-            if(!Util.isEmpty(UserTools.getInstance().getUser().getIsActivation())){
+            if(!UserTools.getInstance().getUser().getIsActivation()){
                 activation
                         .setMsg("先授权,再开工")
                         .setCallback(new CallBack() {
