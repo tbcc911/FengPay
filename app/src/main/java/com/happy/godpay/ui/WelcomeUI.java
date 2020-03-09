@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui;
+package com.happy.godpay.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -13,8 +13,7 @@ import com.baidu.location.BDLocation;
 import com.fzs.comn.tools.BaiduLocation;
 import com.fzs.comn.tools.BaiduLocationCallBack;
 import com.fzs.comn.tools.InitTools;
-import com.fzs.fengpay.R;
-import com.fzs.service.tools.ServicePowerTools;
+import com.happy.godpay.R;
 import com.fzs.service.tools.ServiceTools;
 import com.hzh.frame.comn.annotation.ContentView;
 import com.hzh.frame.comn.annotation.OnClick;

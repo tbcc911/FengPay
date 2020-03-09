@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui.transaction;
+package com.happy.godpay.ui.transaction;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -6,16 +6,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fzs.comn.model.TransactionIncome;
-import com.fzs.comn.model.TransactionOrder;
-import com.fzs.fengpay.ItemDecoration.TeamItemDecoration;
-import com.fzs.fengpay.R;
-import com.fzs.fengpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
+import com.happy.godpay.R;
+import com.happy.godpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
-import com.hzh.frame.util.FileUtil;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

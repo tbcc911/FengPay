@@ -6,7 +6,7 @@
         <!-- ActiveAndroid数据库框架必须加上这个,不然部分手机要崩溃,特别是化为8.0以上系统(android:authorities=<your.package.name>) -->
         <provider
             android:name="com.activeandroid.content.ContentProvider"
-            android:authorities="com.fzs.fengpay"
+            android:authorities="com.happy.godpay"
             android:exported="false" />
         <!-- 数据库 | 名称-->
         <meta-data

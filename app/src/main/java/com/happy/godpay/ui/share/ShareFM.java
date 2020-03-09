@@ -1,22 +1,19 @@
-package com.fzs.fengpay.ui.share;
+package com.happy.godpay.ui.share;
 
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fzs.comn.tools.ImageTools;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
-import com.fzs.fengpay.R;
+import com.happy.godpay.R;
 import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
-import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.fragment.BaseFM;
-import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.util.Code2Util;
 import com.hzh.frame.widget.xdialog.XDialog1Button;
 

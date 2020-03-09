@@ -76,7 +76,7 @@ public class User extends Model {
     private String idCardFront;// 身份证正面
 
     @Column(name = "isActivation")
-    private int isActivation;// 是否激活
+    private int isActivation;// 是否授权
 
     @Column(name = "agentRatio")
     private String agentRatio;// 代理比例

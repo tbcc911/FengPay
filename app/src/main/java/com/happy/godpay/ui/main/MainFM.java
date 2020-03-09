@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui.main;
+package com.happy.godpay.ui.main;
 
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.fzs.comn.widget.floor.adapter.FloorAdapter;
 import com.fzs.comn.widget.floor.bean.FloorBean;
 import com.fzs.comn.widget.floor.itemDecoration.FloorShopItemDecoration;
-import com.fzs.fengpay.R;
+import com.happy.godpay.R;
 import com.google.gson.Gson;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.HttpFrame.BaseHttp;

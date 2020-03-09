@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui;
+package com.happy.godpay.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,11 +18,11 @@ import com.fzs.comn.tools.BaiduLocation;
 import com.fzs.comn.tools.BaiduLocationCallBack;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
-import com.fzs.fengpay.R;
-import com.fzs.fengpay.ui.agent.AgentRFM;
-import com.fzs.fengpay.ui.main.MainFM;
-import com.fzs.fengpay.ui.share.ShareFM;
-import com.fzs.fengpay.ui.transaction.TransactionFM;
+import com.happy.godpay.R;
+import com.happy.godpay.ui.agent.AgentRFM;
+import com.happy.godpay.ui.main.MainFM;
+import com.happy.godpay.ui.share.ShareFM;
+import com.happy.godpay.ui.transaction.TransactionFM;
 import com.fzs.mine.ui.MineIndexFM;
 import com.hzh.frame.BaseInitData;
 import com.hzh.frame.comn.annotation.ContentView;
@@ -41,8 +41,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 import q.rorbin.badgeview.QBadgeView;
 
 @Route(path = "/main/MainUI")

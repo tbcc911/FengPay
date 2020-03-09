@@ -34,17 +34,17 @@ public class OtherLoginTools {
     /**
      * 用于支付宝支付业务的入参 app_id。
      */
-    public static final String APPID = "2019092567822201";
+    public static final String APPID = "2021001140639648";
 
     /**
      * 用于支付宝账户登录授权业务的入参 pid。 合作伙伴身份PID
      */
-    public static final String PID = "2088631392290234";
+    public static final String PID = "2088732129395795";
 
     /**
      * 用于支付宝账户登录授权业务的入参 target_id。可自定义，保证唯一性即可
      */
-    public static final String TARGET_ID = "12576466884";
+    public static final String TARGET_ID = "89878564348686";
 
     /**
      *  pkcs8 格式的商户私钥。
@@ -56,7 +56,7 @@ public class OtherLoginTools {
      * 	建议使用支付宝提供的公私钥生成工具生成和获取 RSA2_PRIVATE。
      * 	工具地址：https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=106097&docType=1
      */
-    public static final String RSA2_PRIVATE = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCcPDPHIIHQy5llJ6BY6JShHObxZQhOFMfyZWHeg3S7/5/ELqnkSP8jUvo17jZ6ZM4+qUm0Mld0iusL4ki+x8eyZXmTKJJThtXuYSJooVCENKkSEL/jntF7mW64qKT2odTNg/5q7CMlNsHP3ZtRfdaGK8vj9j7XT4tczj8zKf8owq2ch5VDyGCkv55TSxT43DDLH2dFUClilQIYcpTQ1mS5KE0ao2f3Or/M6VZgJVNaMdYZyS0fxbI7WfD654VQ4l5c12WuEcgqipml/SNnHTSx4iFXPDTtzzdojUvQ3ZkMBnceVZb67hnXF/WF6lEJ+t9MBPjSua3+WFck9OEEU/CJAgMBAAECggEAB53bvFp2WbKDUO4koBD+pfgdvij5xay3rraIlet8tmmY5VyNBccVQSibcCOj3kWp1F42bKWDo/fdy5+Fgl+E+cp+qdDxiUbqiQuNPOKYZUmX8HyGjldAyTDKuA/osuli0X4c2iOW9wp7WmHoX4mt+q6J6xwnJiIHnkejxx/GA7uecFqEEBM+656mLp37Y6k8Z/X/aGwdjkJTLSPsQfS5X+kFMtx1ZcmGNp8gwnu3tNkOzkgW7YjG1cVTurPBrCoCA7rwFuWWLFOmYhw+1Kg09XfWXq0F3/EzWDXpgelYSxVoebzrA4T1ZrEG77/3rGFvlE1a8n4iRZJ0WyqRpwwJsQKBgQDLq0k96prcn4gRWG3x5+c+0P2dbHJg2vuP4TWVTJ/STUAdSokbtmJ1pVxlVVhKcIROM3U9vSPF1xa/nRQ6I7zJMQKYea33QwHC+GqD6oOTYbhMyzAhRu49pHMxEqvZ+3FIEHdQEZftDAfK2Is8lgByUze8rXxMVubvrQ7ZT48PvQKBgQDEYNyOG0viLaJ0HqqoV9FIvKTDe8yO48DAs4EnG6a4gqGB82KhU5m2O1Bqn44fD+qdL5IYcISRZ9ro7lURAwbM4RQI6UIoaHhbJOiuo2CxH7Q4LoJ1KsJDxM1yfoGx49ESmRgltGBG8SseWxcsdnQPFg15sZzUVjfMxuhyyL66vQKBgEg3dgL0WvD7yD2OQ33RItfNNwBI4c2iGC0OR/emcc0aAy/fq/odk4/vkHGF74aFmwQ3jszTcgnGmJRc2D09SsV0EV2LV7ojEk7V0r7vurPZpIXmTiyef/9vfkDaRAFI/QP2grfrZRlyeJjea5CSB5qCE3NdeIOBFOXLUUaQxUNpAoGAB/xMW7b+cfcbGQ+6LthLWWLabFyXZ+QZDXz/LoDwWaZuPOORyi+lG4Tz8zIDzH2QM84gacABlAweGcS/Ts7JswEgGHCr0QrWghZRI/De2LUKVhKGGY+gkLLrC9HbIkm6UcBJ/BaGp7vc3gIkQhmbBJYH/D/ducC7yib4gtpo7x0CgYEAsQRv7FWUY5a8EJJdOVl0C9vKMwsBpkuP+/ZU2w3g6ESPVCagwJ+DZfhlYv60nYLnMdvRj5Jz4/52MuDtycfHF7ihi2RQ1U0ElR0sZxzTk0YhUfSa02S2L1oecOenW0cIv3On4y+qCHlRB7ZgbaPyDdwZCobqT/95EQwXcdwebbY=";
+    public static final String RSA2_PRIVATE = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQChAYcdXpGcw5l/HNhVMNEGEyR1FAmbw5iiIYixVQzboukTUm1C8O99dUmdnkOsUDMXHsQj5fpP8b3CHK1hiDuEi3e1Ri2htwzMu3WIG+6otrLkFMypTNx56eWx+WQJQuKu72VHx4QLnHrmILrSfB4ysEZeGxwDsTV8qp03UmQoKo7XDrc2eJDt2beVyOM+BhU1dvNNDXZBkdQORjC/fCUv5dk3l4wkjnf8HjfqR1BFWEgUeipGXNYszk8P2O0ZqXMd2BRQm//of5onrqvi/XYo1dd6OabUiegHjfHt+Rj8w3WU4HcKBqAt1xD7/xqFJBcMfNMVqRoblZ6NZt1rOJfpAgMBAAECggEBAJIPzsGID1VF5TR5uI/gT1/Rcdt8qBLU6Nz8ywMFAzslmYhb2J9H8BvCkVwaPY5O22p4ELv4YJKx3dIBLhEzA7uEwr6CwdbZNxVsYn1tyZ7oz3U2oUxdXA6FcEl605PLR9Yne5wYlePqu1uWCaX1z3dwjwXEVi/LTZihNyr+5bnBGjSTs/C8Gq1If6xVUKVf38RRVlPWg71uM8SeNoNyxBvUKFBTRqGrLjA4cPndb+vHanjNN715GGb4M67zgmTM7hFy2NzRptsEGDsKYRSydSQhw4fk1DiibbXgNM8uWSEce95Gh7NjINsFbacjhXDgERb8RRYPxbqnyqmFr2MQ+wECgYEA+B6YjF4JLHhJXAr7Qk7pt4dlddkhhKGPTT8s69oM6uWPRdDcme04DxTjkHw/nueH9fOFfcVUL8IrB/tQL6Kf/pTbreZVD6kCa3Uc4if0inUxaE3gGFT86ZMKquKCHJr/wJ9/Mx/mtuVLXN/7oY/em8XH+vlV6UbRb3jGOGyJCzECgYEAph6hldgMIvGt5D/VieCmRwNcybi5uxiS7COqahmor9ZoBcEEX76Kwst0I/z05yz8/0q3GQ0xuESxKl9Y8q8X6RfDlCdAAehgp7RKCOj2iRHDqWgzGKZB7tLWTMqa52f3cRYg5svtr9EeEKpgi5VfpxRSdryaK1XDV8hM71PsOjkCgYEArDBHe3oy8ZqUhnzUe+LZzVT4M325Bhs8oMYL/a14M3eWI0RcI7J9qfG8L2QansNdFnGmnW7ZCr+8LzDYKAa68+kIPznOpCyNElfW8Jf73C6SWClbMGeikNJLn+XLl+B1Ro8prigga6La1xxVu3xlZ0Mtkl2AooBUDgEJxtSDkrECgYEAi7R/GFHWAx1VrPuyTn5L2LUPN+bO7HZCOa3VB94Ea7zZRt2JHCxW7nPEfO+j1zeSnfDsA3mBMwMyK/x8Bb0TUsjVhqdrwS74+pE5Ij0p+SSjdLlZH4XTNVLDP1m05KAfDVAa437lqlMoAcQH5dv90bnZkFoVHhTGb/DYIv5lUKECgYByzE5h/Zt7opwiEGjAou1/Qfl8l5iRkmeWVjwhigt/A+9SpOfQT70w64KZlPysmMkH81p5cmQbxjyLy7BvMdJ31bfy7dhcJA1zFfWwBY+XYozlaeTWdXlI6mn0I1JKiDDUEX2x6IgDZoSh1zNIs/YJIXYau+lwxXTXe38ivzNmyA==";
     public static final String RSA_PRIVATE = "";
 
     private static final int SDK_PAY_FLAG = 1;
@@ -107,7 +107,7 @@ public class OtherLoginTools {
                         } else {
                             // 其他状态值则为授权失败
                             if(callBack!=null) {
-                                callBack.onSuccess("授权失败:" + authInfo.getResultStatus()+" -> "+authInfo.getResultCode());
+                                callBack.onFail("授权失败:" + authInfo.getResultStatus()+" -> "+authInfo.getMemo());
                             }
                         }
                     }

@@ -111,39 +111,11 @@ public class MineSetUI extends BaseUI {
 	// 退出
 	public void exit(View view) {
         new XDialog2Button(MineSetUI.this).setMsg("你确定要退出登录吗?").setCallback(new CallBack() {
-					@Override
-					public void onSuccess(Object object) {
-                        CloseAppUtil.restartLogin(MineSetUI.this, "/login/LoginUI", User.class, () -> UserTools.getInstance().clear());
-                    }
-				}).show();
+            @Override
+            public void onSuccess(Object object) {
+                CloseAppUtil.restartLogin(MineSetUI.this, "/login/LoginUI", User.class, () -> UserTools.getInstance().clear());
+            }
+        }).show();
 	}
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-//        loadReceiptState();
-    }
-
-    //加载接单状态
-    public void loadReceiptState(){
-        if(ServicePowerTools.isNotificationPower(MineSetUI.this) && ServiceTools.isServiceRunning(MineSetUI.this,PayNotificationMonitorService.class)){
-            switch_istrue.setChecked(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并显示的前台通知
-            }
-        } else
-        if(!ServicePowerTools.isNotificationPower(MineSetUI.this)){//未授权
-            switch_istrue.setChecked(false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
-            }
-        } else
-        if(!ServiceTools.isServiceRunning(MineSetUI.this,PayNotificationMonitorService.class)){//未启动服务
-            switch_istrue.setChecked(false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
-            }
-        }
-    }
 
 }

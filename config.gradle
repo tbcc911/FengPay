@@ -12,7 +12,7 @@ ext{
     ]
 
     appId = [
-            "app" : "com.fzs.fengpay",
+            "app" : "com.happy.godpay",
             "comn" : "com.fzs.comn",
             "mine" : "com.fzs.mine",
             "login" : "com.fzs.login"

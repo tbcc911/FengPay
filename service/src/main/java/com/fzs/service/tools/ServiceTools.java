@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Binder;
+import android.util.Log;
 
 import com.fzs.comn.tools.Util;
 import com.fzs.service.PayNotificationMonitorService;
@@ -44,8 +45,9 @@ public class ServiceTools {
             return false;
         }
         ActivityManager myManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager.getRunningServices(30);
+        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager.getRunningServices(Integer.MAX_VALUE);
         for (int i = 0; i < runningService.size(); i++) {
+            Log.w("ServiceTools",runningService.get(i).service.getClassName());
             if (runningService.get(i).service.getClassName().equals(serviceCls.getName())) {
                 return true;
             }

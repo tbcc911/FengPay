@@ -1,4 +1,4 @@
-应用包名:com.fzs.fengpay
+应用包名:com.happy.godpay
 
 alias : FengPay
 MD5:  2E:3E:5D:A9:04:45:15:4E:CE:B7:D2:51:A2:02:CC:AA

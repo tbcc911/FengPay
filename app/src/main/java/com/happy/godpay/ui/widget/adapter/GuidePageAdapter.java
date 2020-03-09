@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui.widget.adapter;
+package com.happy.godpay.ui.widget.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

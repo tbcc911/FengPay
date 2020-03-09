@@ -90,7 +90,7 @@
                                 android:paddingBottom="@dimen/dp_3"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sp_8"
-                                tools:text="激活状态" />
+                                tools:text="授权状态" />
 
                         </LinearLayout>
 
@@ -108,34 +108,34 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="@dimen/dp_5">
-                            
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical">
-                                
+                                android:layout_gravity="center_vertical"
+                                android:orientation="horizontal">
+
                                 <ImageView
                                     android:id="@+id/lvUpDown"
                                     android:layout_width="@dimen/dp_18"
                                     android:layout_height="@dimen/dp_18"
-                                    android:src="@mipmap/mine_lv_up"/>
+                                    android:src="@mipmap/mine_lv_up" />
 
                                 <TextView
                                     android:id="@+id/userLv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/dp_5"
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/sp_10"
-                                    android:layout_marginLeft="@dimen/dp_5"
                                     tools:text="用户等级" />
-                                
+
                             </LinearLayout>
 
                             <TextView
@@ -153,8 +153,8 @@
                                 android:paddingBottom="@dimen/dp_3"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sp_8"
-                                tools:text="用户比例"
-                                android:visibility="visible"/>
+                                android:visibility="visible"
+                                tools:text="用户比例" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -273,8 +273,8 @@
                         android:paddingBottom="@dimen/dp_5"
                         android:text="转账"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/sp_13" 
-                        android:visibility="gone"/>
+                        android:textSize="@dimen/sp_13"
+                        android:visibility="gone" />
                 </LinearLayout>
 
 
@@ -378,6 +378,44 @@
                 <TextView
                     style="@style/base_line_vertical1px"
                     android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10" />
+
+                <LinearLayout
+                    android:id="@+id/mine_pay_warrant"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"
+                    android:background="?selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:onClick="userInfo"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_15"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@mipmap/base_image_alipay" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:text="支付授权"
+                        android:textColor="@color/base_333333"
+                        android:textSize="@dimen/sp_15" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:src="@mipmap/base_arrow_right_black" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/base_line_vertical1px"
+                    android:layout_marginLeft="@dimen/dp_30"
                     android:layout_marginRight="@dimen/dp_10" />
 
                 <LinearLayout
@@ -493,8 +531,8 @@
                 <TextView
                     style="@style/base_line_vertical1px"
                     android:layout_marginLeft="@dimen/dp_30"
-                    android:layout_marginRight="@dimen/dp_10" 
-                    android:visibility="gone"/>
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/mine_transaction"

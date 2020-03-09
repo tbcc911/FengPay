@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui.agent;
+package com.happy.godpay.ui.agent;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -10,10 +10,9 @@ import android.widget.TextView;
 import com.fzs.comn.model.MineTeamUser;
 import com.fzs.comn.tools.Util;
 import com.fzs.comn.widget.imageview.ExpandImageView;
-import com.fzs.fengpay.ItemDecoration.TeamItemDecoration;
-import com.fzs.fengpay.R;
+import com.happy.godpay.ItemDecoration.TeamItemDecoration;
+import com.happy.godpay.R;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
-import com.hzh.frame.util.FileUtil;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;

@@ -1,4 +1,4 @@
-package com.fzs.fengpay.ui;
+package com.happy.godpay.ui;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.fzs.fengpay.R;
-import com.fzs.fengpay.ui.widget.adapter.GuidePageAdapter;
+import com.happy.godpay.R;
+import com.happy.godpay.ui.widget.adapter.GuidePageAdapter;
 import com.hzh.frame.comn.annotation.ContentView;
 import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.ui.activity.BaseUI;

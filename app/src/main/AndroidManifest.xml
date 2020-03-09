@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.fzs.fengpay">
+    package="com.happy.godpay">
 
     <!-- largeHeap="true":将APP的内存从64MB拓展成128MB -->
     <application
-        android:name="com.fzs.fengpay.AppApplication"
+        android:name="com.happy.godpay.AppApplication"
         android:allowBackup="true"
         android:appComponentFactory="I do not know what it was"
         android:icon="@mipmap/comn_app_icon"
@@ -108,7 +108,7 @@
         </activity>
         <!-- QQ  end -->
         <activity
-            android:name="com.fzs.fengpay.ui.WelcomeUI"
+            android:name="com.happy.godpay.ui.WelcomeUI"
             android:label="@string/app_name"
             android:theme="@style/theme_fullScreen">
             <intent-filter>
@@ -123,7 +123,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="com.fzs.fengpay"
+                    android:host="com.happy.godpay"
                     android:pathPrefix="/welcome"
                     android:scheme="dianping" />
             </intent-filter>
@@ -132,8 +132,8 @@
 
 
         <activity android:name="com.mob.tools.MobUIShell" />
-        <activity android:name=".ui.IntroduceUI" />
-        <activity android:name=".ui.MainUI" />
+        <activity android:name="com.happy.godpay.ui.IntroduceUI" />
+        <activity android:name="com.happy.godpay.ui.MainUI" />
 
     </application>
 

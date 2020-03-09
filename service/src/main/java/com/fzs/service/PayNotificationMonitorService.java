@@ -32,7 +32,6 @@ import com.hzh.frame.widget.toast.BaseToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.RequiresApi;
@@ -83,7 +82,7 @@ public class PayNotificationMonitorService extends NotificationListenerService i
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override //当收到一条消息时回调，sbn里面带有这条消息的具体信息
     public void onNotificationPosted(StatusBarNotification statusBarNotification) {
-        BaseToast.getInstance().setMsg("支付通知监控 : 收到一条消息").show();
+//        BaseToast.getInstance().setMsg("支付通知监控 : 收到一条消息").show();
         Bundle bundle = statusBarNotification.getNotification().extras;
         String packageName = statusBarNotification.getPackageName();
         String title = bundle.getString(Notification.EXTRA_TITLE);
