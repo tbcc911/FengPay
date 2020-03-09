@@ -82,7 +82,7 @@
                         android:layout_toRightOf="@id/image"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="收货人：王呈呈"
+                        android:text="收货人：XXX"
                         android:textColor="#666666"
                         android:textSize="14sp"/>
 
