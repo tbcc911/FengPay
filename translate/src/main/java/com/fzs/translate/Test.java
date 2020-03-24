@@ -8,17 +8,19 @@ import java.util.regex.Pattern;
 public class Test {
 
     public static void main(String[] args) {
-        translateAndroidXmlString("微信支付收款0.02元");
+        translateAndroidXmlString("Windows_XP通过扫码向你付款0.01元");
     }
 
     /**
      * 翻译的总入口  需要传递两个路径
      */
-    public static void translateAndroidXmlString(String text){
-        Pattern patternOne=Pattern.compile("微信支付收款([\\d\\.]+)元");
-        if (patternOne.matcher(text).find()) {
-            text=text.replaceAll("微信支付收款","");
-            String money=text.replaceAll("元","");
+    public static void translateAndroidXmlString(String content){
+        Pattern patternOne=Pattern.compile("(\\S*)通过扫码向你付款([\\d\\.]+)元");
+        if (patternOne.matcher(content).find()) {
+            content=content.replaceAll("元","");
+            content=content.replaceAll("通过扫码向你付款",",");
+            String uname = content.split(",")[0];
+            String money = content.split(",")[1];
             System.out.println(money);
         }
     }
