@@ -6,12 +6,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fzs.comn.model.TransactionOrder;
+import com.fzs.comn.tools.InitTools;
+import com.fzs.comn.tools.UserTools;
+import com.fzs.comn.tools.Util;
+import com.fzs.mine.ui.MineIndexFM;
 import com.happy.godpay.R;
 import com.happy.godpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
-import com.hzh.frame.util.Util;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
+import com.hzh.frame.widget.xdialog.XDialog1Button;
+import com.hzh.frame.widget.xdialog.XDialog2Button;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -21,9 +29,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 订单
- */
 public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
     private View headView;
     private TextView sumMoney;
@@ -39,11 +44,11 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
     
     @Override
     protected void bindView(View view) {
-//        setLoadPattern(2);
         headView = getAdapter().getHeaderView();
         sumMoney = headView.findViewById(R.id.sumMoney);
         successMoney = headView.findViewById(R.id.successMoney);
         frozenMoney = headView.findViewById(R.id.frozenMoney);
+        getEvent();
     }
     
     @Override
@@ -73,12 +78,6 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
 
     @Override
     protected List<TransactionOrder> handleHttpData(JSONObject response) {
-//        try {
-//            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionOrder.json");
-//            response = new JSONObject(json);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
         List<TransactionOrder> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
@@ -121,52 +120,53 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
         holder.setText(R.id.money,"¥"+model.getMoney());
         holder.setText(R.id.state,model.getStatusName());
         holder.setText(R.id.desc,"订单编号:" + model.getOrderNo());
+        TextView paytime = holder.itemView.findViewById(R.id.paytime);
         TextView manualPay = holder.itemView.findViewById(R.id.manualPay);
-        if (Util.isEmpty(model.getPayTime())){
-            holder.setText(R.id.paytime,"未支付");
-        }else {
-            holder.setText(R.id.paytime,"支付时间:" + model.getPayTime());
-        }
         if("1".equals(model.getState())){
+            paytime.setVisibility(View.VISIBLE);
+            paytime.setText("支付时间:" + model.getPayTime());
             holder.setTextColor(R.id.state,"#228B22");
             manualPay.setVisibility(View.GONE);
         } else
         if("2".equals(model.getState())){
+            paytime.setVisibility(View.GONE);
             holder.setTextColor(R.id.state,"#e84c3d");
             manualPay.setVisibility(View.VISIBLE);
         } else
         if("0".equals(model.getState())){
+            paytime.setVisibility(View.GONE);
             holder.setTextColor(R.id.state,"#837DF9");
             manualPay.setVisibility(View.VISIBLE);
         }
         if ("0".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
-        }else if ("1".equals(model.getType())){
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
-        }else if ("2".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
-        }else if ("3".equals(model.getType())){
-            holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
-
         manualPay.setOnClickListener(v -> {
-            JSONObject params = new JSONObject();
-            try {
-                params.put("orderId", model.getNid());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            new XDialog2Button(getActivity())
+                    .setMsg("您正在执行手动回调操作.请确认收到对应款项后再做此操作.回调成功以后我们会扣除相应的积分完成订单")
+                    .setConfirmName("我确定,已收到款项","还未收到此笔款项")
+                    .setCallback(new CallBack() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            JSONObject params = new JSONObject();
+                            try {
+                                params.put("orderId", model.getNid());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
-            BaseHttp.getInstance().write("order/manualPay", params, new HttpCallBack() {
-                @Override
-                public void onSuccess(JSONObject response) {
-                    super.onSuccess(response);
-                    if (response.optInt("code") == 200){
-                        onRefresh();
-                    }
-                    alert(response.optString("message"));
-                }
-            });
+                            BaseHttp.getInstance().write("order/manualPay", params, new HttpCallBack() {
+                                @Override
+                                public void onSuccess(JSONObject response) {
+                                    super.onSuccess(response);
+                                    if (response.optInt("code") == 200){
+                                        onRefresh();
+                                    }
+                                    alert(response.optString("message"));
+                                }
+                            });
+                        }
+                    }).show();
         });
     }
 
@@ -174,4 +174,30 @@ public class TransactionOrderRFM extends AbsRecyclerViewFM<TransactionOrder> {
     public void onRefresh() {
         super.onRefresh();
     }
+
+    private void getEvent(){
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(msgEvent -> msgEvent.getTag().equals(TransactionFM.TAG))
+                .subscribe(msgEvent -> {
+                    if (!Util.isEmpty(msgEvent.getMsg().toString())){
+                        if (msgEvent.getMsg().toString().equals("0")){
+                            onRefresh();
+                        }
+                    }
+                });
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            if (getActivity() != null){
+                onRefresh();
+            }
+        } else {
+        }
+    }
+    
 }

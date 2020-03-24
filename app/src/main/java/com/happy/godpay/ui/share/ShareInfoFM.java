@@ -1,34 +1,45 @@
 package com.happy.godpay.ui.share;
 
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
+import com.fzs.comn.model.User;
 import com.fzs.comn.tools.ImageTools;
-import com.fzs.comn.tools.InitTools;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
+import com.fzs.comn.widget.imageview.ExpandImageView;
 import com.happy.godpay.R;
+import com.happy.godpay.ui.transaction.TransactionDetailedRFM;
+import com.happy.godpay.ui.transaction.TransactionIncomeRFM;
+import com.happy.godpay.ui.transaction.TransactionOrderRFM;
+import com.happy.godpay.ui.transaction.TransactionRechargeRFM;
 import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
-import com.hzh.frame.ui.activity.BaseUI;
 import com.hzh.frame.ui.fragment.BaseFM;
 import com.hzh.frame.util.Code2Util;
 import com.hzh.frame.widget.xdialog.XDialog1Button;
 import com.hzh.frame.widget.xdialog.XDialog2Button;
-import com.hzh.frame.widget.xdialog.XDialogLogin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ShareFM extends BaseFM{
-    
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShareInfoFM extends BaseFM {
     View layout;
     TextView inviteCode;
     private String agentRatio = "";
@@ -43,7 +54,7 @@ public class ShareFM extends BaseFM{
     public boolean setTitleIsShow() {
         return false;
     }
-    
+
     @Override
     protected void onCreateBase() {
         layout=setContentView(R.layout.fm_share);
@@ -101,7 +112,7 @@ public class ShareFM extends BaseFM{
             }
         });
     }
-    
+
     private void getShare(String rate){
         JSONObject params=new JSONObject();
         try {
@@ -109,7 +120,7 @@ public class ShareFM extends BaseFM{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         BaseHttp.getInstance().query("member/createSharepageLink", params, new HttpCallBack() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -128,21 +139,6 @@ public class ShareFM extends BaseFM{
         });
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            getUserRate();
-        } else {
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        getUserRate();
-    }
-    
     private void getUserRate(){
         if (UserTools.getInstance().getIsLogin()){
             inviteCode.setText(UserTools.getInstance().getUser().getInviteCode());
@@ -153,7 +149,7 @@ public class ShareFM extends BaseFM{
             myRate.setText("");
         }
     }
-    
+
     private void setMyRate(){
         String rate = myRate.getText().toString().trim();
         if (Util.isEmpty(rate)){
@@ -175,4 +171,19 @@ public class ShareFM extends BaseFM{
         }
     }
     
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+        } else {
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        alert("shareInfo");
+    }
+
 }

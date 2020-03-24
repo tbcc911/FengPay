@@ -33,9 +33,6 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 
-/**
- * 首页
- */
 public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     public static final String TAG="MainFM";
@@ -80,15 +77,8 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_left:
-                //                ScanConfig.getInstance().start(getActivity(), result -> {
-                //                    ARouter.getInstance()
-                //                            .build("/main/TurnMoneyUI")
-                //                            .withString("params",result)
-                //                            .navigation();
-                //                });
                 break;
             case R.id.titleText:
-                //                startActivity(new Intent(getActivity(), StoreSearchUI.class));
                 break;
             case R.id.title_right:
                 ARouter.getInstance().build("/mine/MineMessageRUI").navigation();
@@ -105,7 +95,6 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
         loadNetWorkData();
     }
 
-    //请求网络数据
     public void loadNetWorkData() {
         JSONObject params=new JSONObject();
         try {
@@ -117,12 +106,6 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
         BaseHttp.getInstance().query("home/getFloor",params, new HttpCallBack() {
             @Override
             public void onSuccess(JSONObject response) {
-                try {
-                    String json = FileUtil.readTextFromFile(getActivity(), "json/4023.json");
-                    response = new JSONObject(json);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 FloorBean jsonBean = new Gson().fromJson(response.toString(), FloorBean.class);
                 itemSize = jsonBean.count;
                 loadView(jsonBean.data);
@@ -135,7 +118,6 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
         }.cache());
     }
 
-    //加载页面
     public void loadView(List<FloorBean.ItemInfoListBean> listBean) {
         if (listBean != null && listBean.size() > 0) {
             if (pageInfo[0] == pageInfo[1]) {
@@ -224,8 +206,6 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
                     view.setClickable(false);
                     ((XListViewFooter) view).setState(XListViewFooter.STATE_LOADING);
                     pageInfo[1]++;
-                    //                    loadItem();
-                    //onRefresh();
                 }
             }
         });
@@ -235,12 +215,6 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
     // RecyclerView的滑动监听事件
     private class MyOnScrollListener extends RecyclerView.OnScrollListener {
         private int alpha = 0;
-        /**
-         * @description 滚动时一直回调，直到停止滚动时才停止回调。单击时回调一次
-         * @author 贺子航 2014-06-24 11:54
-         * @param dx : 水平滚动距离
-         * @param dy : 垂直滚动距离:每一次竖直滑动增量,不是位置, 向下为正 向上为负
-         */
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView,dx,dy);
@@ -310,16 +284,6 @@ public class MainFM extends BaseFM implements SwipeRefreshLayout.OnRefreshListen
             return true;
         } else {
             return false;
-        }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            //界面可见
-        } else {
-            //界面不可见 相当于onpause
         }
     }
 }

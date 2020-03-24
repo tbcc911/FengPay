@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.fzs.comn.matisse.GifSizeFilter;
 import com.fzs.comn.model.UploadImage;
+import com.fzs.comn.tools.BitmapUtil;
+import com.fzs.comn.tools.CompressUtils;
 import com.fzs.comn.tools.ImageTools;
 import com.fzs.comn.tools.ImageUtil;
 import com.fzs.comn.tools.UriUtil;
@@ -42,7 +47,11 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -315,9 +324,15 @@ public class MinePayAliOrWxUI extends BaseUI {
                 if (!Util.isEmpty(model.getUri())) {
                     HashMap<String,Object> map = new HashMap<>();
                     map.put("name","file");
-                    map.put("file",new File(model.getUri()));
+                    map.put("file",new File(BitmapUtil.compressImage(model.getUri(),MinePayAliOrWxUI.this)));
                     fileList.add(map);
                 }
+//                if (!Util.isEmpty(model.getUri())) {
+//                    HashMap<String,Object> map = new HashMap<>();
+//                    map.put("name","file");
+//                    map.put("file",new File(model.getUri()));
+//                    fileList.add(map);
+//                }
                 int finalI = i;
                 BaseHttp.getInstance().uploadFile(MinePayAliOrWxUI.this,"file/upload", fileList, new HttpCallBack() {
                     @Override
@@ -340,5 +355,44 @@ public class MinePayAliOrWxUI extends BaseUI {
             fileCallBack.onSuccess("");
         }
     }
-    
+
+    //采样率压缩
+    public void compressSample(String filePath, File file){
+        int inSampleSize = 8;//采样率设置
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = inSampleSize;
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+//        compressQuality(bitmap, 100, file);
+        
+    }
+
+    /**
+     *
+     * @param inSampleSize  可以根据需求计算出合理的inSampleSize
+     */
+    public static void compress(int inSampleSize) {
+        File sdFile = Environment.getExternalStorageDirectory();
+        File originFile = new File(sdFile, "originImg.jpg");
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        //设置此参数是仅仅读取图片的宽高到options中，不会将整张图片读到内存中，防止oom
+        options.inJustDecodeBounds = true;
+        Bitmap emptyBitmap = BitmapFactory.decodeFile(originFile.getAbsolutePath(), options);
+
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = inSampleSize;
+        Bitmap resultBitmap = BitmapFactory.decodeFile(originFile.getAbsolutePath(), options);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        resultBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(sdFile, "resultImg.jpg"));
+            fos.write(bos.toByteArray());
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

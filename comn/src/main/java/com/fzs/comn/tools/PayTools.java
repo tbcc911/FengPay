@@ -9,10 +9,6 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-/**
- * 支付工具类
- * @date 2019/10/9
- */
 public class PayTools {
 
 

@@ -7,11 +7,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.fzs.comn.tools.Util;
 import com.hzh.frame.widget.x5webview.X5WebViewUI;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/12/11
- */
 public class FloorTools {
 
     private static FloorTools _instance;

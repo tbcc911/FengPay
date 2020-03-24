@@ -19,10 +19,6 @@ import com.fzs.comn.tools.Util;
 import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.util.Code2Util;
 import com.hzh.frame.widget.toast.BaseToast;
-
-/**
- * USDT充值
- * */
 public class ComnChongDialog extends Dialog {
 
     public Activity activity;

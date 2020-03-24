@@ -6,11 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 
-/**
- * @author
- * @version 1.0
- * @date 2020/2/22
- */
 public class ServicePowerTools {
 
     //跳转系统设置里的通知使用权页面

@@ -10,9 +10,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.fzs.comn.R;
 
-/**
- * @author：admin on 2017/4/17 17:52.
- */
 
 public class GifImageView extends ExpandImageView {
 

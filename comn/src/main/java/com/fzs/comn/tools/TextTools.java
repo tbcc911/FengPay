@@ -1,10 +1,4 @@
 package com.fzs.comn.tools;
-
-/**
- * @author
- * @version 1.0
- * @date 2019/10/30
- */
 public class TextTools {
 
     public static String getPrizeName(int index){

@@ -11,9 +11,6 @@ import java.util.List;
 import cn.bertsir.zbar.utils.PermissionConstants;
 import cn.bertsir.zbar.utils.PermissionUtils;
 
-/**
- * Created by Bert on 2017/9/22.
- */
 
 public class QrManager {
 

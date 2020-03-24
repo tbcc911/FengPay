@@ -6,10 +6,6 @@ import com.fzs.comn.ComnConfig;
 
 import java.io.Serializable;
 
-/**
- * Created by Bert on 2017/9/22.
- */
-
 public class QrConfig implements Serializable {
 
 

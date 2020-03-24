@@ -27,9 +27,6 @@ import io.reactivex.functions.Consumer;
 import kotlin.Unit;
 
 
-/**
- * USDT提币
- * */
 public class ComnTiDialog extends Dialog {
     /**本地登录用户*/
     @SelectTable(table=User.class) User user;

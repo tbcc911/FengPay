@@ -10,6 +10,8 @@ import com.happy.godpay.R;
 import com.happy.godpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
 import com.hzh.frame.util.Util;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -18,9 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 充值
- */
 public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> {
     private View headView;
     private TextView sumMoney;
@@ -36,11 +35,11 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
     
     @Override
     protected void bindView(View view) {
-//        setLoadPattern(2);
         headView = getAdapter().getHeaderView();
         sumMoney = headView.findViewById(R.id.sumMoney);
         successMoney = headView.findViewById(R.id.successMoney);
         frozenMoney = headView.findViewById(R.id.frozenMoney);
+        getEvent();
     }
     
     @Override
@@ -70,12 +69,6 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
 
     @Override
     protected List<TransactionOrder> handleHttpData(JSONObject response) {
-//        try {
-//            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionRecharge.json");
-//            response = new JSONObject(json);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
         List<TransactionOrder> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
@@ -94,13 +87,6 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
                         model.setStatusName(obj.optString("rechargeStatusName"));
                         model.setType(obj.optString("rechargeType"));
                         model.setMoney(obj.optString("value"));
-//                        model.setNid(obj.optString("id"));
-//                        model.setType(obj.optString("type"));
-//                        model.setIntegral(obj.optString("integral"));
-//                        model.setMoney(obj.optString("money"));
-//                        model.setDesc(obj.optString("desc"));
-//                        model.setTime(obj.optString("time"));
-//                        model.setState(obj.optString("state"));
                         listModel.add(model);
                     }
                 }
@@ -119,8 +105,6 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
     protected void bindItemData(RecyclerViewHolder holder, int position, TransactionOrder model) {
         holder.setText(R.id.time,"创建时间:" + model.getCreateTime());
         holder.setText(R.id.money,"¥"+model.getMoney());
-//        holder.getView(R.id.flag).setVisibility(View.GONE);
-//        holder.getView(R.id.annotation).setVisibility(View.GONE);
         holder.setText(R.id.state,model.getStatusName());
         if (!Util.isEmpty(model.getAuditTime())){
             holder.getView(R.id.paytime).setVisibility(View.VISIBLE);
@@ -142,22 +126,41 @@ public class TransactionRechargeRFM extends AbsRecyclerViewFM<TransactionOrder> 
             holder.setTextColor(R.id.state,"#ff0000");
         }
         if ("0".equals(model.getType())){
-//            holder.setText(R.id.desc,"银行卡");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_bank);
         }else if ("1".equals(model.getType())){
-//            holder.setText(R.id.desc,"支付宝");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_alipay);
         }else if ("2".equals(model.getType())){
-//            holder.setText(R.id.desc,"微信");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_wchat);
         }else if ("3".equals(model.getType())){
-//            holder.setText(R.id.desc,"USDT");
             holder.getImageView(R.id.type).setImageResource(R.mipmap.base_image_usdt);
         }
+    }
+
+    private void getEvent(){
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(msgEvent -> msgEvent.getTag().equals(TransactionFM.TAG))
+                .subscribe(msgEvent -> {
+                    if (!com.fzs.comn.tools.Util.isEmpty(msgEvent.getMsg().toString())){
+                        if (msgEvent.getMsg().toString().equals("1")){
+                            onRefresh();
+                        }
+                    }
+                });
+
     }
 
     @Override
     public void onRefresh() {
         super.onRefresh();
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            onRefresh();
+        } else {
+        }
+    }
+    
 }

@@ -17,11 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/12/11
- */
 public class FloorTypesGridViewAdapter extends SimpleAdapter {
     private List<HashMap<String, String>> list;
     private int lineNumber = 2;//行数

@@ -4,6 +4,6 @@
 
     <solid android:color="@color/base_button_down"/>
     
-    <corners android:radius="@dimen/dp_25"/>
+    <corners android:radius="@dimen/dp_20"/>
 
 </shape>

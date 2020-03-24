@@ -12,10 +12,6 @@ import com.fzs.comn.R;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by admin on 2017/3/21.
- */
-
 public class UpDownSwitcher extends ViewSwitcher {
 
     private boolean isUpToDown;

@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fzs.comn.model.TransactionIncome;
+import com.fzs.comn.tools.Util;
 import com.happy.godpay.R;
 import com.happy.godpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -17,9 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 收入
- */
 public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
     private View headView;
     private TextView sumMoney;
@@ -40,6 +40,7 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
         sumMoney = headView.findViewById(R.id.sumMoney);
         successMoney = headView.findViewById(R.id.successMoney);
         frozenMoney = headView.findViewById(R.id.frozenMoney);
+        getEvent();
     }
     
     @Override
@@ -114,8 +115,31 @@ public class TransactionIncomeRFM extends AbsRecyclerViewFM<TransactionIncome> {
         }
     }
 
+    private void getEvent(){
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(msgEvent -> msgEvent.getTag().equals(TransactionFM.TAG))
+                .subscribe(msgEvent -> {
+                    if (!Util.isEmpty(msgEvent.getMsg().toString())){
+                        if (msgEvent.getMsg().toString().equals("2")){
+                            onRefresh();
+                        }
+                    }
+                });
+
+    }
+
     @Override
     public void onRefresh() {
         super.onRefresh();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            onRefresh();
+        } else {
+        }
     }
 }

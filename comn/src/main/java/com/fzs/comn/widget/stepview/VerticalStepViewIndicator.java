@@ -18,11 +18,6 @@ import com.fzs.comn.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 日期：16/6/24 11:48
- * <p/>
- * 描述：
- */
 public class VerticalStepViewIndicator extends View {
 	// 定义默认的高度 definition default height
 	private int defaultStepIndicatorNum = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());

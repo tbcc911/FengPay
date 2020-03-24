@@ -3,12 +3,6 @@ package com.fzs.comn.widget.transformer;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 
-
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/6/19 17:39
- * 描述:
- */
 public class CubePageTransformer extends BGAPageTransformer {
     private float mMaxRotation = 90.0f;
 

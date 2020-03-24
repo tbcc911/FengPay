@@ -27,11 +27,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-/**
- * @version 1.0
- * @date 2018/4/12
- */
-
 public class UserTools {
     public static final String TAG = "UserTools";
 
@@ -132,6 +127,7 @@ public class UserTools {
         BaseSP.getInstance().put("userId", "");
         BaseSP.getInstance().put("token", "");
         BaseSP.getInstance().put("tokenHead", "");
+        BaseSP.getInstance().put("isServiceRunning","");
         mUser = null;
     }
 

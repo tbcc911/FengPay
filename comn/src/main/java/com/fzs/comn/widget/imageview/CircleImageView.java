@@ -6,11 +6,6 @@ import android.util.AttributeSet;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.RoundingParams;
 
-/**
- * @author：admin on 2017/4/17 14:23.
- * 基于fresco的圆圈图形
- */
-
 public class CircleImageView extends ExpandImageView {
     public CircleImageView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);

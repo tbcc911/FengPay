@@ -50,7 +50,6 @@ public class IntroduceUI extends BaseUI implements ViewPager.OnPageChangeListene
         
         ib_start = findViewById(R.id.guide_ib_start);
         ib_logo = findViewById(R.id.guide_ib_logo);
-//        img.setImageDrawable(@mipmap/app_introduce_bottom);
         ib_start.setOnClickListener(v -> {
             ARouter.getInstance().build("/main/MainUI").navigation();
             BaseSP.getInstance().put("isIntroduce",true);

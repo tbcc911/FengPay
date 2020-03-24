@@ -49,7 +49,8 @@
                         android:layout_height="@dimen/dp_70"
                         android:background="@mipmap/base_image_face"
                         fresco:placeholderImage="@mipmap/base_image_face"
-                        fresco:roundAsCircle="true" />
+                        fresco:roundAsCircle="true" 
+                        android:visibility="gone"/>
 
                     <LinearLayout
                         android:id="@+id/status"
@@ -156,7 +157,25 @@
                                 android:visibility="visible"
                                 tools:text="用户比例" />
 
+                            <TextView
+                                android:id="@+id/userAgentRatio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/mine_button_white_border"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_8"
+                                tools:text="费率:"
+                                android:paddingTop="@dimen/dp_3"
+                                android:paddingBottom="@dimen/dp_3"
+                                android:paddingLeft="@dimen/dp_8"
+                                android:paddingRight="@dimen/dp_8"
+                                android:layout_marginLeft="@dimen/dp_10"/>
+
                         </LinearLayout>
+                        
                     </LinearLayout>
                 </LinearLayout>
 
@@ -179,7 +198,15 @@
                         android:layout_width="@dimen/dp_16"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/mine_index_state_no" />
+                        android:src="@drawable/mine_index_state_no" 
+                        android:visibility="gone"/>
+
+                    <Switch
+                        android:id="@+id/switch_istrue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/switch_ios_thumb"
+                        android:track="@drawable/switch_ios_track_selector" />
 
                     <TextView
                         android:id="@+id/stateName"

@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-/**
- * Created by 南尘 on 2016/7/10.
- */
 public class GuidePageAdapter extends PagerAdapter {
 
     private List<View> viewList;

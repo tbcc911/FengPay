@@ -10,10 +10,6 @@ import android.view.View;
 
 import cn.bertsir.zbar.R;
 
-/**
- * Created by Bert on 2017/9/22.
- */
-
 public class CornerView extends View {
 
     private Paint paint;//声明画笔

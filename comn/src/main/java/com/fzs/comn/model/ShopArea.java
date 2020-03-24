@@ -1,11 +1,6 @@
 package com.fzs.comn.model;
 
 import java.io.Serializable;
-
-/**
- * @author 贺子航  2015-04-03 09:49
- * @description 商品收货区域
- */
 public class ShopArea implements Serializable {
 
   public String id;//区域ID

@@ -25,10 +25,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * 支付工具类
- * @date 2019/10/9
- */
 public class OtherLoginTools {
 
     /**

@@ -15,11 +15,6 @@ import com.fzs.comn.R;
 
 import java.util.List;
 
-/**
- * 日期：16/6/24 11:48
- * <p>
- * 描述：
- */
 public class VerticalStepView extends LinearLayout implements VerticalStepViewIndicator.OnDrawIndicatorListener {
 	private RelativeLayout mTextContainer;
 	private VerticalStepViewIndicator mStepsViewIndicator;

@@ -3,12 +3,6 @@ package com.fzs.comn.widget.transformer;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 
-
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/6/19 上午8:41
- * 描述:
- */
 public class AlphaPageTransformer extends BGAPageTransformer {
     private float mMinScale = 0.4f;
 

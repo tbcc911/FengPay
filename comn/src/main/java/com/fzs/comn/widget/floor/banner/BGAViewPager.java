@@ -11,12 +11,6 @@ import android.view.VelocityTracker;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/6/19 11:23
- * 描述:继承ViewPager，通过反射方式实现支持低版本上切换动画
- */
 public class BGAViewPager extends ViewPager {
     private boolean mAllowUserScrollable = true;
     private AutoPlayDelegate mAutoPlayDelegate;

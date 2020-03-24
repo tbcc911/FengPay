@@ -13,12 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * 保存图片本本地相册并显示
- *
- * @version 1.0
- * @date 2019/10/9
- */
 public class ComnSavePhotoTools {
 
     /*

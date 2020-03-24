@@ -1,12 +1,6 @@
 package com.fzs.comn.widget.floor.banner;
 
 import android.view.View;
-
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:16/12/7 下午9:13
- * 描述:
- */
 public abstract class BGAOnNoDoubleClickListener implements View.OnClickListener {
     private int mThrottleFirstTime = 1000;
     private long mLastClickTime = 0;

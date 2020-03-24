@@ -2,10 +2,6 @@ package com.fzs.comn.widget.floor.bean;
 
 import java.util.List;
 
-/**
- * @author：admin on 2017/3/28 14:18.
- */
-
 public class FloorBean {
 
 

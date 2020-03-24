@@ -20,12 +20,6 @@ import android.util.Log;
 import com.fzs.comn.R;
 
 
-/**
- * 密码、验证码输入框
- *
- * @author matheew
- * @date 2019/6/24
- */
 public class ComnPasswordInputView extends AppCompatEditText {
     private static final String TAG = "PasswordInputView";
 

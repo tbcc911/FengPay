@@ -19,11 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/9/14
- */
 public class ImageTools extends ImageUtil {
 
     /**

@@ -20,10 +20,6 @@ import com.hzh.frame.widget.toast.BaseToast;
 
 import org.json.JSONObject;
 
-/**
- * @author 贺子航  2015-04-22 16:07
- * @description 百度定位服务
- */
 public class BaiduLocation {
   private Activity mActivity;
   private LocationClient mLocationClient = null;
@@ -75,10 +71,6 @@ public class BaiduLocation {
     }
   }
 
-  /**
-   * @description 设置定位参数
-   * @author 贺子航  2015-04-22 16:07
-   */
   public void setoption() {
     LocationClientOption option = new LocationClientOption();
     option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);// 设置定位模式
@@ -142,11 +134,6 @@ public class BaiduLocation {
       }
     }
   }
-
-  /**
-   * @description 修改服务器用户当前地理信息(用户未登录则不修改)
-   * @author 贺子航  2015-04-22 16:07
-   */
   public void updServerUserArea(BDLocation location) throws Exception {
 	User user=new Select().from(User.class).executeSingle();
 	if(!Util.isEmpty(user)){

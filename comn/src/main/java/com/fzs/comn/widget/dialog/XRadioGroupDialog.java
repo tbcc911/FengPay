@@ -8,9 +8,6 @@ import android.content.DialogInterface;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * 单选按钮组Dialog
- * */
 public class XRadioGroupDialog{
 
 	private Dialog alertDialog;

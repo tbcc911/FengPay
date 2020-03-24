@@ -17,9 +17,6 @@ import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import java.util.List;
 
-/**
- * @author：admin on 2017/3/30 18:00.
- */
 
 public class FloorSeckillContentAdapter extends BaseRecyclerAdapter<FloorBean.ItemInfoListBean.ItemContentListBean> {
 

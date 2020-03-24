@@ -13,11 +13,6 @@ import org.json.JSONObject;
 
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/7/30
- */
 @Route(path = "/login/SettingProtocolUI")
 public class SettingProtocolUI extends BaseUI {
     X5WebView detail;

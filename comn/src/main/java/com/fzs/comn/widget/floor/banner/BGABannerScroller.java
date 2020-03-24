@@ -3,11 +3,6 @@ package com.fzs.comn.widget.floor.banner;
 import android.content.Context;
 import android.widget.Scroller;
 
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/6/19 下午11:59
- * 描述:
- */
 public class BGABannerScroller extends Scroller {
     private int mDuration = 1000;
 

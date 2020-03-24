@@ -19,10 +19,6 @@ import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.R;
 
 
-/**
- * Created by Bert on 2017/9/20.
- */
-
 public class ScanView extends FrameLayout {
 
     private LineView iv_scan_line;
