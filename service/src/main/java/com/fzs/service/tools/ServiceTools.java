@@ -16,11 +16,6 @@ import com.hzh.frame.comn.callback.CallBack;
 
 import java.util.ArrayList;
 
-/**
- * @author
- * @version 1.0
- * @date 2020/2/21
- */
 public class ServiceTools {
 
 

@@ -18,10 +18,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
-/**
- * 收款二维码
- * @date 2019/9/4
- */
 @Route(path = "/mine/MineCollectMoneyCodeUI")
 public class MineCollectMoneyCodeUI extends BaseUI {
     

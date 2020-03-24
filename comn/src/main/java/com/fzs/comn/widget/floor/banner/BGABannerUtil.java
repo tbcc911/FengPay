@@ -8,12 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.util.List;
-
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:16/7/5 上午11:34
- * 描述:
- */
 public class BGABannerUtil {
 
     private BGABannerUtil() {

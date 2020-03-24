@@ -27,11 +27,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-/**
- * 转账
- * @date 2019/9/4
- */
 @Route(path = "/mine/MineTurnMoneyUI")
 public class MineTurnMoneyUI extends BaseUI {
     private TextView typeContent;

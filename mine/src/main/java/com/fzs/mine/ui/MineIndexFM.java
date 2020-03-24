@@ -1,11 +1,15 @@
 package com.fzs.mine.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -25,11 +29,13 @@ import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.comn.model.BaseRadio;
 import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
+import com.hzh.frame.core.WsFrame.WsStatus;
 import com.hzh.frame.ui.fragment.BaseFM;
 import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.widget.rxbus.MsgEvent;
 import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.toast.BaseToast;
+import com.hzh.frame.widget.xdialog.XDialog1Button;
 import com.hzh.frame.widget.xdialog.XDialog2Button;
 import com.hzh.frame.widget.xdialog.XDialogRadio;
 import com.hzh.frame.widget.xdialog.XDialogSubmit;
@@ -55,6 +61,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
     List<HashMap<String, Object>> list=new ArrayList<>();
     private WebSocket mSocket;
     private XDialog2Button activation;//授权
+    private Switch mSwitch;
     
     @Override
     public boolean setTitleIsShow() {
@@ -64,6 +71,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
     @Override
     protected void onCreateBase() {
         setContentView(R.layout.mine_ui_index);
+        mSwitch = findViewById(R.id.switch_istrue);
         findViewById(R.id.statusBar).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,AndroidUtil.getStatusBarHeight()));
         findViewById(R.id.head).setOnClickListener(this);
         findViewById(R.id.usdt).setOnClickListener(this);
@@ -85,8 +93,82 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         findViewById(R.id.activationState).setOnClickListener(this);
         findViewById(R.id.state).setOnClickListener(this);
         findViewById(R.id.mine_pay_warrant).setOnClickListener(this);
+        findViewById(R.id.userLv).setOnClickListener(null);
+        findViewById(R.id.userRate).setOnClickListener(null);
+        findViewById(R.id.lvUpDown).setOnClickListener(null);
         initDialog();
         loadUserInfo();
+//        mSwitch.setOnClickListener(null);
+//        mSwitch.setOnCheckedChangeListener(null);
+        mSwitch.setClickable(false);
+//        mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked){
+//                mSwitch.setChecked(false);
+//            }else {
+//                mSwitch.setChecked(true);
+//            }
+//            ARouter.getInstance().build("/mine/MineIsActivationUI")
+//                    .withString("type","1")
+//                    .navigation();
+//            ARouter.getInstance().build("")
+//            if(!UserTools.getInstance().getIsLogin()){
+//                new XDialog2Button(getActivity())
+//                        .setMsg("请先登录")
+//                        .setConfirmName("立即登录","再看看")
+//                        .setCallback(new CallBack() {
+//                            @Override
+//                            public void onSuccess(Object object) {
+//                                UserTools.getInstance().jumpLoginUI();
+//                            }
+//                        }).show();
+//                return;
+//            }
+//            if(!UserTools.getInstance().getUser().getIsActivation()){
+//                activation
+//                        .setMsg("先授权,再开工")
+//                        .setCallback(new CallBack() {
+//                            @Override
+//                            public void onSuccess(Object object) {
+//                                OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                    @Override
+//                                    public void onSuccess(String userId) {
+//                                        upLoadUid(userId);
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail(String msg) {
+//                                        alert(msg);
+//                                    }
+//                                });
+//                            }
+//                        }).show();
+//                return;
+//            }
+//            if (isChecked){
+//                //接单
+//                if(!ServicePowerTools.isNotificationPower(getActivity())){
+//                    mSwitch.setChecked(false);
+//                    ARouter.getInstance().build("/mine/MineIsActivationUI")
+//                            .withString("type","1")
+//                            .navigation();
+//                }else{
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));
+//                    }
+//                }
+//            }else {
+//                if(ServicePowerTools.isNotificationPower(getActivity())){
+//                    mSwitch.setChecked(true);
+//                    ARouter.getInstance().build("/mine/MineIsActivationUI")
+//                            .withString("type","1")
+//                            .navigation();
+//                }else{
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+//                    }
+//                }
+//            }
+//        });
     }
     
     public void initDialog(){
@@ -102,6 +184,11 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             ARouter.getInstance().build("/mine/MineUserInfoUI").with(bd).navigation();
         } else
         if (id == R.id.state) { //状态
+            if (mSwitch.isChecked() == true){
+                mSwitch.setChecked(true);
+            }else {
+                mSwitch.setChecked(false);
+            }
             if(!UserTools.getInstance().getIsLogin()){
                 new XDialog2Button(getActivity())
                         .setMsg("请先登录")
@@ -120,163 +207,254 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                         .setCallback(new CallBack() {
                             @Override
                             public void onSuccess(Object object) {
-                                OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
-                                    @Override
-                                    public void onSuccess(String userId) {
-                                        upLoadUid(userId);
-                                    }
-
-                                    @Override
-                                    public void onFail(String msg) {
-                                        alert(msg);
-                                    }
-                                });
+                                if(AndroidTools.isAliPayInstalled(getActivity())){
+                                    ARouter.getInstance().build("/mine/MineIsActivationUI")
+                                            .withString("type","0")
+                                            .navigation();
+                                }else{
+                                    alert("请先安装支付宝");
+                                }
+//                                OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                    @Override
+//                                    public void onSuccess(String userId) {
+//                                        upLoadUid(userId);
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail(String msg) {
+//                                        alert(msg);
+//                                    }
+//                                });
                             }
                         }).show();
                 return;
             }
-            List<BaseRadio> list = new ArrayList<>();
-            list.add(new BaseRadio().setName("接单").setId("1").setChecked(true));
-            list.add(new BaseRadio().setName("休息").setId("2").setChecked(false));
-            new XDialogRadio<>()
-                    .setData(list)
-                    .setTitle("切换状态")
-                    .setRadioButtonMinWidth(AndroidUtil.getWindowWith() / 10.0 * 5)
-                    .setCallBack(new CallBack<BaseRadio>() {
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-                        @Override
-                        public void onSuccess(BaseRadio item) {
-                            if("1".equals(item.getId())){//接单
-                                if(!ServicePowerTools.isNotificationPower(getActivity())){
-                                    new XDialog2Button(getActivity())
-                                            .setMsg("请开启 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
-                                            .setConfirmName("立即前往","稍后")
-                                            .setCallback(new CallBack() {
-                                                @Override
-                                                public void onSuccess(Object object) {
-                                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
-                                                }
-                                            }).show();
-                                }else{
-                                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));
-                                }
-                            } else
-                            if("2".equals(item.getId())){//休息
-                                if(ServicePowerTools.isNotificationPower(getActivity())){
-                                    new XDialog2Button(getActivity())
-                                            .setMsg("请关闭 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
-                                            .setConfirmName("立即前往","稍后")
-                                            .setCallback(new CallBack() {
-                                                @Override
-                                                public void onSuccess(Object object) {
-                                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
-                                                }
-                                            }).show();
-                                }else{
-                                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
-                                }
-                            }
-                        }
-                    })
-                    .show(getFragmentManager());
+
+            if(AndroidTools.isAliPayInstalled(getActivity())){
+                ARouter.getInstance().build("/mine/MineIsActivationUI")
+                        .withString("type","1")
+                        .navigation();
+            }else{
+                alert("请先安装支付宝");
+            }
+//            if (mSwitch.isChecked() == true){
+//                //接单
+//                if(!ServicePowerTools.isNotificationPower(getActivity())){
+//                    mSwitch.setChecked(false);
+//                    //                    new XDialog2Button(getActivity())
+//                    //                            .setMsg("请开启 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
+//                    //                            .setConfirmName("立即前往","稍后")
+//                    //                            .setCallback(new CallBack() {
+//                    //                                @Override
+//                    //                                public void onSuccess(Object object) {
+//                    //                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
+//                    //                                }
+//                    //                            }).show();
+//                }else{
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));
+//                    }
+//                }
+//            }else {
+//                if(ServicePowerTools.isNotificationPower(getActivity())){
+//                    mSwitch.setChecked(true);
+//                    new XDialog2Button(getActivity())
+//                            .setMsg("请关闭 '"+getResources().getString(R.string.service_label)+"' 通知使用权限")
+//                            .setConfirmName("立即前往","稍后")
+//                            .setCallback(new CallBack() {
+//                                @Override
+//                                public void onSuccess(Object object) {
+//                                    ServicePowerTools.openNotificationPower(getActivity());//已授权,自己去关闭
+//                                }
+//                            }).show();
+//                }else{
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                        RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+//                    }
+//                }
+//            }
         } else
         if (id == R.id.mine_pay_warrant) {
-            if(UserTools.getInstance().getIsLogin()){
-                if(AndroidTools.isAliPayInstalled(getActivity())){
-                    if (!UserTools.getInstance().getUser().getIsActivation()) {
-                        activation
-                                .setMsg("支付宝授权")
-                                .setCallback(new CallBack() {
-                                    @Override
-                                    public void onSuccess(Object object) {
-                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
-                                            @Override
-                                            public void onSuccess(String userId) {
-                                                upLoadUid(userId);
-                                            }
-
-                                            @Override
-                                            public void onFail(String msg) {
-                                                alert(msg);
-                                            }
-                                        });
-                                    }
-                                }).show();
-                    }else{
-                        activation
-                                .setMsg("重新授权")
-                                .setCallback(new CallBack() {
-                                    @Override
-                                    public void onSuccess(Object object) {
-                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
-                                            @Override
-                                            public void onSuccess(String userId) {
-                                                upLoadUid(userId);
-                                            }
-
-                                            @Override
-                                            public void onFail(String msg) {
-                                                alert(msg);
-                                            }
-                                        });
-                                    }
-                                }).show();
-                    }
-                }else{
-                    alert("请先安装支付宝");
-                }
-            }else{
-                ARouter.getInstance().build("/login/LoginUI").navigation();
+            if(!UserTools.getInstance().getIsLogin()){
+                new XDialog2Button(getActivity())
+                        .setMsg("请先登录")
+                        .setConfirmName("立即登录","再看看")
+                        .setCallback(new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                UserTools.getInstance().jumpLoginUI();
+                            }
+                        }).show();
+                return;
             }
+            if(!UserTools.getInstance().getUser().getIsActivation()){
+                activation
+                        .setMsg("先授权,再开工")
+                        .setCallback(new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                if(AndroidTools.isAliPayInstalled(getActivity())){
+                                    ARouter.getInstance().build("/mine/MineIsActivationUI")
+                                            .withString("type","0")
+                                            .navigation();
+                                }else{
+                                    alert("请先安装支付宝");
+                                }
+//                                OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                    @Override
+//                                    public void onSuccess(String userId) {
+//                                        upLoadUid(userId);
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail(String msg) {
+//                                        alert(msg);
+//                                    }
+//                                });
+                            }
+                        }).show();
+                return;
+            }
+            if(AndroidTools.isAliPayInstalled(getActivity())){
+                ARouter.getInstance().build("/mine/MineIsActivationUI")
+                        .withString("type","0")
+                        .navigation();
+            }else{
+                alert("请先安装支付宝");
+            }
+            //            if(UserTools.getInstance().getIsLogin()){
+//                if(AndroidTools.isAliPayInstalled(getActivity())){
+//                    if (!UserTools.getInstance().getUser().getIsActivation()) {
+//                        activation
+//                                .setMsg("支付宝授权")
+//                                .setCallback(new CallBack() {
+//                                    @Override
+//                                    public void onSuccess(Object object) {
+//                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                            @Override
+//                                            public void onSuccess(String userId) {
+//                                                upLoadUid(userId);
+//                                            }
+//
+//                                            @Override
+//                                            public void onFail(String msg) {
+//                                                alert(msg);
+//                                            }
+//                                        });
+//                                    }
+//                                }).show();
+//                    }else{
+//                        activation
+//                                .setMsg("重新授权")
+//                                .setCallback(new CallBack() {
+//                                    @Override
+//                                    public void onSuccess(Object object) {
+//                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                            @Override
+//                                            public void onSuccess(String userId) {
+//                                                upLoadUid(userId);
+//                                            }
+//
+//                                            @Override
+//                                            public void onFail(String msg) {
+//                                                alert(msg);
+//                                            }
+//                                        });
+//                                    }
+//                                }).show();
+//                    }
+//                }else{
+//                    alert("请先安装支付宝");
+//                }
+//            }else{
+//                ARouter.getInstance().build("/login/LoginUI").navigation();
+//            }
         } else
         if (id == R.id.activationState) {// 授权
-            if(UserTools.getInstance().getIsLogin()){
-                if(AndroidTools.isAliPayInstalled(getActivity())){
-                    if (!UserTools.getInstance().getUser().getIsActivation()) {
-                        activation
-                                .setMsg("支付宝授权")
-                                .setCallback(new CallBack() {
-                                    @Override
-                                    public void onSuccess(Object object) {
-                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
-                                            @Override
-                                            public void onSuccess(String userId) {
-                                                upLoadUid(userId);
-                                            }
-
-                                            @Override
-                                            public void onFail(String msg) {
-                                                alert(msg);
-                                            }
-                                        });
-                                    }
-                                }).show();
-                    }else{
-                        activation
-                                .setMsg("重新授权")
-                                .setCallback(new CallBack() {
-                                    @Override
-                                    public void onSuccess(Object object) {
-                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
-                                            @Override
-                                            public void onSuccess(String userId) {
-                                                upLoadUid(userId);
-                                            }
-
-                                            @Override
-                                            public void onFail(String msg) {
-                                                alert(msg);
-                                            }
-                                        });
-                                    }
-                                }).show();
-                    }
-                }else{
-                    alert("请先安装支付宝");
-                }
-            }else{
-                ARouter.getInstance().build("/login/LoginUI").navigation();
+            if(!UserTools.getInstance().getIsLogin()){
+                new XDialog2Button(getActivity())
+                        .setMsg("请先登录")
+                        .setConfirmName("立即登录","再看看")
+                        .setCallback(new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                UserTools.getInstance().jumpLoginUI();
+                            }
+                        }).show();
+                return;
             }
+            if(!UserTools.getInstance().getUser().getIsActivation()){
+                activation
+                        .setMsg("先授权,再开工")
+                        .setCallback(new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                if(AndroidTools.isAliPayInstalled(getActivity())){
+                                    ARouter.getInstance().build("/mine/MineIsActivationUI")
+                                            .withString("type","0")
+                                            .navigation();
+                                }else{
+                                    alert("请先安装支付宝");
+                                }
+                            }
+                        }).show();
+                return;
+            }
+
+            if(AndroidTools.isAliPayInstalled(getActivity())){
+                ARouter.getInstance().build("/mine/MineIsActivationUI")
+                        .withString("type","0")
+                        .navigation();
+            }else{
+                alert("请先安装支付宝");
+            }
+//            if(UserTools.getInstance().getIsLogin()){
+//                if(AndroidTools.isAliPayInstalled(getActivity())){
+//                    if (!UserTools.getInstance().getUser().getIsActivation()) {
+//                        activation
+//                                .setMsg("支付宝授权")
+//                                .setCallback(new CallBack() {
+//                                    @Override
+//                                    public void onSuccess(Object object) {
+//                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                            @Override
+//                                            public void onSuccess(String userId) {
+//                                                upLoadUid(userId);
+//                                            }
+//
+//                                            @Override
+//                                            public void onFail(String msg) {
+//                                                alert(msg);
+//                                            }
+//                                        });
+//                                    }
+//                                }).show();
+//                    }else{
+//                        activation
+//                                .setMsg("重新授权")
+//                                .setCallback(new CallBack() {
+//                                    @Override
+//                                    public void onSuccess(Object object) {
+//                                        OtherLoginTools.launchAlipayLogin(getActivity(), new OtherLoginTools.CallBack() {
+//                                            @Override
+//                                            public void onSuccess(String userId) {
+//                                                upLoadUid(userId);
+//                                            }
+//
+//                                            @Override
+//                                            public void onFail(String msg) {
+//                                                alert(msg);
+//                                            }
+//                                        });
+//                                    }
+//                                }).show();
+//                    }
+//                }else{
+//                    alert("请先安装支付宝");
+//                }
+//            }else{
+//                ARouter.getInstance().build("/login/LoginUI").navigation();
+//            }
         } else 
         if (id == R.id.addressManager) {// 我的地址
             bd.putBoolean("onClickListItemIsReturn", false);
@@ -290,11 +468,12 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         }else 
         if (id == R.id.mineRecharge) {//充值
 //            if (isLoginAndActivation()) {
-            List<BaseRadio> list = new ArrayList<>();
-            list.add(new BaseRadio().setName("银行卡").setId("0").setChecked(true));
-            list.add(new BaseRadio().setName("支付宝").setId("1").setChecked(false));
-            list.add(new BaseRadio().setName("微信").setId("2").setChecked(false));
-            list.add(new BaseRadio().setName("USDT").setId("3").setChecked(false));
+            if (UserTools.getInstance().getIsLogin()){
+                List<BaseRadio> list = new ArrayList<>();
+                list.add(new BaseRadio().setName("银行卡").setId("0").setChecked(true));
+                list.add(new BaseRadio().setName("支付宝").setId("1").setChecked(false));
+                list.add(new BaseRadio().setName("微信").setId("2").setChecked(false));
+                list.add(new BaseRadio().setName("USDT").setId("3").setChecked(false));
                 new XDialogRadio<>()
                         .setData(list)
                         .setTitle("选择充值方式")
@@ -303,7 +482,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                         .setCallBack(new CallBack<BaseRadio>() {
                             @Override
                             public void onSuccess(BaseRadio baseRadio) {
-//                                alert(baseRadio.getName());
+                                //                                alert(baseRadio.getName());
                                 if (baseRadio.getId().equals("0")){
                                     ARouter.getInstance().build("/mine/MinePayBankUI")
                                             .withString("rechargeType",baseRadio.getId())
@@ -326,7 +505,18 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                             }
                         })
                         .show(getFragmentManager());
-//            }
+                //            }
+            }else {
+                new XDialog2Button(getActivity())
+                        .setMsg("请先登录")
+                        .setConfirmName("立即登录","再看看")
+                        .setCallback(new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                UserTools.getInstance().jumpLoginUI();
+                            }
+                        }).show();
+            }
         } else 
         if (id == R.id.mineTurn) {//转账
             if (isLoginAndActivation()) {
@@ -393,7 +583,6 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             return false;
         }
     }
-
     
     @Override
     public void onStart() {
@@ -402,7 +591,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         if (UserTools.getInstance().getIsLogin()) {
             if (rootLayout != null) {
                 // 头像
-                ((ExpandImageView) findViewById(R.id.userHead)).setImageURI(user.getHead());
+//                ((ExpandImageView) findViewById(R.id.userHead)).setImageURI(user.getHead());
                 // 昵称
                 ((TextView) findViewById(R.id.userNice)).setText(user.getNickName());
             }
@@ -417,7 +606,7 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
     public void loadUserInfo() {
         if (UserTools.getInstance(getContext()).getIsLogin()) {
             User user = UserTools.getInstance(getContext()).getUser();
-            ((ExpandImageView) findViewById(R.id.userHead)).setImageURI(user.getHead());
+//            ((ExpandImageView) findViewById(R.id.userHead)).setImageURI(user.getHead());
             ((TextView) findViewById(R.id.userNice)).setText(user.getNickName());
             ((TextView) findViewById(R.id.phone)).setText(Util.phoneHide(user.getPhone()));
             ((TextView) findViewById(R.id.usdt)).setText(Util.doubleFormat(user.getIntegration(),"#0.00"));
@@ -425,8 +614,10 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             findViewById(R.id.userRate).setVisibility(View.VISIBLE);
             findViewById(R.id.userLv).setVisibility(View.VISIBLE);
             findViewById(R.id.lvUpDown).setVisibility(View.VISIBLE);
+            findViewById(R.id.userAgentRatio).setVisibility(View.VISIBLE);
             ((TextView) findViewById(R.id.userLv)).setText("Lv" + user.getSuccessLevel());
             ((TextView) findViewById(R.id.userRate)).setText("" + user.getSuccessRate() + "%");
+            ((TextView) findViewById(R.id.userAgentRatio)).setText("费率:" + user.getAgentRatio() + "%");
             if (user.getSuccessLevel().equals("5")){
 //                ((TextView) findViewById(R.id.userLv)).setTextColor(ContextCompat.getColor(getActivity(), R.color.comn_text_gold));
                 ((ImageView) findViewById(R.id.lvUpDown)).setImageResource(R.mipmap.mine_lv_down);
@@ -436,21 +627,24 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
             }
             loadReceiptState();
         } else {
-            ((ExpandImageView) findViewById(R.id.userHead)).setImageResource(R.mipmap.base_image_face);
+//            ((ExpandImageView) findViewById(R.id.userHead)).setImageResource(R.mipmap.base_image_face);
             ((TextView) findViewById(R.id.userNice)).setText("点击登录");
             ((TextView) findViewById(R.id.phone)).setText("登录查看更多资料");
             ((TextView) findViewById(R.id.activationState)).setText("未授权");
             findViewById(R.id.userRate).setVisibility(View.GONE);
             findViewById(R.id.userLv).setVisibility(View.GONE);
             findViewById(R.id.lvUpDown).setVisibility(View.GONE);
+            findViewById(R.id.userAgentRatio).setVisibility(View.GONE);
         }
     }
     
     //加载接单状态
+    @SuppressLint("NewApi")
     public void loadReceiptState(){
         if(!UserTools.getInstance().getUser().getIsActivation()){//支付宝未授权
             ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
             ((TextView) findViewById(R.id.stateName)).setText("休息中");
+            mSwitch.setChecked(false);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
             }
@@ -458,23 +652,75 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
         if(!ServicePowerTools.isNotificationPower(getActivity())){//手机通知栏权限未授权
             ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
             ((TextView) findViewById(R.id.stateName)).setText("休息中");
+            mSwitch.setChecked(false);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
             }
-        } else
-        if(!ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){//监听服务未启动
+        }
+        else if (Util.isEmpty(BaseSP.getInstance().getString("isServiceRunning"))){
             ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
             ((TextView) findViewById(R.id.stateName)).setText("休息中");
+            mSwitch.setChecked(false);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
             }
         } else {
-            ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_ok);
-            ((TextView) findViewById(R.id.stateName)).setText("接单中");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并显示的前台通知
+            if (BaseSP.getInstance().getString("isServiceRunning").equals("0")){
+                ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
+                ((TextView) findViewById(R.id.stateName)).setText("休息中");
+                mSwitch.setChecked(false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
+                }
+            }else {
+                ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_ok);
+                ((TextView) findViewById(R.id.stateName)).setText("接单中");
+                mSwitch.setChecked(true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并关闭的前台通知
+                }
             }
         }
+//        else
+//        if (PayNotificationMonitorService.baseWs != null){
+//            String state = String.valueOf(PayNotificationMonitorService.baseWs.getState());
+//            if (state.equals(WsStatus.DISCONNECTED_ACTIVE) || state.equals(WsStatus.DISCONNECTED_PASSIVE)){
+//                ((TextView) findViewById(R.id.stateName)).setText("休息中");
+//                mSwitch.setChecked(false);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
+//                }                                   
+//            }else {
+//                ((TextView) findViewById(R.id.stateName)).setText("接单中");
+//                mSwitch.setChecked(true);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                    RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并关闭的前台通知
+//                }
+//            }
+//        } else {
+//            ((TextView) findViewById(R.id.stateName)).setText("休息中");
+//            mSwitch.setChecked(false);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));//开启服务,并关闭的前台通知
+//            }
+//        }
+//        else
+//        if(!ServiceTools.isServiceRunning(getActivity(),PayNotificationMonitorService.class)){//监听服务未启动
+//            ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_no);
+//            ((TextView) findViewById(R.id.stateName)).setText("休息中");
+//            mSwitch.setChecked(false);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,false));
+//            }
+//        } 
+//        else {
+//            ((ImageView)findViewById(R.id.stateIcon)).setImageResource(R.drawable.mine_index_state_ok);
+//            ((TextView) findViewById(R.id.stateName)).setText("接单中");
+//            mSwitch.setChecked(true);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                RxBus.getInstance().post(new MsgEvent(PayNotificationMonitorService.TAG,true));//开启服务,并显示的前台通知
+//            }
+//        }
     }
     
     
@@ -524,7 +770,8 @@ public class MineIndexFM extends BaseFM implements OnClickListener {
                     BaseSP.getInstance().put("versionName", versionName);
 
                     if (versionCode > AndroidUtil.getVersionCode(getActivity())) {
-                        updateAPPDialog = new XDialogUpdateAPP(getActivity()).setFileName("TbMall.apk").setMsg(data.optString("msg")).setAppDownUrl(data.optString("url").trim()).setUpdataVersionCode(versionName);
+                        updateAPPDialog =
+                                new XDialogUpdateAPP(getActivity()).setFileName("FengPay.apk").setMsg(data.optString("msg")).setAppDownUrl(data.optString("url").trim()).setUpdataVersionCode(versionName);
                         updateAPPDialog.show();
                     } else {
                         alert("已是最新版本");

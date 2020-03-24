@@ -10,9 +10,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-/**
- * Created by Bert on 2018/9/5.
- */
 public class GetPathFromUri {
     @SuppressLint("NewApi")
     public static String getPath(final Context context, final Uri uri) {

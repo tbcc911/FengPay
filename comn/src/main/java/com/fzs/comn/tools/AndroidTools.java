@@ -11,11 +11,6 @@ import com.hzh.frame.util.AndroidUtil;
 
 import java.util.List;
 
-/**
- * @author
- * @version 1.0
- * @date 2020/3/2
- */
 public class AndroidTools extends AndroidUtil {
 
     /**

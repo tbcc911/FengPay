@@ -22,11 +22,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/7/30
- */
 public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
     EditText search;
     View mView;
@@ -156,8 +151,7 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
         holder.setText(R.id.teamCount,model.getTeamCount());
         holder.setText(R.id.teamEffectiveCount,model.getTeamEffectiveCount());
         holder.setText(R.id.shareCount,model.getShareCount());
-        holder.setText(R.id.incomeScale,(Float.parseFloat(model.getAgentRatio())*100) + "%");
-//        holder.setText(R.id.incomeScale,Float.parseFloat(model.getAgentRatio())*100+"%");
+        holder.setText(R.id.incomeScale,model.getAgentRatio() + "%");
         holder.setText(R.id.shareEffectiveCount,model.getShareEffectiveCount());
         holder.setText(R.id.incomeMoney,model.getTotalIncome());
         if(model.getEffectiveStatus().equals("1")){
@@ -174,5 +168,13 @@ public class AgentRFM extends AbsRecyclerViewFM<MineTeamUser> {
             mSwipeRefreshLayout.setRefreshing(true);
             onRefresh();
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+        } else {
+        }
     }
 }

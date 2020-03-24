@@ -3,12 +3,6 @@ package com.fzs.comn.widget.transformer;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/6/19 14:35
- * 描述:
- */
 public abstract class BGAPageTransformer implements ViewPager.PageTransformer {
 
     public void transformPage(View view, float position) {

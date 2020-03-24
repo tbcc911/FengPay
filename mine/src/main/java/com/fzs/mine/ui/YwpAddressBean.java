@@ -3,10 +3,6 @@ package com.fzs.mine.ui;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by wepon on 2017/12/4.
- * 数据模型
- */
 
 public class YwpAddressBean implements Serializable {
 

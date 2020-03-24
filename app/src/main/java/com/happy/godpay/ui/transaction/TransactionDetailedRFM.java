@@ -10,6 +10,8 @@ import com.happy.godpay.R;
 import com.happy.godpay.ui.transaction.ItemDecoration.TransactionItemDecoration;
 import com.hzh.frame.ui.fragment.AbsRecyclerViewFM;
 import com.hzh.frame.util.Util;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 import com.hzh.frame.widget.xrecyclerview.RecyclerViewHolder;
 
 import org.json.JSONArray;
@@ -18,9 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 明细
- */
 public class TransactionDetailedRFM extends AbsRecyclerViewFM<MineIntegration> {
     private View headView;
     private TextView sumMoney;
@@ -42,6 +41,7 @@ public class TransactionDetailedRFM extends AbsRecyclerViewFM<MineIntegration> {
         successMoney = headView.findViewById(R.id.successMoney);
         frozenMoney = headView.findViewById(R.id.frozenMoney);
         freezeIntegration = headView.findViewById(R.id.freezeIntegration);
+        getEvent();
     }
     
     @Override
@@ -71,12 +71,6 @@ public class TransactionDetailedRFM extends AbsRecyclerViewFM<MineIntegration> {
 
     @Override
     protected List<MineIntegration> handleHttpData(JSONObject response) {
-//        try {
-//            String json = FileUtil.readTextFromFile(getActivity(), "json/TransactionDetailed.json");
-//            response = new JSONObject(json);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
         List<MineIntegration> listModel = new ArrayList<>();
         if (response.optInt("code") == 200) {
             JSONObject data = response.optJSONObject("data");
@@ -126,8 +120,31 @@ public class TransactionDetailedRFM extends AbsRecyclerViewFM<MineIntegration> {
         }
     }
 
+    private void getEvent(){
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(msgEvent -> msgEvent.getTag().equals(TransactionFM.TAG))
+                .subscribe(msgEvent -> {
+                    if (!com.fzs.comn.tools.Util.isEmpty(msgEvent.getMsg().toString())){
+                        if (msgEvent.getMsg().toString().equals("3")){
+                            onRefresh();
+                        }
+                    }
+                });
+
+    }
+
     @Override
     public void onRefresh() {
         super.onRefresh();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            onRefresh();
+        } else {
+        }
     }
 }

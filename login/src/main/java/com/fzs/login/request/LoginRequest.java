@@ -8,10 +8,6 @@ import java.util.HashMap;
 
 import io.reactivex.Flowable;
 
-/**
- * @vesion 1.0
- * @date 2018/5/21
- */
 public class LoginRequest extends ApiRequest{
 
     /**

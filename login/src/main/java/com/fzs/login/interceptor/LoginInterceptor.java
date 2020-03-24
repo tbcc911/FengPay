@@ -13,13 +13,6 @@ import com.hzh.frame.core.BaseSP;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 登录拦截器
- *
- * @author hzh
- * @version 1.0
- * @date 2018/4/9
- */
 @Interceptor(priority = 1, name = "LoginIntercept")
 public class LoginInterceptor implements IInterceptor {
 

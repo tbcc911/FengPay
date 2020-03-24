@@ -9,11 +9,6 @@ import com.hzh.frame.widget.toast.BaseToast;
 
 import org.json.JSONObject;
 
-/**
- * @author
- * @version 1.0
- * @date 2020/1/4
- */
 public class InitTools {
 
     AppConfig mAppConfig;

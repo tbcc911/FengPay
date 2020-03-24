@@ -5,11 +5,6 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.util.Log;
 
-/**
- * @author
- * @version 1.0
- * @date 2020/2/26
- */
 public class PayNotificationMonitorServiceLifecycleObserver implements LifecycleObserver {
     private static final String TAG="MyObserver";
 

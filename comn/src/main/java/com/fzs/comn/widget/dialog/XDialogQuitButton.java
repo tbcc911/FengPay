@@ -5,10 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
-/**
- * 1个按钮的选择框Dialog
- * */
 public class XDialogQuitButton extends Dialog {
 	
 	private TextView content,confirm,line;

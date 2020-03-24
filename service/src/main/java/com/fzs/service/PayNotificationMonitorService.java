@@ -4,24 +4,32 @@ package com.fzs.service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LifecycleRegistry;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.fzs.comn.model.MinePayHelp;
+import com.fzs.comn.model.MineTeam;
 import com.fzs.comn.tools.UserTools;
 import com.fzs.comn.tools.Util;
 import com.fzs.service.observer.PayNotificationMonitorServiceLifecycleObserver;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.comn.callback.WsCallBack;
+import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.core.WsFrame.BaseWs;
 import com.hzh.frame.core.WsFrame.WsStatus;
@@ -71,7 +79,7 @@ public class PayNotificationMonitorService extends NotificationListenerService i
     private static final int WeixinPay = 2;
     private Notification notification;
     private boolean isShowNotification;//是否显示通知
-    private BaseWs baseWs;
+    public static BaseWs baseWs;
 
     //LifecycleRegistry 实现了Lifecycle 
     private LifecycleRegistry mLifecycleRegistry=new LifecycleRegistry(PayNotificationMonitorService.this);
@@ -124,16 +132,35 @@ public class PayNotificationMonitorService extends NotificationListenerService i
         super.onCreate();
         PayNotificationMonitorServiceLifecycleObserver myObserver = new PayNotificationMonitorServiceLifecycleObserver();
         mLifecycleRegistry.addObserver(myObserver);
+        initBus();
+    }
+    
+    private void initBus(){
+//        RxBus.getInstance()
+//                .toObservable(this, MsgEvent.class)
+//                .filter(msgEvent -> msgEvent.getTag().equals(PayNotificationMonitorService.TAG))
+//                .subscribe(msgEvent -> {
+//                    if((Boolean) msgEvent.getMsg()){//接单中
+//                        showNotification();
+//                        connectSocket();
+//                    }else{//休息中
+//                        hideNotification();
+//                        disConnectSocket();
+//                    }
+//                });
+
         RxBus.getInstance()
                 .toObservable(this, MsgEvent.class)
                 .filter(msgEvent -> msgEvent.getTag().equals(PayNotificationMonitorService.TAG))
                 .subscribe(msgEvent -> {
-                    if((Boolean) msgEvent.getMsg()){//接单中
+                    if ((Boolean) msgEvent.getMsg()){
                         showNotification();
                         connectSocket();
-                    }else{//休息中
+                        BaseSP.getInstance().put("isServiceRunning","1");
+                    }else {
                         hideNotification();
                         disConnectSocket();
+                        BaseSP.getInstance().put("isServiceRunning","0");
                     }
                 });
     }
@@ -156,15 +183,19 @@ public class PayNotificationMonitorService extends NotificationListenerService i
     //显示一个前台通知
     public void showNotification() {
         if(!isShowNotification){
-            startForeground(1, createAndGetNotification());
+            NotificationManager notificationManager = (NotificationManager)this.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE);
+            notificationManager.notify(1,createAndGetNotification());
+//            startForeground(1, createAndGetNotification());
             isShowNotification=true;
         }
     }
     //隐藏一个前台通知
     public void hideNotification(){
         if(isShowNotification){
-            stopForeground(true);
+//            stopForeground(true);
             isShowNotification=false;
+            NotificationManager notificationManager = (NotificationManager)this.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE);
+            notificationManager.cancel(1);
         }
     }
     
@@ -197,6 +228,7 @@ public class PayNotificationMonitorService extends NotificationListenerService i
                     .setContentText("支付跑分,全年无休,使命必达")
                     .setWhen(System.currentTimeMillis())
                     .build();
+//            notification.flags = Notification.FLAG_ONGOING_EVENT;
         }
         return notification;
     }
@@ -267,4 +299,5 @@ public class PayNotificationMonitorService extends NotificationListenerService i
     public Lifecycle getLifecycle() {
         return mLifecycleRegistry;
     }
+    
 }

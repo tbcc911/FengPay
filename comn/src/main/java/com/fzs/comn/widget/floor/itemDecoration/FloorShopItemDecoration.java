@@ -10,9 +10,6 @@ import com.fzs.comn.R;
 import com.fzs.comn.widget.floor.adapter.FloorAdapter;
 import com.hzh.frame.widget.xrecyclerview.BaseRecyclerAdapter;
 
-/**
- * @author：admin on 2017/4/7 10:43.
- */
 
 public class FloorShopItemDecoration extends RecyclerView.ItemDecoration {
     private float space;

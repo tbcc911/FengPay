@@ -9,12 +9,6 @@ import android.view.View;
 
 import com.hzh.frame.R;
 import com.hzh.frame.widget.xrecyclerview.BaseRecyclerAdapter;
-
-/**
- * @author hzh
- * @version 1.0
- * @date 2017/8/21 
- */
 public class TeamItemDecoration extends RecyclerView.ItemDecoration {
 
     private Context mContext;

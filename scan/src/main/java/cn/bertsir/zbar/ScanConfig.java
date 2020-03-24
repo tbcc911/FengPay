@@ -6,11 +6,6 @@ import android.support.v4.content.ContextCompat;
 import com.fzs.comn.ComnConfig;
 import com.hzh.frame.BaseInitData;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/10/3
- */
 public class ScanConfig {
 
     private static ScanConfig _instance;

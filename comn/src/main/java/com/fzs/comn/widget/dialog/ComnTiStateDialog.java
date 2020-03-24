@@ -10,9 +10,6 @@ import android.widget.TextView;
 import com.fzs.comn.R;
 import com.hzh.frame.util.AndroidUtil;
 
-/**
- * USDT提币
- * */
 public class ComnTiStateDialog extends Dialog {
     
     public Activity activity;

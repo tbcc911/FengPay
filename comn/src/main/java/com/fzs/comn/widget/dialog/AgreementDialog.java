@@ -10,11 +10,6 @@ import com.fzs.comn.R;
 import com.hzh.frame.util.AndroidUtil;
 import com.hzh.frame.widget.xdialog.XDialogFragment;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/12/6
- */
 public class AgreementDialog extends XDialogFragment {
 
     public static final String TAG="AgreementDialog";

@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.BDLocation;
 import com.fzs.comn.tools.BaiduLocation;
 import com.fzs.comn.tools.BaiduLocationCallBack;
@@ -22,25 +24,32 @@ import com.happy.godpay.R;
 import com.happy.godpay.ui.agent.AgentRFM;
 import com.happy.godpay.ui.main.MainFM;
 import com.happy.godpay.ui.share.ShareFM;
+import com.happy.godpay.ui.share.ShareInfoFM;
 import com.happy.godpay.ui.transaction.TransactionFM;
 import com.fzs.mine.ui.MineIndexFM;
+import com.happy.godpay.ui.widget.adapter.dialog.XDLogin;
 import com.hzh.frame.BaseInitData;
 import com.hzh.frame.comn.annotation.ContentView;
 import com.hzh.frame.comn.annotation.ViewInject;
+import com.hzh.frame.comn.callback.CallBack;
 import com.hzh.frame.comn.callback.HttpCallBack;
 import com.hzh.frame.core.BaseSP;
 import com.hzh.frame.core.HttpFrame.BaseHttp;
 import com.hzh.frame.ui.activity.BaseUI;
 import com.hzh.frame.util.AndroidUtil;
+import com.hzh.frame.util.CloseAppUtil;
 import com.hzh.frame.util.PowerUtil;
 import com.hzh.frame.widget.rxbus.MsgEvent;
 import com.hzh.frame.widget.rxbus.RxBus;
+import com.hzh.frame.widget.xdialog.XDialogLogin;
 import com.hzh.frame.widget.xdialog.XDialogUpdateAPP;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 import q.rorbin.badgeview.QBadgeView;
 
 @Route(path = "/main/MainUI")
@@ -51,12 +60,13 @@ public class MainUI extends BaseUI{
     @ViewInject(R.id.viewPager) ViewPager mViewPager;
 	
 	private MainFM mMainFM=new MainFM();
-    private TransactionFM mTransactionFM=new TransactionFM(); 
+    private TransactionFM mTransactionFM=new TransactionFM();
     private ShareFM mShareFM=new ShareFM();
     private AgentRFM mAgentRFM=new AgentRFM();
 	private MineIndexFM mMineFM=new MineIndexFM();
     
     private QBadgeView mQBadgeView=new QBadgeView(BaseInitData.applicationContext);
+    private int showNumber = 0;
 	
 	@Override
 	public boolean setTitleIsShow() {
@@ -176,7 +186,7 @@ public class MainUI extends BaseUI{
 
                     if (versionCode > AndroidUtil.getVersionCode(MainUI.this)) {
                         updateAPPDialog = new XDialogUpdateAPP(MainUI.this)
-                                .setFileName("TBMall.apk")
+                                .setFileName("FengPay.apk")
                                 .setMsg(data.optString("msg"))
                                 .setAppDownUrl(data.optString("url").trim())
                                 .setUpdataVersionCode(versionName);
@@ -198,11 +208,7 @@ public class MainUI extends BaseUI{
 				alert("再按一次退出程序");
 				exitTime = System.currentTimeMillis();
 			} else {
-//                伪 退出
                 moveTaskToBack(true);
-//                真 退出
-//                finish();
-//                System.exit(0);
 			}
 			return true;
 		}
@@ -327,5 +333,46 @@ public class MainUI extends BaseUI{
                     }
                 });
                 
+    }
+    
+    /**
+     * 接收各种系统通知
+     * */
+    protected void receiveNotice(){
+        RxBus.getInstance()
+                .toObservable(this, MsgEvent.class)
+                .filter(new Predicate<MsgEvent>() {
+                    @Override
+                    public boolean test(MsgEvent msgEvent) throws Exception {
+                        return msgEvent.getTag().equals(HttpCallBack.LOGIN_NOT);
+                    }
+                })
+                .subscribe(new Consumer<MsgEvent>() {
+                    @Override
+                    public void accept(MsgEvent msgEvent) throws Exception {
+                        if(BaseInitData.force_login){//系统设置强制登录
+                            CloseAppUtil.restartLogin(MainUI.this,"/login/LoginUI");
+                            return;
+                        }
+                        
+                        if (XDialogLogin.getInstance(MainUI.this).isShowing()){
+                        }else {
+                            if (showNumber == 0){
+                                showNumber = 1;
+                                XDLogin.getInstance(MainUI.this)
+                                        .setMsg(msgEvent.getMsg().toString())
+                                        .setConfirmName(getString(R.string.base_login),getString(R.string.base_login_later_on))
+                                        .setCallback(new CallBack() {
+                                            @Override
+                                            public void onSuccess(Object object) {
+                                                ARouter.getInstance().build("/login/LoginUI").navigation();
+                                            }
+                                        }).show();
+                            }else {
+
+                            }
+                        }
+                    }
+                });
     }
 }

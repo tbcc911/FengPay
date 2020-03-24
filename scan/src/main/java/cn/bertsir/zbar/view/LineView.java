@@ -14,9 +14,6 @@ import cn.bertsir.zbar.R;
 
 import static android.R.attr.width;
 
-/**
- * Created by Bert on 2017/9/22.
- */
 
 public class LineView extends View {
 

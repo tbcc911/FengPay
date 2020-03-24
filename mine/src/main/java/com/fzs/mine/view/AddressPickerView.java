@@ -24,10 +24,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by wepon on 2017/12/4.
- * 自定义仿京东地址选择器
- */
 
 public class AddressPickerView extends RelativeLayout implements View.OnClickListener {
     // recyclerView 选中Item 的颜色

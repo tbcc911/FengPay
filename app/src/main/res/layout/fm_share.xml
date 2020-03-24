@@ -94,28 +94,48 @@
             android:layout_marginBottom="@dimen/dp_20"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/fm_transation_proportion">
-
-                <EditText
-                    android:id="@+id/myRate"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/dp_0"
-                    android:minWidth="@dimen/dp_0"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:hint="请输入您的代理比例"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="@dimen/sp_12"
-                    android:gravity="center"
-                    android:background="@drawable/comn_white_stork_r5"
-                    android:inputType="numberDecimal"/>
+                    android:orientation="horizontal"
+                    android:background="@drawable/fm_transation_proportion">
+
+                    <EditText
+                        android:id="@+id/myRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_0"
+                        android:minWidth="@dimen/dp_0"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_40"
+                        android:paddingRight="@dimen/dp_40"
+                        android:hint="请输入您的代理比例"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/sp_12"
+                        android:gravity="center"
+                        android:background="@drawable/comn_white_stork_r5"
+                        android:inputType="numberDecimal"/>
+                    
+                </LinearLayout>
                 
-            </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_21"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_gravity="center_vertical"/>
+                
+            </LinearLayout>
             
             <LinearLayout
                 android:layout_width="match_parent"

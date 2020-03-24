@@ -3,12 +3,6 @@ package com.fzs.comn.tools;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-/**
- * @author
- * @version 1.0
- * @date 2019/12/3
- */
 public class Util extends com.hzh.frame.util.Util {
 
     /**

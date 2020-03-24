@@ -8,11 +8,6 @@ import com.fzs.comn.widget.floor.bean.FloorBean;
 
 import java.util.List;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/12/3
- */
 public class BannerOnPageChangeListener implements ViewPager.OnPageChangeListener{
 
     public BannerBGView iArcView;

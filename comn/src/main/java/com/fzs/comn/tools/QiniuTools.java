@@ -16,10 +16,6 @@ import com.yalantis.ucrop.util.FileUtils;
 
 import org.json.JSONObject;
 
-/**
- * @version 1.0
- * @date 2018/4/12
- */
 
 public class QiniuTools {
     public static final String TAG = "QiniuTools";

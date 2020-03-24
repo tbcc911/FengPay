@@ -28,9 +28,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.functions.Consumer;
 import kotlin.Unit;
 
-/**
- * 兑换
- * */
 public class ComnExchangeDialog extends Dialog {
 
     public Activity activity;
@@ -48,8 +45,6 @@ public class ComnExchangeDialog extends Dialog {
 
     public float usdtExchangetbccRate;
     public float EVEpayExchangetbccRate;
-//    public float goldStandard;
-//    public float tbccExchangeUsdtMultiple;
     float value;
 
     public ComnExchangeDialog(Activity activity) {
@@ -73,8 +68,6 @@ public class ComnExchangeDialog extends Dialog {
         });
             usdtExchangetbccRate = Float.parseFloat(InitTools.getInstance().getConfig().getUsdtExchangeTbccRate().toString());
             EVEpayExchangetbccRate = Float.parseFloat(InitTools.getInstance().getConfig().getEVEpayExchangeTbccRate().toString());
-//            goldStandard = Float.parseFloat(UserTools.getInstance().getUser().getGoldStandard().toString());
-//            tbccExchangeUsdtMultiple = Float.parseFloat(UserTools.getInstance().getUser().gettbccExchangeUsdtMultiple().toString());
             exchangeRate.setText("当前汇率：1 USDT = " + usdtExchangetbccRate + " TBCC");
 
         transformation.setOnClickListener(new TransformationOnClick());
@@ -134,7 +127,6 @@ public class ComnExchangeDialog extends Dialog {
                 }
                 transformationContent.setText("切换EVEpay");
                 active.setText("USDT");
-//                active2.setText("USDT");
             }else{
                 type=2;
                 if (UserTools.getInstance(activity).getIsLogin()) {
@@ -142,7 +134,6 @@ public class ComnExchangeDialog extends Dialog {
                 }
                 transformationContent.setText("切换USDT");
                 active.setText("EVEpay");
-//                active2.setText("upay");
             }
         }
     }
@@ -167,10 +158,6 @@ public class ComnExchangeDialog extends Dialog {
         if (callBack != null){
             callBack.confirm();
         }
-//        if(Util.isEmpty(ejinbi.getText().toString().trim())){
-//            BaseToast.getInstance().setMsg("请输入E金币").show();
-//            return;
-//        }
         JSONObject params = new JSONObject();
         try {
             //兑换类型: 0->USDT兑换tbcc; 1->EVEpay兑换tbcc

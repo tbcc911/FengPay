@@ -4,10 +4,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * @author：admin on 2017/3/27 16:34.
- */
-
 public class BannerAspectRatioMeasure {
     /**
      * Holder for width and height measure specs.

@@ -18,11 +18,6 @@ import com.fzs.comn.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 日期：16/6/22 14:15
- * <p/>
- * 描述：StepsViewIndicator 指示器
- */
 public class HorizontalStepsViewIndicator extends View {
 
     //定义默认的高度   definition default height

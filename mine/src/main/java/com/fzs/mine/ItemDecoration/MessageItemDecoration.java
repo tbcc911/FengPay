@@ -11,11 +11,6 @@ import com.hzh.frame.R;
 import com.hzh.frame.util.Util;
 import com.hzh.frame.widget.xrecyclerview.BaseRecyclerAdapter;
 
-/**
- * @author hzh
- * @version 1.0
- * @date 2017/8/21 
- */
 public class MessageItemDecoration extends RecyclerView.ItemDecoration {
 
     private Context mContext;

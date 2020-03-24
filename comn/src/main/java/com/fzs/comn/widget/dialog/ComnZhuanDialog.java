@@ -26,10 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.functions.Consumer;
 import kotlin.Unit;
-
-/**
- * E矿场存入
- * */
 public class ComnZhuanDialog extends Dialog {
 
     public Activity activity;

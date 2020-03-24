@@ -12,12 +12,6 @@ import com.fzs.comn.widget.floor.bean.FloorBean;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-/**
- * @author
- * @version 1.0
- * @date 2019/12/11
- */
 public class FloorTypesViewPagerAdapter extends PagerAdapter {
     List<View> viewList;
     List<FloorBean.ItemInfoListBean.ItemContentListBean> datas;

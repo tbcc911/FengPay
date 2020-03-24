@@ -7,25 +7,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fzs.comn.tools.InitTools;
+import com.fzs.comn.tools.UserTools;
+import com.fzs.mine.ui.MineIndexFM;
 import com.happy.godpay.R;
 import com.hzh.frame.ui.fragment.BaseFM;
+import com.hzh.frame.widget.rxbus.MsgEvent;
+import com.hzh.frame.widget.rxbus.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 邀请
- * @date 2019/10/4
- */
 public class TransactionFM extends BaseFM {
+    public static final String TAG="TransactionFM";
     View layout;
     TabLayout mTabLayout;
     ViewPager mViewPager;
-    String[] stateName=new String[] { "订单", "充值", "收入", "积分明细"};
+    String[] stateName=new String[] { "订单", "充值", "分红", "积分明细"};
     MyPagerAdapter myPagerAdapter;
+    int refreshNumber = 0;
 
     @Override
     protected void onCreateBase() {
@@ -94,8 +98,16 @@ public class TransactionFM extends BaseFM {
         mTabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.text_c_666666), ContextCompat.getColor(getActivity(), R.color.application_color));
         //tab的下划线颜色,默认是粉红色
         mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.application_color));
-
         mViewPager.setCurrentItem(0);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            RxBus.getInstance().post(new MsgEvent(TransactionFM.TAG, mViewPager.getCurrentItem() + ""));
+        } else {
+        }
     }
 
 }

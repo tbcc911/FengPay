@@ -22,11 +22,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author
- * @version 1.0
- * @date 2019/7/30
- */
 @Route(path = "/mine/MineTeamRUI")
 public class MineTeamRUI extends AbsRecyclerViewUI<MineTeamUser> {
     EditText search;

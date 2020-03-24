@@ -2,9 +2,6 @@ package com.fzs.translate;
 
 import java.util.regex.Pattern;
 
-/**
- * Created by zy on 2019/3/21.
- */
 public class Test {
 
     public static void main(String[] args) {

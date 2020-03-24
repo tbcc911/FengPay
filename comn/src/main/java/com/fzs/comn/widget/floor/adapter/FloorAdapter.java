@@ -36,11 +36,6 @@ import com.hzh.frame.widget.xviewpager.DecoratorViewPager;
 
 import java.util.List;
 
-/**
- * @author
- * @version 1.0
- * @date 2018/4/21
- */
 
 public class FloorAdapter extends BaseRecyclerAdapter<FloorBean.ItemInfoListBean> {
 
