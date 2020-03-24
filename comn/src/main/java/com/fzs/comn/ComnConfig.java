@@ -20,7 +20,7 @@ public class ComnConfig extends BaseInitData {
         ImageFrameBgImage = new int[]{R.drawable.base_image_default, R.drawable.base_image_default, R.drawable.base_image_default};
         ImageFrameCacheDir = "Mall";
         SharedPreferencesFileName = "fzs_share_data";
-        WX_KEY = "wx7d314006a5998a80";
+        WX_KEY = "XXXXXXXXXXX";
 
         base_theme_Tone = true;
         //是否强制登录

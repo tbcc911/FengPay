@@ -1,40 +1,40 @@
 apply plugin: 'com.mob.sdk'
 
 MobSDK {
-    appKey "2e2d1d924d6f0"
-    appSecret "23e72fb777f274ed87dea7dbf017a882"
+    appKey "XXXXXXXXXX"
+    appSecret "XXXXXXXXXX"
     ShareSDK {
         version '3.6.3'
         devInfo {
             SinaWeibo {
                 id 1
                 sortId 1
-                appKey "772863226"
-                appSecret "731c29a228f26c87cc09a5eb0df00e97"
+                appKey "XXXXXXXXXX"
+                appSecret "XXXXXXXXXX"
                 callbackUri "http://www.baidu.com"
                 shareByAppClient true
                 enable true
             }
             Wechat {
-                appId "wx7d314006a5998a80"
-                appSecret "36f4c00f85dfeef68df209402ff9c726"
-                userName "gh_afb25ac019c9"
+                appId "XXXXXXXXXXX"
+                appSecret "XXXXXXXXXXX"
+                userName "XXXXXXXXXX"
                 path "pages/index/index.html?id=1"
                 withShareTicket true
                 miniprogramType 2
             }
             QQ {
-                appId "1106555306"
-                appKey "rOn7Bw5TEw8p1jsg"
+                appId "XXXXXXXXXX"
+                appKey "XXXXXXXXXX"
             }
             WechatMoments {
-                appId "wx7d314006a5998a80"
-                appSecret "36f4c00f85dfeef68df209402ff9c726"
+                appId "XXXXXXXXXXX"
+                appSecret "XXXXXXXXXXX"
                 enable true
             }
             WechatFavorite {
-                appId "wx7d314006a5998a80"
-                appSecret "36f4c00f85dfeef68df209402ff9c726"
+                appId "XXXXXXXXXXX"
+                appSecret "XXXXXXXXXXX"
                 enable true
             }
         }
