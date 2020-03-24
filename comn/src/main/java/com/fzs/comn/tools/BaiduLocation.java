@@ -59,7 +59,6 @@ public class BaiduLocation {
   
   /**
    * @description 开始百度定位
-   * @author 贺子航  2015-04-22 16:07
    */
   public void startLocation() {
     mLocationClient = new LocationClient(mActivity); // 声明LocationClient类
@@ -83,7 +82,6 @@ public class BaiduLocation {
 
   /**
    * @description 定位结果回调
-   * @author 贺子航  2015-04-22 16:07
    */
   class MyLocationListener extends BDAbstractLocationListener {
     public void onReceiveLocation(BDLocation location) {
