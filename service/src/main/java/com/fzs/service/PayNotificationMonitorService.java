@@ -239,8 +239,7 @@ public class PayNotificationMonitorService extends NotificationListenerService i
             //未创建过连接 || 连接已经主动关闭
             if(baseWs==null || WsStatus.DISCONNECTED_ACTIVE.equals(baseWs.getState())){
                 //创建订单
-//                baseWs=WsSocket.connect("ws://47.104.224.184:8092/websocket/" + UserTools.getInstance().getUser().getUserId(),createWsCallBack());
-                baseWs= BaseWs.connect("ws://47.104.224.184:8092/websocket/" +  UserTools.getInstance().getUser().getToken(),createWsCallBack());
+                baseWs= BaseWs.connect("ws://27.155.95.222:8092/websocket/" +  UserTools.getInstance().getUser().getToken(),createWsCallBack());
             }
         }else{//用户未登录
             disConnectSocket();//未登录接毛个单啊
